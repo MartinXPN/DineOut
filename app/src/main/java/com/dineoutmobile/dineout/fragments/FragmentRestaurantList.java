@@ -10,25 +10,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.adapters.AdapterRestaurantGrid;
+import com.dineoutmobile.dineout.adapters.AdapterRestaurantList;
 
 
-public class FragmentRestaurantGrid extends     Fragment
-        implements  SwipeRefreshLayout.OnRefreshListener {
+public class FragmentRestaurantList extends     Fragment
+                                    implements  SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout refreshLayout;
-    private GridView restaurantGrid;
+    private ListView restaurantList;
     private OnFragmentInteractionListener mListener;
     private boolean isRefreshLayoutSpinning = false;
-    private AdapterRestaurantGrid adapter;
+    private AdapterRestaurantList adapter;
 
 
-
-    public FragmentRestaurantGrid() {}
+    public FragmentRestaurantList() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,14 +38,14 @@ public class FragmentRestaurantGrid extends     Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_restaurant_grid, container, false);
-        refreshLayout = (SwipeRefreshLayout) rootView.findViewById( R.id.swipe_refresh );
-        restaurantGrid = (GridView) rootView.findViewById( R.id.restaurant_grid );
-        adapter = new AdapterRestaurantGrid( getActivity() );
-        restaurantGrid.setAdapter(adapter);
+        View rootView = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
+        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+        restaurantList = (ListView) rootView.findViewById(R.id.restaurant_list);
+        adapter = new AdapterRestaurantList(getActivity());
+        restaurantList.setAdapter(adapter);
         refreshLayout.setOnRefreshListener(this);
 
-        restaurantGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), "Hello from KFC", Toast.LENGTH_SHORT).show();
@@ -70,17 +70,17 @@ public class FragmentRestaurantGrid extends     Fragment
             throw new ClassCastException(getActivity().toString() + " must implement Interface");
         }
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
+
     @Override
     public void onRefresh() {
         updateViewState(ViewState.LOADING, null);
-        Log.d("Grid", "Refreshed");
+        Log.d("List", "Refreshed");
         updateViewState(ViewState.DONE, null);
     }
 

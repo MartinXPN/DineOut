@@ -1,16 +1,19 @@
 <resources>
 
     <string name="app_name">DineOut</string>
-    <string name="restaurant_list_label">Restaurants</string>
+    <string name="restaurant_list_label">DineOut</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_search_title">Search</string>
     <string name="action_language_title">Language</string>
+    <string name="action_view">View as Grid</string>
     <string name="action_language_arm_title">Հայերեն</string>
     <string name="action_language_eng_title">English</string>
     <string name="action_language_rus_title">Русский</string>
+
+
     <string name="title_activity_activity_select_restaurant">ActivitySelectRestaurant</string>
     <string name="title_activity_maps">Map</string>
 

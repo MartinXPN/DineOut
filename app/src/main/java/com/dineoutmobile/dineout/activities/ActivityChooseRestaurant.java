@@ -17,12 +17,14 @@ import android.view.MenuItem;
 import com.dineoutmobile.dineout.MapsActivity;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantGrid;
+import com.dineoutmobile.dineout.fragments.FragmentRestaurantList;
 
 
 public class ActivityChooseRestaurant
         extends     AppCompatActivity
         implements  NavigationView.OnNavigationItemSelectedListener,
-                    FragmentRestaurantGrid.OnFragmentInteractionListener {
+                    FragmentRestaurantGrid.OnFragmentInteractionListener,
+                    FragmentRestaurantList.OnFragmentInteractionListener {
 
 
 
@@ -74,6 +76,7 @@ public class ActivityChooseRestaurant
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if( id == R.id.action_view )    updateCurrentContent( id );
 
         return super.onOptionsItemSelected(item);
     }
@@ -121,6 +124,7 @@ public class ActivityChooseRestaurant
             if( currentFragment == null || currentId != id ) {
 
                 if( id == R.id.nav_restaurant_list )    currentFragment = new FragmentRestaurantGrid();
+                if( id == R.id.action_view )            currentFragment = new FragmentRestaurantList();
                 else if( id == R.id.nav_nearby )        { }/*currentFragment = new ActivityNearbyRestaurants();*/
                 currentId = id;
 
