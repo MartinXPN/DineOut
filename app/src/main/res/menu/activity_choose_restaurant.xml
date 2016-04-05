@@ -1,0 +1,41 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ActivityRestaurant">
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/action_search_title"
+        android:icon="@drawable/ic_search_white"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_language"
+        android:title="@string/action_language_title"
+        android:icon="@mipmap/ic_flag_arm"
+        android:orderInCategory="200"
+        app:showAsAction="always" >
+
+        <menu>
+            <item
+                android:id="@+id/action_language_arm"
+                android:title="@string/action_language_arm_title"
+                android:icon="@mipmap/ic_flag_arm"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_language_eng"
+                android:title="@string/action_language_eng_title"
+                android:icon="@mipmap/ic_flag_eng"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_language_rus"
+                android:title="@string/action_language_rus_title"
+                android:icon="@mipmap/ic_flag_rus"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
+
+</menu>

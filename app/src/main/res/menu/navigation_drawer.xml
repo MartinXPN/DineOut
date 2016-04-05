@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_restaurant_list"
+            android:icon="@mipmap/ic_restaurant_list"
+            android:title="All Restaurants" />
+        <item
+            android:id="@+id/nav_nearby"
+            android:icon="@mipmap/ic_nearby_places"
+            android:title="Nearby Places" />
+    </group>
+
+
+    <item android:title="The app">
+        <menu>
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@mipmap/ic_help"
+                android:title="Help" />
+            <item
+                android:id="@+id/nav_feedback"
+                android:icon="@mipmap/ic_feedback"
+                android:title="Feedback" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@mipmap/ic_about"
+                android:title="About" />
+        </menu>
+    </item>
+
+</menu>

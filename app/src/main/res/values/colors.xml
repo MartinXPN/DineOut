@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="default_color_primary">#ffffbb00</color>
+    <color name="default_color_primary_dark">#fff99f00</color>
+    <color name="default_color_window">#eeeeee</color>
+</resources>
