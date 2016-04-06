@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,17 +19,20 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.activities.ActivityChooseRestaurant;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantGrid;
 
 
 public class FragmentRestaurantGrid extends     Fragment
-        implements  SwipeRefreshLayout.OnRefreshListener {
+                                    implements  SwipeRefreshLayout.OnRefreshListener,
+                                                SearchView.OnQueryTextListener{
 
     private SwipeRefreshLayout refreshLayout;
     private GridView restaurantGrid;
     private OnFragmentInteractionListener mListener;
     private boolean isRefreshLayoutSpinning = false;
     private AdapterRestaurantGrid adapter;
+    private SearchView searchView;
 
 
 
@@ -33,6 +41,7 @@ public class FragmentRestaurantGrid extends     Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu( true );
     }
 
     @Override
@@ -85,9 +94,48 @@ public class FragmentRestaurantGrid extends     Fragment
     }
 
 
-    public interface OnFragmentInteractionListener {
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        Log.d("FragmentGrid", "hello created options Menu");
+        inflater.inflate( R.menu.activity_choose_restaurant, menu );
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+
+        searchView = (SearchView) menuItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE); // A bad way of forcing the SearchView to expand as much as possible
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if( id == R.id.action_view )    mListener.showRestaurantsAsList();
+        return super.onOptionsItemSelected(item);
+    }
+
+    ///////////////////////////////SEARCH AND STUFF.../////////////////////////////////////////////
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Log.d( "SearchView", query );
+        searchView.clearFocus();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+
+
+
+    public interface OnFragmentInteractionListener {
+
+        void showRestaurantsAsList();
+    }
 
 
     private enum ViewState {

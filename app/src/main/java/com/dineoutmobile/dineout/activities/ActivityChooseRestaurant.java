@@ -62,7 +62,7 @@ public class ActivityChooseRestaurant
         if (drawer.isDrawerOpen(GravityCompat.START))   drawer.closeDrawer(GravityCompat.START);
         else                                            super.onBackPressed();
     }
-
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -79,7 +79,7 @@ public class ActivityChooseRestaurant
         if( id == R.id.action_view )    updateCurrentContent( id );
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
 
@@ -107,10 +107,17 @@ public class ActivityChooseRestaurant
 
 
     public void updateCurrentContent( int id ) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(id)).commit();
+
+        if( !PlaceholderFragment.isCurrentFragment( id ) ) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(id)).commit();
+        }
     }
 
+    @Override
+    public void showRestaurantsAsList() {
+        updateCurrentContent( R.id.action_view );
+    }
 
 
     public static class PlaceholderFragment extends Fragment {
@@ -119,9 +126,13 @@ public class ActivityChooseRestaurant
         private static Fragment currentFragment = null;
 
 
+        public static boolean isCurrentFragment( int id ) {
+            return currentFragment != null && currentId == id;
+        }
+
         public static Fragment newInstance(int id) {
 
-            if( currentFragment == null || currentId != id ) {
+            if( !isCurrentFragment( id ) ) {
 
                 if( id == R.id.nav_restaurant_list )    currentFragment = new FragmentRestaurantGrid();
                 if( id == R.id.action_view )            currentFragment = new FragmentRestaurantList();
