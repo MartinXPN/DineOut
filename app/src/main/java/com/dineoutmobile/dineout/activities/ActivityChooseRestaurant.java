@@ -11,8 +11,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.dineoutmobile.dineout.MapsActivity;
 import com.dineoutmobile.dineout.R;
@@ -114,10 +115,15 @@ public class ActivityChooseRestaurant
         }
     }
 
+
+
     @Override
     public void showRestaurantsAsList() {
         updateCurrentContent( R.id.action_view );
     }
+
+
+
 
 
     public static class PlaceholderFragment extends Fragment {

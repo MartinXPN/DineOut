@@ -61,7 +61,7 @@ public class AdapterRestaurantGrid extends BaseAdapter {
         ViewHolder( View v ) {
             logo = (ImageView) v.findViewById( R.id.restaurant_logo );
             name = (TextView ) v.findViewById( R.id.restaurant_name );
-            rating = (TextView) v.findViewById( R.id.restaurant_rating );
+            rating = (TextView) v.findViewById( R.id.restaurant_rating_number );
         }
     }
 }

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityChooseRestaurant;
+import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantGrid;
 
 
@@ -57,11 +58,17 @@ public class FragmentRestaurantGrid extends     Fragment
         restaurantGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                /*
                 Toast.makeText(getActivity(), "Hello from KFC", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:+37410261264"));
                 getActivity().startActivity(intent);
+                */
+
+                Intent i = new Intent( getActivity(), ActivityViewRestaurant.class );
+                getActivity().startActivity(i);
             }
         });
 
