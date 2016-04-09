@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.dineoutmobile.dineout.MapsActivity;
 import com.dineoutmobile.dineout.R;
@@ -63,24 +61,6 @@ public class ActivityChooseRestaurant
         if (drawer.isDrawerOpen(GravityCompat.START))   drawer.closeDrawer(GravityCompat.START);
         else                                            super.onBackPressed();
     }
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.activity_choose_restaurant, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if( id == R.id.action_view )    updateCurrentContent( id );
-
-        return super.onOptionsItemSelected(item);
-    }*/
 
 
 

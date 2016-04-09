@@ -40,7 +40,7 @@
         android:textColor="#212121"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="KFC SoGood" />
+        android:text="Երևան Պանդոկ" />
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dineoutmobile.dineout">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -50,10 +51,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dineoutmobile.dineout.activities.ActivityChooseRestaurant" />
         </activity>
+
         <activity
             android:name=".activities.ActivityViewRestaurant"
             android:label="@string/title_activity_activity_view_restaurant"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
