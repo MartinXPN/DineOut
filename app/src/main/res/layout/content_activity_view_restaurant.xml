@@ -5,9 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:fillViewport="true"
-
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.dineoutmobile.dineout.activities.ActivityViewRestaurant"
     tools:showIn="@layout/activity_view_restaurant">
@@ -85,15 +82,10 @@
             android:textSize="18sp"
             android:textColor="#2d2d2d"
             android:text="Restaurant details" />
-        <GridView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurant_details_grid"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-
-            android:stretchMode="spacingWidthUniform"
-            android:overScrollMode="never"
-            android:numColumns="auto_fit"
-            android:columnWidth="120dp" />
+            android:layout_height="wrap_content" />
 
 
         <!-- View also -->
@@ -111,11 +103,19 @@
             android:textSize="18sp"
             android:textColor="#2d2d2d"
             android:text="View also..." />
-        <!--ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurant_details_list"
             android:layout_width="match_parent"
-            android:layout_height="1000dp" /-->
-        <include layout="@layout/restaurant_details_list_item" />
+            android:layout_height="wrap_content" />
+
+
+        <!-- the bottom part, shows google maps and places of restaurants inside it -->
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="30dp"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
