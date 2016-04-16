@@ -5,6 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:fillViewport="true"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.dineoutmobile.dineout.activities.ActivityViewRestaurant"
     tools:showIn="@layout/activity_view_restaurant">
@@ -12,9 +15,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- the upper part before main content, includes logo, name, short description -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +26,6 @@
             android:layout_margin="@dimen/activity_horizontal_margin">
 
             <com.pkmmte.view.CircularImageView
-
                 android:id="@+id/restaurant_logo"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
@@ -66,6 +69,53 @@
             </LinearLayout>
         </LinearLayout>
 
+
+        <!-- the middle part, Restaurant details -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
+
+            android:textStyle="normal"
+            android:textSize="18sp"
+            android:textColor="#2d2d2d"
+            android:text="Restaurant details" />
+        <GridView
+            android:id="@+id/restaurant_details_grid"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+
+            android:stretchMode="spacingWidthUniform"
+            android:overScrollMode="never"
+            android:numColumns="auto_fit"
+            android:columnWidth="120dp" />
+
+
+        <!-- View also -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
+
+            android:textStyle="normal"
+            android:textSize="18sp"
+            android:textColor="#2d2d2d"
+            android:text="View also..." />
+        <!--ListView
+            android:id="@+id/restaurant_details_list"
+            android:layout_width="match_parent"
+            android:layout_height="1000dp" /-->
+        <include layout="@layout/restaurant_details_list_item" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

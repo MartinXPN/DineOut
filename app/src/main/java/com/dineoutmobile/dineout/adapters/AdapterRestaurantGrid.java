@@ -9,20 +9,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class AdapterRestaurantGrid extends BaseAdapter {
 
     ViewHolder holder;
     Context context;
+    private static DatabaseHelper database;
+    private static ArrayList<String> restaurantNames = new ArrayList<>();
 
     public AdapterRestaurantGrid( Context context ) {
+
         this.context = context;
+
+        /// DatabaseHelper is single-tone
+        database = DatabaseHelper.getInstance( context );
+        try                     { database.createDataBase(); }
+        catch (IOException e)   { e.printStackTrace(); }
+
+        restaurantNames = database.getRestaurantNames();
     }
 
     @Override
     public int getCount() {
-        return 100;
+        return restaurantNames.size();
     }
 
     @Override
@@ -48,6 +62,8 @@ public class AdapterRestaurantGrid extends BaseAdapter {
         else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        ( (ViewHolder) convertView.getTag() ).name.setText( restaurantNames.get( position ) );
 
         return convertView;
     }

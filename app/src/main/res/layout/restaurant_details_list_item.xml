@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="?attr/selectableItemBackground"
+    android:padding="25dp">
+
+
+    <ImageButton
+        android:id="@+id/restaurant_details_list_image"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@drawable/circle_green"
+        android:src="@mipmap/ic_restaurant_menu" />
+
+
+    <TextView
+        android:id="@+id/restaurant_details_list_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="start|center_vertical"
+        android:paddingLeft="20dp"
+        android:textSize="16sp"
+        android:maxLines="2"
+        android:minLines="2"
+        android:ellipsize="end"
+        android:text="Seafood, Italian, Chinese, Asian, National dishes" />
+
+</LinearLayout>

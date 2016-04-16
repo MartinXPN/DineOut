@@ -54,7 +54,7 @@
 
         <activity
             android:name=".activities.ActivityViewRestaurant"
-            android:label="@string/title_activity_activity_view_restaurant"
+            android:label="@null"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

@@ -11,8 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.ListView;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsGrid;
+import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsList;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 
 public class ActivityViewRestaurant extends AppCompatActivity {
@@ -39,6 +43,18 @@ public class ActivityViewRestaurant extends AppCompatActivity {
         assert restaurantPhotoPager != null;
         restaurantPhotoPager.setAdapter( new AdapterRestaurantImagePager(this) );
 
+
+        /// initialize restaurant details grid
+        final GridView restaurantDetailsGrid = (GridView) findViewById( R.id.restaurant_details_grid );
+        assert restaurantDetailsGrid != null;
+        restaurantDetailsGrid.setAdapter( new AdapterRestaurantDetailsGrid(this) );
+
+/*
+        /// initialize restaurant details list
+        final ListView restaurantDetailsList = (ListView) findViewById( R.id.restaurant_details_list );
+        assert restaurantDetailsList != null;
+        restaurantDetailsGrid.setAdapter( new AdapterRestaurantDetailsList(this) );
+*/
 
         /// initialize 360 photo button
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_show_directions);
