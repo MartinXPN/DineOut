@@ -32,6 +32,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.viewpagerindicator.CirclePageIndicator;
 
 public class ActivityViewRestaurant extends AppCompatActivity {
 
@@ -57,6 +58,11 @@ public class ActivityViewRestaurant extends AppCompatActivity {
         final ViewPager restaurantPhotoPager = (ViewPager) findViewById( R.id.restaurant_photos_pager );
         assert restaurantPhotoPager != null;
         restaurantPhotoPager.setAdapter( new AdapterRestaurantImagePager(this) );
+
+        /// initialize restaurant photo page indicator
+        final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById( R.id.indicator );
+        assert pageIndicator != null;
+        pageIndicator.setViewPager( restaurantPhotoPager );
 
 
         /// initialize restaurant details grid
