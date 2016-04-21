@@ -110,12 +110,12 @@
 
 
         <!-- the bottom part, shows google maps and places of restaurants inside it -->
-        <fragment
+        <!--fragment
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="30dp"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            android:name="com.google.android.gms.maps.SupportMapFragment" /-->
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

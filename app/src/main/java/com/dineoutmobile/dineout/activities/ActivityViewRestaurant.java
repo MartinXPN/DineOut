@@ -101,6 +101,7 @@ public class ActivityViewRestaurant extends AppCompatActivity {
 
 
         /// initialize google maps
+        /*
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -136,7 +137,7 @@ public class ActivityViewRestaurant extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
     }
 
 
