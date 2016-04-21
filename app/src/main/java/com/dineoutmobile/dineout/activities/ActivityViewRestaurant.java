@@ -1,7 +1,6 @@
 package com.dineoutmobile.dineout.activities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -16,17 +15,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.dineoutmobile.dineout.MapsActivity;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsList;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
+import com.dineoutmobile.dineout.databasehelpers.RestDetails;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,12 +44,10 @@ public class ActivityViewRestaurant extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        /// make collapsing toolbar show title only when it is collapsed
-        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        assert collapsingToolbarLayout != null;
-        collapsingToolbarLayout.setTitle("Երևան Պանդոկ");
-        collapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
-        collapsingToolbarLayout.setCollapsedTitleTextColor( Color.WHITE );
+        /// set up collapsing toolbar
+        int restid = this.getIntent().getIntExtra("RESTID", 0);
+        RestDetails restDetails = new RestDetails(restid);
+        setupCollapsingToolbarLayout(restDetails.getRestName());
 
 
         /// initialize restaurant photo pager
@@ -101,43 +97,56 @@ public class ActivityViewRestaurant extends AppCompatActivity {
 
 
         /// initialize google maps
-        /*
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-
-
-                final GoogleMap mMap = googleMap;
-                if (ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-                mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-                    @Override
-                    public boolean onMyLocationButtonClick() {
-                        Toast.makeText(ActivityViewRestaurant.this, "hello", Toast.LENGTH_SHORT).show();
-
-                        Location myLocation = mMap.getMyLocation();
-                        if (myLocation != null) {
-
-                            LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16.0f));
-                        }
-                        return true;
-                    }
-                });
+                onGoogleMapsReady(googleMap);
             }
-        });*/
+        });
+    }
+
+    private void onGoogleMapsReady(GoogleMap googleMap) {
+
+        final GoogleMap mMap = googleMap;
+        if (ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+            @Override
+            public boolean onMyLocationButtonClick() {
+                Toast.makeText(ActivityViewRestaurant.this, "hello", Toast.LENGTH_SHORT).show();
+
+                Location myLocation = mMap.getMyLocation();
+                if (myLocation != null) {
+
+                    LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16.0f));
+                }
+                return true;
+            }
+        });
+    }
+
+
+    private void setupCollapsingToolbarLayout(String restName) {
+
+        /// make collapsing toolbar show title only when it is collapsed
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        assert collapsingToolbarLayout!=null;
+        collapsingToolbarLayout.setTitle(restName);
+        collapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
     }
 
 
@@ -146,8 +155,9 @@ public class ActivityViewRestaurant extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
         if( id == android.R.id.home )   { finish();     return true; }
+
+
         return super.onOptionsItemSelected(item);
     }
 }

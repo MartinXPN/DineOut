@@ -21,6 +21,7 @@ public class AdapterRestaurantGrid extends BaseAdapter {
     Context context;
     private static DatabaseHelper database;
     private static ArrayList<String> restaurantNames = new ArrayList<>();
+    private static ArrayList<Integer> restaurantIDs = new ArrayList<>();
 
     public AdapterRestaurantGrid( Context context ) {
 
@@ -31,8 +32,21 @@ public class AdapterRestaurantGrid extends BaseAdapter {
         try                     { database.createDataBase(); }
         catch (IOException e)   { e.printStackTrace(); }
 
-        restaurantNames = database.getRestaurantNames();
+        restaurantNames = database.getRestaurantNames( restaurantIDs );
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        restaurantNames = database.getRestaurantNames(restaurantIDs);
+        super.notifyDataSetChanged();
+    }
+
+
+    public int CalcRestaurantID(int position){
+
+        return restaurantIDs.get(position);
+    }
+
 
     @Override
     public int getCount() {

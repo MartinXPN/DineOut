@@ -13,8 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 
+import com.dineoutmobile.dineout.Properties;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantGrid;
@@ -63,7 +65,10 @@ public class FragmentRestaurantGrid extends     Fragment
                 getActivity().startActivity(intent);
                 */
 
-                Intent i = new Intent( getActivity(), ActivityViewRestaurant.class );
+                int uid = adapter.CalcRestaurantID(position);
+
+                Intent i = new Intent(getActivity(), ActivityViewRestaurant.class);
+                i.putExtra("RESTID", uid);
                 getActivity().startActivity(i);
             }
         });
@@ -91,9 +96,14 @@ public class FragmentRestaurantGrid extends     Fragment
 
     @Override
     public void onRefresh() {
+        ((BaseAdapter)restaurantGrid.getAdapter()).notifyDataSetChanged();
         updateViewState(ViewState.LOADING, null);
         Log.d("Grid", "Refreshed");
         updateViewState(ViewState.DONE, null);
+        restaurantGrid.invalidateViews();
+        restaurantGrid.invalidate();
+        restaurantGrid.refreshDrawableState();
+
     }
 
 
@@ -116,6 +126,26 @@ public class FragmentRestaurantGrid extends     Fragment
 
         int id = item.getItemId();
         if( id == R.id.action_view )    mListener.showRestaurantsAsList();
+
+        if( id == R.id.action_language_arm )  {
+            //AlertDialog("Armenian");
+            Properties.getInstance().setLanguage("hy");
+            onRefresh();
+        }
+        if( id == R.id.action_language_rus )  {
+            //AlertDialog("Russian");
+            Properties.getInstance().setLanguage("ru");
+            onRefresh();
+        }
+        if( id == R.id.action_language_eng )  {
+            //AlertDialog("English");
+            Properties.getInstance().setLanguage("en");
+            onRefresh();
+        }
+
+
+
+
         return super.onOptionsItemSelected(item);
     }
 

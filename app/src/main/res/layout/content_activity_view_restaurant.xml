@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:padding="@dimen/activity_horizontal_margin">
 
             <com.pkmmte.view.CircularImageView
                 android:id="@+id/restaurant_logo"
@@ -72,8 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="15dp"
-            android:paddingTop="10dp"
+            android:paddingTop="25dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
@@ -110,12 +109,12 @@
 
 
         <!-- the bottom part, shows google maps and places of restaurants inside it -->
-        <!--fragment
+        <fragment
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="30dp"
-            android:name="com.google.android.gms.maps.SupportMapFragment" /-->
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
