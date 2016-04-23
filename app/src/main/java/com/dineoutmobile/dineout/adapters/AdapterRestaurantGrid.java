@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
+import com.pkmmte.view.CircularImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -84,14 +85,14 @@ public class AdapterRestaurantGrid extends BaseAdapter {
 
 
     private static class ViewHolder {
-        ImageView logo;
+        CircularImageView logo;
         TextView name;
-        TextView rating;
+        Button rating;
 
         ViewHolder( View v ) {
-            logo = (ImageView) v.findViewById( R.id.restaurant_logo );
+            logo = (CircularImageView) v.findViewById( R.id.restaurant_logo );
             name = (TextView ) v.findViewById( R.id.restaurant_name );
-            rating = (TextView) v.findViewById( R.id.restaurant_rating_number );
+            rating = (Button) v.findViewById( R.id.restaurant_rating );
         }
     }
 }
