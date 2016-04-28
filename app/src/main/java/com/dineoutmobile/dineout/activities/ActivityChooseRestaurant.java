@@ -1,10 +1,9 @@
 package com.dineoutmobile.dineout.activities;
 
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,19 +12,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.dineoutmobile.dineout.MapsActivity;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantGrid;
-import com.dineoutmobile.dineout.fragments.FragmentRestaurantList;
+import com.dineoutmobile.dineout.util.Util;
 
 
 public class ActivityChooseRestaurant
         extends     AppCompatActivity
-        implements  NavigationView.OnNavigationItemSelectedListener,
-                    FragmentRestaurantGrid.OnFragmentInteractionListener,
-                    FragmentRestaurantList.OnFragmentInteractionListener {
+        implements  NavigationView.OnNavigationItemSelectedListener {
 
 
+
+    FragmentRestaurantGrid fragmentRestaurantGrid = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +39,13 @@ public class ActivityChooseRestaurant
         /// set up navigation-toggle
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         /// set up navigation drawer
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         /// display the list of all restaurants
@@ -58,6 +58,7 @@ public class ActivityChooseRestaurant
     public void onBackPressed() {
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START))   drawer.closeDrawer(GravityCompat.START);
         else                                            super.onBackPressed();
     }
@@ -66,71 +67,39 @@ public class ActivityChooseRestaurant
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if( id == R.id.nav_restaurant_list ) {
-            updateCurrentContent(id);
-        }
-        else if( id == R.id.nav_nearby ) {
-            Intent i = new Intent( ActivityChooseRestaurant.this, MapsActivity.class );
-            startActivity( i );
-            updateCurrentContent(id);
-        }
-        else {
-            Log.d("hello", "world");
-        }
+        if( id == R.id.nav_restaurant_list )    showRestaurantsAsGrid();
+        else if( id == R.id.nav_nearby )        showRestaurantsInGoogleMaps();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
 
-    public void updateCurrentContent( int id ) {
+    public void showRestaurantsAsGrid() {
 
-        if( !PlaceholderFragment.isCurrentFragment( id ) ) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(id)).commit();
+        // get fragment manager
+        FragmentManager fm = getFragmentManager();
+        // Make sure the current transaction finishes first
+        fm.executePendingTransactions();
+
+        // If there is no fragment yet with this tag...
+        if( fm.findFragmentByTag( Util.Tags.RESTAURANT_GRID_FRAGMENT ) == null ) {
+            // Add fragment
+            FragmentTransaction ft = fm.beginTransaction();
+            fragmentRestaurantGrid = new FragmentRestaurantGrid();
+            ft.replace( R.id.container, fragmentRestaurantGrid, Util.Tags.RESTAURANT_GRID_FRAGMENT );
+            ft.commit();
         }
     }
 
-
-
-    @Override
-    public void showRestaurantsAsList() {
-        updateCurrentContent( R.id.action_view );
-    }
-
-
-
-
-
-    public static class PlaceholderFragment extends Fragment {
-
-        private static int currentId = -1;
-        private static Fragment currentFragment = null;
-
-
-        public static boolean isCurrentFragment( int id ) {
-            return currentFragment != null && currentId == id;
-        }
-
-        public static Fragment newInstance(int id) {
-
-            if( !isCurrentFragment( id ) ) {
-
-                if( id == R.id.nav_restaurant_list )    currentFragment = new FragmentRestaurantGrid();
-                if( id == R.id.action_view )            currentFragment = new FragmentRestaurantList();
-                else if( id == R.id.nav_nearby )        { }/*currentFragment = new ActivityNearbyRestaurants();*/
-                currentId = id;
-
-                return currentFragment;
-            }
-            else
-                return currentFragment;
-        }
-
-        public PlaceholderFragment() {}
+    public void showRestaurantsInGoogleMaps() {
+        Log.d( "hello", "nothing" );
     }
 }

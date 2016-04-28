@@ -9,50 +9,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 
 
 public class AdapterRestaurantDetailsGrid extends RecyclerView.Adapter<AdapterRestaurantDetailsGrid.ViewHolder> {
 
     ViewHolder holder;
     Context context;
-
-    private static final int images[] =
-            {   R.mipmap.ic_time,
-                R.mipmap.ic_price,
-                R.mipmap.ic_wifi,
-                R.mipmap.ic_vip,
-                R.mipmap.ic_fourshet,
-                R.mipmap.ic_shipping,
-                R.mipmap.ic_credit_card,
-                R.mipmap.ic_smoking_area,
-                R.mipmap.ic_no_smoking_area };
-
-    private static final String descriptions[] =
-            {   "17:00 - 24:00",
-                "Expensive",
-                "WiFi",
-                "VIP areas",
-                "Fourshet",
-                "Shipping",
-                "Accepts credit-cards",
-                "Smoking areas",
-                "No-smoking areas" };
+    RestaurantFullInfo restaurantInfo;
 
 
-    private static final boolean has[] =
-            {   true,
-                true,
-                true,
-                true,
-                false,
-                true,
-                false,
-                true,
-                true };
+    public AdapterRestaurantDetailsGrid( Context context, RestaurantFullInfo restaurantInfo ) {
 
-
-    public AdapterRestaurantDetailsGrid( Context context ) {
         this.context = context;
+        this.restaurantInfo = restaurantInfo;
     }
 
 
@@ -69,16 +39,16 @@ public class AdapterRestaurantDetailsGrid extends RecyclerView.Adapter<AdapterRe
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.image.setImageResource( images[position] );
-        if( has[position] )     holder.image.setBackgroundResource( R.drawable.circle_green );
-        else                    holder.image.setBackgroundResource( R.drawable.circle_red );
+        holder.image.setImageResource( RestaurantFullInfo.Details.values()[position].resource );
+        if( RestaurantFullInfo.Details.values()[position].supported )   holder.image.setBackgroundResource( R.drawable.circle_green );
+        else                                                            holder.image.setBackgroundResource( R.drawable.circle_red );
 
-        holder.description.setText( descriptions[position] );
+        holder.description.setText( RestaurantFullInfo.Details.values()[position].description );
     }
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return RestaurantFullInfo.Details.values().length;
     }
 
 

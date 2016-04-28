@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -15,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- the upper part before main content, includes logo, name, short description -->
+        <!-- Logo, Name, Short description -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <TextView
@@ -67,7 +68,14 @@
         </LinearLayout>
 
 
-        <!-- the middle part, Restaurant details -->
+        <!-- Basic info -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/restaurant_basic_info_grid"
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Details -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,41 +88,33 @@
             android:textStyle="normal"
             android:textSize="18sp"
             android:textColor="#2d2d2d"
-            android:text="Restaurant details" />
+            android:text="Details" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurant_details_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
 
-        <!-- View also -->
+        <!-- Google Maps -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="15dp"
             android:paddingTop="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="5dp"
 
             android:textStyle="normal"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textColor="#2d2d2d"
-            android:text="View also..." />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurant_details_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <!-- the bottom part, shows google maps and places of restaurants inside it -->
-        <fragment
+            android:text="Գյուլբենկյան 21" />
+        <!--fragment
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="30dp"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            android:name="com.google.android.gms.maps.SupportMapFragment" /-->
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

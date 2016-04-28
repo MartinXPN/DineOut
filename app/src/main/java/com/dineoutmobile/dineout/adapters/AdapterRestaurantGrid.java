@@ -1,15 +1,19 @@
 package com.dineoutmobile.dineout.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
+import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.util.Util;
 import com.pkmmte.view.CircularImageView;
 
 import java.io.IOException;
@@ -21,8 +25,7 @@ public class AdapterRestaurantGrid extends BaseAdapter {
     ViewHolder holder;
     Context context;
     private static DatabaseHelper database;
-    private static ArrayList<String> restaurantNames = new ArrayList<>();
-    private static ArrayList<Integer> restaurantIDs = new ArrayList<>();
+    private static ArrayList <RestaurantBasicInfo> restaurants = new ArrayList<>();
 
     public AdapterRestaurantGrid( Context context ) {
 
@@ -33,25 +36,18 @@ public class AdapterRestaurantGrid extends BaseAdapter {
         try                     { database.createDataBase(); }
         catch (IOException e)   { e.printStackTrace(); }
 
-        restaurantNames = database.getRestaurantNames( restaurantIDs );
+        getAllRestaurantsBasicInfo();
     }
 
-    @Override
-    public void notifyDataSetChanged() {
-        restaurantNames = database.getRestaurantNames(restaurantIDs);
-        super.notifyDataSetChanged();
+    public void getAllRestaurantsBasicInfo() {
+        if( Util.getLanguage( context ) == null )return;
+        restaurants = database.getAllRestaurantsBasicInfo( Util.getLanguage( context ).languageLocale );
+        notifyDataSetChanged();
     }
-
-
-    public int CalcRestaurantID(int position){
-
-        return restaurantIDs.get(position);
-    }
-
 
     @Override
     public int getCount() {
-        return restaurantNames.size();
+        return restaurants.size();
     }
 
     @Override
@@ -65,7 +61,7 @@ public class AdapterRestaurantGrid extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if( convertView == null ) {
 
@@ -78,21 +74,42 @@ public class AdapterRestaurantGrid extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ( (ViewHolder) convertView.getTag() ).name.setText( restaurantNames.get( position ) );
-
+        setValues( (ViewHolder) convertView.getTag(), restaurants.get( position ) );
         return convertView;
     }
 
 
+    private void setValues(ViewHolder holder, final RestaurantBasicInfo restaurantInfo ) {
+
+        if( holder == null )
+            return;
+
+        holder.name.setText( restaurantInfo.name );
+        holder.rating.setText( String.format( "%.1f", Math.random()*4 + 1 ) );
+        //holder.rating.getBackground().setColorFilter(Util.calculateRatingColor( Float.parseFloat( holder.rating.getText().toString() ) ), PorterDuff.Mode.SRC );
+        holder.gridItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent( context, ActivityViewRestaurant.class );
+                i.putExtra( Util.Tags.BUNDLE_RESTAURANT_ID, restaurantInfo.id );
+                context.startActivity(i);
+            }
+        });
+    }
+
+
     private static class ViewHolder {
+        LinearLayout gridItem;
         CircularImageView logo;
         TextView name;
-        Button rating;
+        TextView rating;
 
         ViewHolder( View v ) {
+            gridItem = (LinearLayout) v.findViewById( R.id.restaurant_grid_item );
             logo = (CircularImageView) v.findViewById( R.id.restaurant_logo );
             name = (TextView ) v.findViewById( R.id.restaurant_name );
-            rating = (Button) v.findViewById( R.id.restaurant_rating );
+            rating = (TextView) v.findViewById( R.id.restaurant_rating );
         }
     }
 }

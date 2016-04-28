@@ -2,17 +2,20 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:layout_width="wrap_content"
+    android:id="@+id/restaurant_details_container"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="7dp"
+    android:background="?attr/selectableItemBackgroundBorderless">
 
 
     <ImageButton
         android:id="@+id/restaurant_details_grid_image"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_margin="10dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:clickable="false"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/circle_green"
         android:src="@mipmap/ic_wifi" />
 
@@ -23,9 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="top|center_horizontal"
-        android:textSize="14sp"
+        android:textSize="13sp"
+        android:textColor="#99000000"
         android:lines="2"
         android:ellipsize="end"
-        android:text="Has wifi" />
+        android:text="00000000000" />
 
 </LinearLayout>

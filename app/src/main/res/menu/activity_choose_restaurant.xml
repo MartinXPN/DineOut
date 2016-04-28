@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/action_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:actionLayout="@layout/search_view"
-
         android:title="@string/action_search_title"
         android:icon="@drawable/ic_search_white"
+        android:voiceSearchMode="showVoiceSearchButton"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:actionLayout="@layout/search_view"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_view"
@@ -18,7 +18,7 @@
     <item
         android:id="@+id/action_language"
         android:title="@string/action_language_title"
-        android:icon="@mipmap/ic_flag_arm"
+        android:icon="@mipmap/ic_flag_eng"
         app:showAsAction="always" >
 
         <menu>
@@ -42,5 +42,4 @@
         </menu>
 
     </item>
-
 </menu>

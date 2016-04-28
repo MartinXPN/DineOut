@@ -11,17 +11,17 @@ import com.dineoutmobile.dineout.R;
 
 public class AdapterRestaurantImagePager extends PagerAdapter {
 
-    private Context mContext;
+    private Context context;
     private static int NUMBER_OF_PAGES = 5;
 
     public AdapterRestaurantImagePager(Context context) {
-        mContext = context;
+        this.context = context;
     }
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
+        LayoutInflater inflater = LayoutInflater.from(context);
         ViewGroup layout = (ViewGroup) inflater.inflate( R.layout.restaurant_pager_image, collection, false);
         collection.addView(layout);
         return layout;
