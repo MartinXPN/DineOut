@@ -47,7 +47,7 @@
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="d9e4b9e15d201a276963fa3b3a37718e0db88904">
+        sha1="b412fd7b760dcd04c52e5b4d3bc18ba38949b372">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_170a05a0f0ec70e2725323e5615b0daf548083c8\classes.dex" />
     </item>
     <item
@@ -61,7 +61,7 @@
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="dac1f181a65c0c05d8145a629a17bc8b8612825e">
+        sha1="cf1e323a6112ca73151b61f303c20a7c898c44cb">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_88cd2172cde001f0ed17c98b218b7cc6c199da0d\classes.dex" />
     </item>
     <item

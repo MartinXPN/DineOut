@@ -27,7 +27,7 @@ public class Util {
         public static final String SHARED_PREFS_LANGUAGE_LOCALE = "lang_locale";
         public static final String SHARED_PREFS_SHOW_AS_GRID = "show_grid";
         public static final String BUNDLE_RESTAURANT_ID = "rest_id";
-        public static final String RESTAURANT_GRID_FRAGMENT = "rest_grid_f";
+        public static final String RESTAURANT_LIST_FRAGMENT = "rest_grid_f";
     }
 
 

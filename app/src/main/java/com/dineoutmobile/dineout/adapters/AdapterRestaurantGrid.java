@@ -5,59 +5,22 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
-import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.pkmmte.view.CircularImageView;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
-
-public class AdapterRestaurantGrid extends BaseAdapter {
+public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
 
     ViewHolder holder;
-    Context context;
-    private static DatabaseHelper database;
-    private static ArrayList <RestaurantBasicInfo> restaurants = new ArrayList<>();
 
     public AdapterRestaurantGrid( Context context ) {
-
-        this.context = context;
-
-        /// DatabaseHelper is single-tone
-        database = DatabaseHelper.getInstance( context );
-        try                     { database.createDataBase(); }
-        catch (IOException e)   { e.printStackTrace(); }
-
-        getAllRestaurantsBasicInfo();
-    }
-
-    public void getAllRestaurantsBasicInfo() {
-        if( Util.getLanguage( context ) == null )return;
-        restaurants = database.getAllRestaurantsBasicInfo( Util.getLanguage( context ).languageLocale );
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getCount() {
-        return restaurants.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        super( context );
     }
 
     @Override

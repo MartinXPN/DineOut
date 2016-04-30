@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.fragments.FragmentRestaurantGrid;
+import com.dineoutmobile.dineout.fragments.FragmentRestaurantsList;
 import com.dineoutmobile.dineout.util.Util;
 
 
@@ -23,7 +23,7 @@ public class ActivityChooseRestaurant
 
 
 
-    FragmentRestaurantGrid fragmentRestaurantGrid = null;
+    FragmentRestaurantsList fragmentRestaurantsList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class ActivityChooseRestaurant
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if( id == R.id.nav_restaurant_list )    showRestaurantsAsGrid();
+        if( id == R.id.nav_restaurant_list )    showRestaurantList();
         else if( id == R.id.nav_nearby )        showRestaurantsInGoogleMaps();
 
 
@@ -82,7 +82,7 @@ public class ActivityChooseRestaurant
     }
 
 
-    public void showRestaurantsAsGrid() {
+    public void showRestaurantList() {
 
         // get fragment manager
         FragmentManager fm = getFragmentManager();
@@ -90,11 +90,11 @@ public class ActivityChooseRestaurant
         fm.executePendingTransactions();
 
         // If there is no fragment yet with this tag...
-        if( fm.findFragmentByTag( Util.Tags.RESTAURANT_GRID_FRAGMENT ) == null ) {
+        if( fm.findFragmentByTag( Util.Tags.RESTAURANT_LIST_FRAGMENT) == null ) {
             // Add fragment
             FragmentTransaction ft = fm.beginTransaction();
-            fragmentRestaurantGrid = new FragmentRestaurantGrid();
-            ft.replace( R.id.container, fragmentRestaurantGrid, Util.Tags.RESTAURANT_GRID_FRAGMENT );
+            fragmentRestaurantsList = new FragmentRestaurantsList();
+            ft.replace( R.id.container, fragmentRestaurantsList, Util.Tags.RESTAURANT_LIST_FRAGMENT);
             ft.commit();
         }
     }
