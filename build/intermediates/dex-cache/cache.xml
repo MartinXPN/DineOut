@@ -16,13 +16,6 @@
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_078e302f2d8d4ead63462a23ce31f5261a7b3a86\classes.dex" />
     </item>
     <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.pkmmte.view\circularimageview\1.1\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="c341a7ad32bc2eef9dcfab239262b77ac60788cc">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.pkmmte.view-circularimageview-1.1_56caac289b38921fa7c50e6141643d08c8037784\classes.dex" />
-    </item>
-    <item
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
@@ -47,7 +40,7 @@
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="b412fd7b760dcd04c52e5b4d3bc18ba38949b372">
+        sha1="06218912cc30d74b6cd39b13cd2d6a9ae0dd0d79">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_170a05a0f0ec70e2725323e5615b0daf548083c8\classes.dex" />
     </item>
     <item
@@ -61,7 +54,7 @@
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="cf1e323a6112ca73151b61f303c20a7c898c44cb">
+        sha1="f62e63bce89648558e85ddd0a97233cb1c9dfd98">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_88cd2172cde001f0ed17c98b218b7cc6c199da0d\classes.dex" />
     </item>
     <item
@@ -84,6 +77,13 @@
         revision="23.0.3"
         sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_3e5ea19a5432613bb005dd2cb0c0623e601eecd7\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
+        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\de.hdodenhof-circleimageview-2.0.0_199d4a96c1120614cda40ace8ff111c297e0b9e9\classes.dex" />
     </item>
 
 </items>

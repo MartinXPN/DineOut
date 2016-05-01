@@ -12,7 +12,7 @@ import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.Util;
-import com.pkmmte.view.CircularImageView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
@@ -64,13 +64,13 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
 
     private static class ViewHolder {
         LinearLayout gridItem;
-        CircularImageView logo;
+        CircleImageView logo;
         TextView name;
         TextView rating;
 
         ViewHolder( View v ) {
             gridItem = (LinearLayout) v.findViewById( R.id.restaurant_grid_item );
-            logo = (CircularImageView) v.findViewById( R.id.restaurant_logo );
+            logo = (CircleImageView) v.findViewById( R.id.restaurant_logo );
             name = (TextView ) v.findViewById( R.id.restaurant_name );
             rating = (TextView) v.findViewById( R.id.restaurant_rating );
         }
