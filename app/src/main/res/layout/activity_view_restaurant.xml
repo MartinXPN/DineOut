@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -26,7 +27,7 @@
             <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="@dimen/restaurant_background_photo_height"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax">
 
@@ -38,7 +39,7 @@
 
                 <com.viewpagerindicator.CirclePageIndicator
                     android:id="@+id/indicator"
-                    android:padding="10dip"
+                    android:padding="10dp"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     app:fillColor="#ffffff"
@@ -47,7 +48,6 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"/>
-
             </RelativeLayout>
 
 
@@ -71,5 +71,39 @@
         android:src="@mipmap/ic_360"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/call"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:text="@string/restaurant_call"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+            <Button
+                android:id="@+id/reserve"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:text="@string/restaurant_reserve"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

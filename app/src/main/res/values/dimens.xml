@@ -9,6 +9,20 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <dimen name="text_main_title_size">21sp</dimen>
+    <dimen name="text_subtitle_size">18sp</dimen>
+    <dimen name="text_restaurant_grid_item_name_size">15sp</dimen>
+    <dimen name="text_restaurant_list_item_name_size">22sp</dimen>
+    <dimen name="text_secondary_size">13sp</dimen>
+
+
+    <dimen name="restaurant_background_photo_height">250dp</dimen>
+    <dimen name="restaurant_logo_size">96dp</dimen>
+    <dimen name="restaurant_list_item_size">180dp</dimen>
+    <dimen name="restaurant_grid_item_size">90dp</dimen>
+    <dimen name="restaurant_grid_column_width">120dp</dimen>
+    <dimen name="restaurant_detail_grid_item_width">100dp</dimen>
+    <dimen name="restaurant_detail_grid_item_image_width">50dp</dimen>
 
     <dimen name="ic_details_size">30dp</dimen>
 </resources>

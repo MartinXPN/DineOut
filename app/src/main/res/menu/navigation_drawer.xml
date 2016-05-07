@@ -5,29 +5,33 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_restaurant_list"
-            android:icon="@mipmap/ic_restaurant_list"
-            android:title="All Restaurants" />
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/nav_title_restaurant_list" />
         <item
             android:id="@+id/nav_nearby"
-            android:icon="@mipmap/ic_nearby_places"
-            android:title="Nearby Places" />
+            android:icon="@drawable/ic_nearby"
+            android:title="@string/nav_title_nearby" />
     </group>
 
 
-    <item android:title="The app">
+    <item android:title="@string/nav_section_title_the_app">
         <menu>
             <item
+                android:id="@+id/nav_tips"
+                android:icon="@drawable/ic_tips"
+                android:title="@string/nav_title_tips" />
+            <item
                 android:id="@+id/nav_help"
-                android:icon="@mipmap/ic_help"
-                android:title="Help" />
+                android:icon="@drawable/ic_help"
+                android:title="@string/nav_title_help" />
             <item
                 android:id="@+id/nav_feedback"
-                android:icon="@mipmap/ic_feedback"
-                android:title="Feedback" />
+                android:icon="@drawable/ic_feedback"
+                android:title="@string/nav_title_feedback" />
             <item
                 android:id="@+id/nav_about"
-                android:icon="@mipmap/ic_about"
-                android:title="About" />
+                android:icon="@drawable/ic_about"
+                android:title="@string/nav_title_about" />
         </menu>
     </item>
 

@@ -20,12 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
+import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
+import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ActivityViewRestaurant extends AppCompatActivity implements RestaurantFullInfo.DataLoading {
 
@@ -88,8 +91,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         });
 
 
-        initializeDetails();
-        initializeVariables();
+        initialize();
     }
 
 
@@ -107,7 +109,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         adapterRestaurantDetailsGrid.notifyDataSetChanged();
         adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
         Log.d( "ActivityVR", "data loaded" );
-        initializeVariables();
+        initialize();
     }
 
 
@@ -116,19 +118,49 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         super.onConfigurationChanged(newConfig);
 
         // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            initializeDetails();
-        }
-        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            initializeDetails();
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE || newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            initialize();
         }
     }
 
 
-    public void initializeDetails() {
+    public void initialize() {
 
         float ht_px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());  /// TODO replace 120 by getResources().getDimension...
         int itemWidth = (int) (getWindowManager().getDefaultDisplay().getWidth() / ht_px);
+
+        /// make collapsing toolbar show title only when it is collapsed
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        assert collapsingToolbarLayout != null;
+        collapsingToolbarLayout.setTitle( restaurantInfo.name );
+        collapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
+        collapsingToolbarLayout.setCollapsedTitleTextColor( Color.WHITE );
+
+
+        /// initialize restaurant logo
+        final CircleImageView restaurantLogo = (CircleImageView) findViewById( R.id.restaurant_logo );
+        Picasso.with(this)
+                .load( restaurantInfo.logoURL )
+                .resizeDimen(R.dimen.restaurant_logo_size, R.dimen.restaurant_logo_size)
+                .centerCrop()
+                .into(restaurantLogo);
+
+
+        /// initialize restaurant name
+        final TextView restaurantName = (TextView) findViewById( R.id.restaurant_name );
+        assert restaurantName != null;
+        restaurantName.setText( restaurantInfo.name );
+
+        /// initialize restaurant rating
+        final RatingBar restaurantRating = (RatingBar) findViewById( R.id.restaurant_rating );
+        assert restaurantRating != null;
+        restaurantRating.setRating( restaurantInfo.rating );
+
+        /// initialize restaurant description
+        final TextView restaurantDescription = (TextView) findViewById( R.id.restaurant_description );
+        assert restaurantDescription != null;
+        restaurantDescription.setText( restaurantInfo.description );
+
 
         /// initialize restaurant basic info grid
         GridLayoutManager restaurantDescriptionListLayoutManager = new GridLayoutManager(this, itemWidth);
@@ -149,30 +181,5 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         restaurantDetailsGrid.setNestedScrollingEnabled( false );
         restaurantDetailsGrid.setLayoutManager( restaurantDescriptionGridLayoutManager );
         restaurantDetailsGrid.setAdapter( adapterRestaurantDetailsGrid );
-    }
-    public void initializeVariables() {
-
-        /// make collapsing toolbar show title only when it is collapsed
-        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        assert collapsingToolbarLayout != null;
-        collapsingToolbarLayout.setTitle( restaurantInfo.name );
-        collapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
-        collapsingToolbarLayout.setCollapsedTitleTextColor( Color.WHITE );
-
-
-        /// initialize restaurant name
-        final TextView restaurantName = (TextView) findViewById( R.id.restaurant_name );
-        assert restaurantName != null;
-        restaurantName.setText( restaurantInfo.name );
-
-        /// initialize restaurant rating
-        final RatingBar restaurantRating = (RatingBar) findViewById( R.id.restaurant_rating );
-        assert restaurantRating != null;
-        restaurantRating.setRating( restaurantInfo.rating );
-
-        /// initialize restaurant description
-        final TextView restaurantDescription = (TextView) findViewById( R.id.restaurant_description );
-        assert restaurantDescription != null;
-        restaurantDescription.setText( restaurantInfo.description );
     }
 }

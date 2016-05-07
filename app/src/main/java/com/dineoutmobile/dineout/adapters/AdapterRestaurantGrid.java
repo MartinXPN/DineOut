@@ -12,6 +12,8 @@ import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.Util;
+import com.squareup.picasso.Picasso;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -59,6 +61,12 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
                 context.startActivity(i);
             }
         });
+
+        Picasso.with(context)
+                .load( restaurantInfo.logoURL )
+                .resizeDimen( R.dimen.restaurant_grid_item_size, R.dimen.restaurant_grid_item_size )
+                .centerInside()
+                .into( holder.logo );
     }
 
 

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:id="@+id/restaurant_details_container"
-    android:layout_width="100dp"
+    android:layout_width="@dimen/restaurant_detail_grid_item_width"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="7dp"
@@ -12,12 +12,11 @@
 
     <ImageButton
         android:id="@+id/restaurant_details_grid_image"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="@dimen/restaurant_detail_grid_item_image_width"
+        android:layout_height="@dimen/restaurant_detail_grid_item_image_width"
         android:clickable="false"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/circle_green"
-        android:src="@mipmap/ic_wifi" />
+        android:background="@drawable/circle_green" />
 
 
     <TextView
@@ -26,10 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="top|center_horizontal"
-        android:textSize="13sp"
+        android:textSize="@dimen/text_secondary_size"
         android:textColor="#99000000"
         android:lines="2"
-        android:ellipsize="end"
-        android:text="00000000000" />
+        android:ellipsize="end" />
 
 </LinearLayout>

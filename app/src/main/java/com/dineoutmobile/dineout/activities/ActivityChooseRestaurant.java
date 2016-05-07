@@ -29,6 +29,7 @@ public class ActivityChooseRestaurant
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Util.setLanguage( Util.getLanguage( this ), this );
         setContentView(R.layout.activity_choose_restaurant);
 
 

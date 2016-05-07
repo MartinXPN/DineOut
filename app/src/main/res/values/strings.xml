@@ -6,9 +6,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_search_title">Search</string>
-    <string name="action_language_title">Language</string>
-    <string name="action_view">View as Grid</string>
+    <string name="action_view">View as…</string>
     <string name="action_language_arm_title">Հայերեն</string>
     <string name="action_language_eng_title">English</string>
     <string name="action_language_rus_title">Русский</string>

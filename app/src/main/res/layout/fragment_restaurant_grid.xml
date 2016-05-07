@@ -12,5 +12,5 @@
         android:stretchMode="spacingWidthUniform"
         android:overScrollMode="ifContentScrolls"
         android:numColumns="auto_fit"
-        android:columnWidth="120dp" />
+        android:columnWidth="@dimen/restaurant_grid_column_width" />
 </android.support.v4.widget.SwipeRefreshLayout>

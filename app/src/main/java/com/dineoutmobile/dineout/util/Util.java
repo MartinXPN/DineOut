@@ -4,8 +4,12 @@ package com.dineoutmobile.dineout.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
+import android.util.TypedValue;
 
 import com.dineoutmobile.dineout.R;
 
@@ -28,6 +32,17 @@ public class Util {
         public static final String SHARED_PREFS_SHOW_AS_GRID = "show_grid";
         public static final String BUNDLE_RESTAURANT_ID = "rest_id";
         public static final String RESTAURANT_LIST_FRAGMENT = "rest_grid_f";
+    }
+
+    public static int dpToPx( float dp, Context context ) {
+        Resources r = context.getResources();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+    }
+    public static int getWindowWidth( Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+    public static int getWindowHeight( Context context ) {
+        return context.getResources().getDisplayMetrics().heightPixels;
     }
 
 

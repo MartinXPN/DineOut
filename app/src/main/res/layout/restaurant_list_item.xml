@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:id="@+id/restaurant_background"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="@dimen/restaurant_list_item_size"
     android:orientation="horizontal"
-    android:background="@drawable/restaurant_background_image"
     android:clickable="true">
+
+    <ImageView
+        android:id="@+id/restaurant_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="10dp"
         android:clickable="false"
         android:orientation="vertical"
-        android:gravity="bottom|start">
+        android:gravity="bottom|start"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/restaurant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_restaurant_list_item_name_size"
             android:textColor="#ffffff"
             android:maxLines="2"
-            android:ellipsize="end"
-            android:text="Երևան պանդոկ" />
+            android:ellipsize="end"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -39,8 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="#ffffff"
-                android:gravity="center"
-                android:text="1.1"/>
+                android:gravity="center" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -52,4 +57,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

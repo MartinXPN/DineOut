@@ -2,16 +2,25 @@ package com.dineoutmobile.dineout.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Point;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.Util;
+import com.squareup.picasso.Picasso;
+
+import java.util.Locale;
 
 
 public class AdapterRestaurantList extends AdapterRestaurantListSuper {
@@ -47,7 +56,7 @@ public class AdapterRestaurantList extends AdapterRestaurantListSuper {
             return;
 
         holder.name.setText( restaurantInfo.name );
-        holder.rating.setText( String.format( "%.1f", Math.random()*4 + 1 ) );
+        holder.rating.setText( String.format( Locale.ENGLISH, "%.1f", Math.random()*4 + 1 ) );
         //holder.rating.getBackground().setColorFilter(Util.calculateRatingColor( Float.parseFloat( holder.rating.getText().toString() ) ), PorterDuff.Mode.SRC );
         holder.restaurantBackground.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,17 +67,25 @@ public class AdapterRestaurantList extends AdapterRestaurantListSuper {
                 context.startActivity(i);
             }
         });
+
+        Picasso.with(context)
+                .load( restaurantInfo.backgroundPhotoURL )
+                .resize( Util.getWindowWidth( context ), Util.dpToPx( context.getResources().getDimension( R.dimen.restaurant_list_item_size ), context ) )
+                .centerInside()
+                .into( holder.restaurantBackgroundImage );
     }
 
 
     private static class ViewHolder {
 
-        LinearLayout restaurantBackground;
+        RelativeLayout restaurantBackground;
+        ImageView restaurantBackgroundImage;
         TextView name;
         TextView rating;
 
         ViewHolder( View v ) {
-            restaurantBackground = (LinearLayout) v.findViewById( R.id.restaurant_background );
+            restaurantBackground = (RelativeLayout) v.findViewById( R.id.restaurant_background );
+            restaurantBackgroundImage = (ImageView) v.findViewById( R.id.restaurant_background_image );
             name = (TextView ) v.findViewById( R.id.restaurant_name );
             rating = (TextView) v.findViewById( R.id.restaurant_rating );
         }

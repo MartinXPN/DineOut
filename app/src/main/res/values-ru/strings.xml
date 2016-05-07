@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_search_title">Поиск</string>
+    <string name="action_language_title">Язык</string>
+
+
+    <string name="nav_title_restaurant_list">Все рестораны</string>
+    <string name="nav_title_nearby">Близкие места</string>
+    <string name="nav_section_title_the_app">Проложение</string>
+    <string name="nav_title_tips">Трюки</string>
+    <string name="nav_title_help">Помошь</string>
+    <string name="nav_title_feedback">Фидбек</string>
+    <string name="nav_title_about">О нас</string>
+
+
+    <string name="view_restaurant_details_name">Детали</string>
+    <string name="restaurant_details_wifi">Wifi</string>
+    <string name="restaurant_details_private_rooms">Купэ</string>
+    <string name="restaurant_details_fourshet">Фуршеты</string>
+    <string name="restaurant_details_shipping">Доставка</string>
+    <string name="restaurant_details_credit_card">Принимает карточки</string>
+    <string name="restaurant_details_parking">Парковка</string>
+    <string name="restaurant_details_outside_seating">Outside seating</string>
+    <string name="restaurant_details_smoking_area">Места для курения</string>
+    <string name="restaurant_details_smoke_free_area">Места для некурящих</string>
+
+    <string name="restaurant_call">Позвонить</string>
+    <string name="restaurant_reserve">Зарезервировать</string>
+</resources>

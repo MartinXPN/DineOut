@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_search_title">Որոնել</string>
+    <string name="action_language_title">Լեզու</string>
+
+
+    <string name="nav_title_restaurant_list">Բոլոր Ռեստորանները</string>
+    <string name="nav_title_nearby">Մոտակա Ռեստորանները</string>
+    <string name="nav_section_title_the_app">Հավելված</string>
+    <string name="nav_title_tips">Տրյուկեր</string>
+    <string name="nav_title_help">Օգնություն</string>
+    <string name="nav_title_feedback">Ֆիդբեք</string>
+    <string name="nav_title_about">Մեր մասին</string>
+
+    <string name="view_restaurant_details_name">Մանրամասներ</string>
+    <string name="restaurant_details_wifi">Wifi</string>
+    <string name="restaurant_details_private_rooms">Կուպեներ</string>
+    <string name="restaurant_details_fourshet">Ֆուրշետներ</string>
+    <string name="restaurant_details_shipping">Առաքում</string>
+    <string name="restaurant_details_credit_card">Վճարել քարտով</string>
+    <string name="restaurant_details_parking">Կայանատեղի</string>
+    <string name="restaurant_details_outside_seating">Բացօդյա տարածք</string>
+    <string name="restaurant_details_smoking_area">Ծխողների տարածք</string>
+    <string name="restaurant_details_smoke_free_area">Չծխողների տարածք</string>
+
+    <string name="restaurant_call">Զանգահարել</string>
+    <string name="restaurant_reserve">Պատվիրել</string>
+</resources>

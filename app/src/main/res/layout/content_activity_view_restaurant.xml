@@ -6,6 +6,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="50dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.dineoutmobile.dineout.activities.ActivityViewRestaurant"
     tools:showIn="@layout/activity_view_restaurant">
@@ -25,8 +26,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/restaurant_logo"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="@dimen/restaurant_logo_size"
+                android:layout_height="@dimen/restaurant_logo_size"
                 android:src="@drawable/ic_test"
                 android:clickable="false"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -43,9 +44,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="21sp"
-                    android:textColor="#111111"
-                    android:text="Երևան Պանդոկ" />
+                    android:textSize="@dimen/text_main_title_size"
+                    android:textColor="#111111" />
 
                 <RatingBar
                     android:id="@+id/restaurant_rating"
@@ -62,8 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="normal"
-                    android:textSize="14sp"
-                    android:text="Խորոված, շաուրմա, գինի, խաշ, համեղ ուտեստներ և այլն..." />
+                    android:textSize="@dimen/text_secondary_size" />
             </LinearLayout>
         </LinearLayout>
 
@@ -86,9 +85,9 @@
             android:paddingBottom="5dp"
 
             android:textStyle="normal"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_subtitle_size"
             android:textColor="#2d2d2d"
-            android:text="Details" />
+            android:text="@string/view_restaurant_details_name" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/restaurant_details_grid"
             android:layout_width="match_parent"
@@ -107,8 +106,7 @@
 
             android:textStyle="normal"
             android:textSize="15sp"
-            android:textColor="#2d2d2d"
-            android:text="Գյուլբենկյան 21" />
+            android:textColor="#2d2d2d" />
         <!--fragment
             android:id="@+id/map"
             android:layout_width="match_parent"

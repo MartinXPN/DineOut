@@ -5,12 +5,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
+import com.dineoutmobile.dineout.ApplicationControl;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 
@@ -21,7 +21,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     private DataLoading listener;
     private static Context context;
-    public ArrayList <Bitmap> backgroundPhotos = new ArrayList<>(); /// background pictures of the restaurant -> these are displayed only in ActivityViewRestaurant
+    public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();  /// background pictures of the restaurant -> these are displayed only in ActivityViewRestaurant
     public ArrayList <String> addresses = new ArrayList<>();        /// addresses of the restaurant
 
 
@@ -53,31 +53,43 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     public enum BasicInfo {
 
-        WEBSITE( "Restaurant website", R.mipmap.ic_link, new View.OnClickListener() {
+        WORKING_HOURS( "00:00 - 00:00", R.drawable.ic_time, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openUrlInBrowser("http://www.dineoutmobile.com");
+                showDialog( "Working hours", WORKING_HOURS.description );
             }
         }),
-        MENU( "Menu", R.mipmap.ic_restaurant_menu, new View.OnClickListener() {
+        PRICE_RANGE( "100-200 $", R.drawable.ic_price, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openUrlInBrowser("http://www.dineoutmobile.com");
+                showDialog( "Price range", PRICE_RANGE.description );
             }
         }),
-        CUISINE( "Seafood, Italian, National", R.mipmap.ic_restaurant_menu, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog( "Cuisines", CUISINE.description );
-            }
-        }),
-        MUSIC("Jazz, Classic, Pop", R.mipmap.ic_music, new View.OnClickListener() {
+        MUSIC("Jazz, Classic, Pop", R.drawable.ic_music, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog( "Music", MUSIC.description );
             }
         }),
-        FEEDBACKS("Feedbacks", R.mipmap.ic_feedback_white, new View.OnClickListener() {
+        CUISINE( "Seafood, Italian, National", R.drawable.ic_restaurant_menu, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog( "Cuisines", CUISINE.description );
+            }
+        }),
+        MENU( "Menu", R.drawable.ic_restaurant_menu, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrlInBrowser("http://www.dineoutmobile.com");
+            }
+        }),
+        FEEDBACKS("Feedbacks", R.drawable.ic_feedback_white, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrlInBrowser("http://www.dineoutmobile.com");
+            }
+        }),
+        WEBSITE( "Restaurant website", R.drawable.ic_link, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUrlInBrowser("http://www.dineoutmobile.com");
@@ -96,22 +108,22 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     }
     public enum Details {
 
-        WORKING_HOURS( true, "00:00 - 00:00", R.mipmap.ic_time ),
-        PRICE_RANGE( true, "Expensive", R.mipmap.ic_price ),
-        WIFI( true, "WiFi", R.mipmap.ic_wifi ),
-        VIP( true, "VIP areas", R.mipmap.ic_vip ),
-        FOURSHET( true, "Fourshet", R.mipmap.ic_fourshet ),
-        SHIPPING( true, "Shipping", R.mipmap.ic_shipping ),
-        CREDIT_CARD( true, "Accepts credit-cards", R.mipmap.ic_credit_card ),
-        SMOKING_AREAS( true, "Smoking areas", R.mipmap.ic_smoking_area ),
-        NO_SMOKING_AREAS( true, "Smoke-free areas", R.mipmap.ic_no_smoking_area );
+        WIFI( true,             ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_wifi ),             R.drawable.ic_wifi ),
+        PRIVATE_ROOMS( true,    ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_private_rooms ),    R.drawable.ic_private_room ),
+        FOURSHET( true,         ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_fourshet ),         R.drawable.ic_fourshet ),
+        SHIPPING( true,         ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_shipping ),         R.drawable.ic_shipping ),
+        CREDIT_CARD( true,      ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_credit_card ),      R.drawable.ic_credit_card ),
+        PARKING( true,          ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_parking ),          R.drawable.ic_parking ),
+        OUTSIDE_SEATING( true,  ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_outside_seating ),  R.drawable.ic_nature ),
+        SMOKING_AREAS( true,    ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_smoking_area ),     R.mipmap.ic_smoking_area ),
+        SMOKE_FREE_AREAS( true, ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_smoke_free_area ),  R.mipmap.ic_smoke_free_area);
 
         public boolean supported;
         public String description;
         public int resource;
 
-        Details(boolean has, String description, int resource) {
-            this.supported = has;
+        Details(boolean supported, String description, int resource) {
+            this.supported = supported;
             this.description = description;
             this.resource = resource;
         }

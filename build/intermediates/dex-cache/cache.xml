@@ -40,7 +40,7 @@
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="06218912cc30d74b6cd39b13cd2d6a9ae0dd0d79">
+        sha1="ad038fb989c621d0ba2a6f09c0617f37fda49ee2">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_170a05a0f0ec70e2725323e5615b0daf548083c8\classes.dex" />
     </item>
     <item
@@ -54,7 +54,7 @@
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="f62e63bce89648558e85ddd0a97233cb1c9dfd98">
+        sha1="04bcbd4199766284aef7302f09490ff9e26f471a">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_88cd2172cde001f0ed17c98b218b7cc6c199da0d\classes.dex" />
     </item>
     <item
@@ -70,6 +70,13 @@
         revision="23.0.3"
         sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
         <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_d72b60b20023e24780edc0d9ce3f136bd79e5e14\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\USER\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_596b4e77fa0209008cb500ba04c21d575d754025\classes.dex" />
     </item>
     <item
         jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"

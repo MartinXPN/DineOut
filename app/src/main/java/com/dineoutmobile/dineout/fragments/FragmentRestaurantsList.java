@@ -25,7 +25,7 @@ import com.dineoutmobile.dineout.adapters.AdapterRestaurantList;
 import com.dineoutmobile.dineout.util.Util;
 
 
-public class FragmentRestaurantsList extends     Fragment
+public class FragmentRestaurantsList extends    Fragment
                                     implements  SwipeRefreshLayout.OnRefreshListener,
                                                 SearchView.OnQueryTextListener {
 
@@ -78,7 +78,7 @@ public class FragmentRestaurantsList extends     Fragment
     }
 
 
-    public void updateCurrentContent() {
+    public void recreate() {
 
         FragmentManager manager = getActivity().getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
@@ -115,6 +115,9 @@ public class FragmentRestaurantsList extends     Fragment
         if( Util.getLanguage( getActivity() ) == language )
             return;
         Util.setLanguage( language, getActivity() );
+
+        /// recreate the whole activity
+        getActivity().recreate();
 
 
         /// get the information one for time because the language is changed
@@ -159,7 +162,7 @@ public class FragmentRestaurantsList extends     Fragment
 
         Log.d( "FragmentRG", "menu item selected -> " + item.getItemId() );
         int id = item.getItemId();
-        if( id == R.id.action_view_type)        { setShowAsGrid( !showAsGrid );     updateCurrentContent();     return true; }
+        if( id == R.id.action_view_type)        { setShowAsGrid( !showAsGrid );     recreate();     return true; }
         if( id == R.id.action_language_arm )    { setLanguage( Util.Language.HY );  return true; }
         if( id == R.id.action_language_rus )    { setLanguage( Util.Language.RU );  return true; }
         if( id == R.id.action_language_eng )    { setLanguage( Util.Language.EN );  return true; }
