@@ -28,9 +28,18 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private final Context mContext;
 
 
-    public void getRestaurantFullInfo( long id, String language, RestaurantFullInfo restaurant ) {
+    public void getRestaurantFullInfo( String language, RestaurantFullInfo restaurant ) {
 
         SQLiteDatabase db = getReadableDatabase();
+        String columns = "id,name_"+language +
+                "," +
+                "rating,address,logo_file,shortinfo,phone1,phone2,phone3, work_hours,";
+        columns +=       "id_musictype, id_cuisines, menuurl, website,wifi, cubicles, furshet, shipping, acceptcards, "
+                +        "parking, inoutside, smoking, nosmoking,rest_info.background_file";
+        String query = "select " + columns + "  from rest_addr " +
+                "left join rest_info on  rest_addr.id=rest_info.id " +
+                "left join rest_names on  rest_addr.id=rest_names.id " +
+                "where rest_addr.uid=26";
         Cursor cursor = db.rawQuery( "SELECT name_" + language + " FROM rest_name", null );
         cursor.moveToFirst();
 
@@ -45,13 +54,24 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         ArrayList <RestaurantBasicInfo> res = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery( "SELECT name_" + language + " FROM rest_name", null );
+        String col_id = "id";
+        String col_name = "name_"+language;
+        String col_rating = "rating";
+        String col_logo_file = "logo_file";
+        String col_background = "background_file";
+        String columns = col_id+"," + col_name +"," +col_rating +"," + col_logo_file +"," + col_background;
+                String joinRestInfo = "join rest_info on rest_names.id=rest_info.id";
+        Cursor cursor = db.rawQuery( "SELECT " + columns + " FROM rest_names" + joinRestInfo, null );
         cursor.moveToFirst();
 
         while( !cursor.isAfterLast() ) {
 
             RestaurantBasicInfo restaurant = new RestaurantBasicInfo();
-            restaurant.name = cursor.getString( cursor.getColumnIndex( "name_" + language ) );
+            restaurant.id = cursor.getInt(cursor.getColumnIndex(col_id));
+            restaurant.name = cursor.getString( cursor.getColumnIndex( col_name ) );
+            restaurant.rating = cursor.getFloat( cursor.getColumnIndex( col_rating ) );
+            restaurant.logoURL = cursor.getString( cursor.getColumnIndex( col_logo_file ) );
+            restaurant.backgroundPhotoURL = cursor.getString( cursor.getColumnIndex( col_background ) );
 
             res.add( restaurant );
             cursor.moveToNext();
@@ -60,6 +80,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
         cursor.close();
         return res;
     }
+
+
+
+    public void loadAllAdresses(long id, String language, RestaurantFullInfo info) {
+        String columns  = "uid,address";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery( "SELECT " + columns + " FROM rest_addr where id=" + Long.toString(info.id) , null );
+        cursor.moveToFirst();
+
+        while( !cursor.isAfterLast() ) {
+            info.allAddresses.add(cursor.getString( cursor.getColumnIndex( "address")));
+            info.uids.add(cursor.getLong(cursor.getColumnIndex( "uid" )));
+        }
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private static DatabaseHelper selfReference  = null;
@@ -143,4 +178,5 @@ public class DatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
+
 }

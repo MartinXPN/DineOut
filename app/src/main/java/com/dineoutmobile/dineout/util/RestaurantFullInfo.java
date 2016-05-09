@@ -24,6 +24,9 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();  /// background pictures of the restaurant -> these are displayed only in ActivityViewRestaurant
     public String address;
     public ArrayList <String> allAddresses = new ArrayList<>();        /// addresses of the restaurant
+    public ArrayList <Long> uids = new ArrayList<>();        /// addresses of the restaurant
+    Long uid= -1l;
+
 
 
     public RestaurantFullInfo( Context context ) {
@@ -139,8 +142,9 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
 
 
-    public void loadData( long id ) {
+    public void loadData( long id) {
         this.id = id;
+
         GetRestaurantFullInfoTask getRestaurantFullInfoTask = new GetRestaurantFullInfoTask();
         getRestaurantFullInfoTask.execute();
     }
@@ -153,9 +157,11 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
         @Override
         protected Object doInBackground(Object... params) {
+            db.loadAllAdresses(id, Util.getLanguage( context ).languageLocale,  RestaurantFullInfo.this);
+            calculatePreferredAddress();
 
             Log.d( "RestaurantFI", "started to load data" );
-            db.getRestaurantFullInfo( id, Util.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
+            db.getRestaurantFullInfo( Util.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
             return null;
         }
 
@@ -165,5 +171,10 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             Log.d( "RestaurantFI", "finished loading data" );
             listener.onDataLoaded();
         }
+    }
+
+    private void calculatePreferredAddress() {
+        uid = uids.get(0);
+        address = allAddresses.get(0);
     }
 }

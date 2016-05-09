@@ -25,6 +25,7 @@ import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
+import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
@@ -35,10 +36,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ActivityViewRestaurant extends AppCompatActivity implements RestaurantFullInfo.DataLoading {
 
 
-    private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo( this );
-    private AdapterRestaurantDetailsGrid adapterRestaurantDetailsGrid = new AdapterRestaurantDetailsGrid( this, restaurantInfo );
-    private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid( this, restaurantInfo );
-    private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager( this, restaurantInfo );
+    private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
+    private AdapterRestaurantDetailsGrid adapterRestaurantDetailsGrid = new AdapterRestaurantDetailsGrid(this, restaurantInfo);
+    private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this, restaurantInfo);
+    private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this, restaurantInfo);
     private long id;
     private boolean isLoaded = false;
 
@@ -50,11 +51,11 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
         /// initialize restaurant information
         Bundle extras = getIntent().getExtras();
-        id = extras.getLong( Util.Tags.BUNDLE_RESTAURANT_ID);
-        Log.d( "ActivityVR", "created, id = " + id );
-        if( !isLoaded ) {
-            Log.d( "Data", "is not loaded" );
-            restaurantInfo.loadData( id );
+        id = extras.getLong(Util.Tags.BUNDLE_RESTAURANT_ID);
+        Log.d("ActivityVR", "created, id = " + id);
+        if (!isLoaded) {
+            Log.d("Data", "is not loaded");
+            restaurantInfo.loadData(id);
             isLoaded = true;
         }
 
@@ -66,15 +67,14 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
         /// initialize restaurant photo pager
-        final ViewPager restaurantPhotoPager = (ViewPager) findViewById( R.id.restaurant_photos_pager );
+        final ViewPager restaurantPhotoPager = (ViewPager) findViewById(R.id.restaurant_photos_pager);
         assert restaurantPhotoPager != null;
-        restaurantPhotoPager.setAdapter( adapterRestaurantImagePager );
+        restaurantPhotoPager.setAdapter(adapterRestaurantImagePager);
 
         /// initialize restaurant photo page indicator
-        final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById( R.id.indicator );
+        final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         assert pageIndicator != null;
-        pageIndicator.setViewPager( restaurantPhotoPager );
-
+        pageIndicator.setViewPager(restaurantPhotoPager);
 
 
         /// initialize 360 photo-sphere button
@@ -83,7 +83,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText( ActivityViewRestaurant.this, "NO!", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(ActivityViewRestaurant.this, "NO!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,16 +100,15 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         });
 
 
-        final NestedScrollView nestedScrollView = (NestedScrollView) findViewById( R.id.nestedscrollview);
+        final NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nestedscrollview);
         assert nestedScrollView != null;
         nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if( scrollY - oldScrollY > 0 ) {
+                if (scrollY - oldScrollY > 0) {
                     fab.hide();
                     call.hide();
-                }
-                else if( scrollY - oldScrollY < 0 ) {
+                } else if (scrollY - oldScrollY < 0) {
                     fab.show();
                     call.show();
                 }

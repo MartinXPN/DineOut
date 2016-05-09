@@ -2,6 +2,7 @@ package com.dineoutmobile.dineout.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,14 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
         return convertView;
     }
 
+    private String getUrl(String lfn) {
+        if(lfn == null || lfn.isEmpty()) {
+            return "http://dineoutmobile.com/images/placeholder.png";
+        } else {
+            return "http://dineoutmobile.com/images/" + lfn ;
+        }
+    }
+
 
     private void setValues(ViewHolder holder, final RestaurantBasicInfo restaurantInfo ) {
 
@@ -61,9 +70,11 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
                 context.startActivity(i);
             }
         });
+        String imgurl = getUrl(restaurantInfo.logoURL);
 
         Picasso.with(context)
-                .load( restaurantInfo.logoURL )
+                .load( imgurl )
+                .placeholder(ContextCompat.getDrawable(context,R.drawable.placeholder))
                 .resizeDimen( R.dimen.restaurant_grid_item_size, R.dimen.restaurant_grid_item_size )
                 .centerInside()
                 .into( holder.logo );
