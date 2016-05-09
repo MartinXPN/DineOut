@@ -1,12 +1,14 @@
 package com.dineoutmobile.dineout.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +38,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo( this );
     private AdapterRestaurantDetailsGrid adapterRestaurantDetailsGrid = new AdapterRestaurantDetailsGrid( this, restaurantInfo );
     private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid( this, restaurantInfo );
-    private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager( this );
+    private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager( this, restaurantInfo );
     private long id;
     private boolean isLoaded = false;
 
@@ -76,17 +78,41 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
         /// initialize 360 photo-sphere button
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_show_directions);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.reserve);
         assert fab != null;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "This restaurant doesn't have 360 photo-sphere", Snackbar.LENGTH_LONG).setAction("ADD", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText( ActivityViewRestaurant.this, "NO!", Toast.LENGTH_SHORT ).show();
-                    }
-                }).show();
+                Toast.makeText( ActivityViewRestaurant.this, "NO!", Toast.LENGTH_SHORT ).show();
+            }
+        });
+
+        /// initialize 360 photo-sphere button
+        final FloatingActionButton call = (FloatingActionButton) findViewById(R.id.call);
+        assert call != null;
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + restaurantInfo.phoneNumber));
+                startActivity(intent);
+            }
+        });
+
+
+        final NestedScrollView nestedScrollView = (NestedScrollView) findViewById( R.id.nestedscrollview);
+        assert nestedScrollView != null;
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if( scrollY - oldScrollY > 0 ) {
+                    fab.hide();
+                    call.hide();
+                }
+                else if( scrollY - oldScrollY < 0 ) {
+                    fab.show();
+                    call.show();
+                }
             }
         });
 
@@ -156,7 +182,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         assert restaurantRating != null;
         restaurantRating.setRating( restaurantInfo.rating );
 
-        /// initialize restaurant description
+        /// initialize restaurant descriptionResId
         final TextView restaurantDescription = (TextView) findViewById( R.id.restaurant_description );
         assert restaurantDescription != null;
         restaurantDescription.setText( restaurantInfo.description );

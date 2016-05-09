@@ -43,7 +43,7 @@ public class AdapterRestaurantDetailsGrid extends RecyclerView.Adapter<AdapterRe
         if( RestaurantFullInfo.Details.values()[position].supported )   holder.image.setBackgroundResource( R.drawable.circle_green );
         else                                                            holder.image.setBackgroundResource( R.drawable.circle_red );
 
-        holder.description.setText( RestaurantFullInfo.Details.values()[position].description );
+        holder.description.setText( context.getResources().getString( RestaurantFullInfo.Details.values()[position].descriptionResId ) );
     }
 
     @Override

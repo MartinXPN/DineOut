@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
-import com.dineoutmobile.dineout.ApplicationControl;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 
@@ -21,14 +20,22 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     private DataLoading listener;
     private static Context context;
+    public String phoneNumber = "+37499029090";
     public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();  /// background pictures of the restaurant -> these are displayed only in ActivityViewRestaurant
-    public ArrayList <String> addresses = new ArrayList<>();        /// addresses of the restaurant
+    public String address;
+    public ArrayList <String> allAddresses = new ArrayList<>();        /// addresses of the restaurant
 
 
     public RestaurantFullInfo( Context context ) {
         Log.d( "RestaurantFI", "created" );
         RestaurantFullInfo.context = context;
         listener = (DataLoading) context;
+
+        backgroundPhotoURLs.clear();
+        backgroundPhotoURLs.add( "https://www.lenordik.com/app/assets/media/generated/55afa22ff1c80bb4097cb1349324a8fc1320719438_gallery_gallery.jpg?1335469974" );
+        backgroundPhotoURLs.add( "http://www.julios.co.za/wp-content/uploads/2012/10/restaurant.jpeg" );
+        backgroundPhotoURLs.add( "http://thebestoffiji.com/wp-content/uploads/2016/02/restaurants-005.jpg" );
+        backgroundPhotoURLs.add( "http://www.maiyango.com/images/homeselect/restaurant-002.jpg" );
     }
     public interface DataLoading {
         void onDataLoaded();
@@ -108,23 +115,23 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     }
     public enum Details {
 
-        WIFI( true,             ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_wifi ),             R.drawable.ic_wifi ),
-        PRIVATE_ROOMS( true,    ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_private_rooms ),    R.drawable.ic_private_room ),
-        FOURSHET( true,         ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_fourshet ),         R.drawable.ic_fourshet ),
-        SHIPPING( true,         ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_shipping ),         R.drawable.ic_shipping ),
-        CREDIT_CARD( true,      ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_credit_card ),      R.drawable.ic_credit_card ),
-        PARKING( true,          ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_parking ),          R.drawable.ic_parking ),
-        OUTSIDE_SEATING( true,  ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_outside_seating ),  R.drawable.ic_nature ),
-        SMOKING_AREAS( true,    ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_smoking_area ),     R.mipmap.ic_smoking_area ),
-        SMOKE_FREE_AREAS( true, ApplicationControl.getAppContext().getResources().getString( R.string.restaurant_details_smoke_free_area ),  R.mipmap.ic_smoke_free_area);
+        WIFI( true, R.string.restaurant_details_wifi, R.drawable.ic_wifi ),
+        PRIVATE_ROOMS( true,R.string.restaurant_details_private_rooms, R.drawable.ic_private_room ),
+        FOURSHET( true, R.string.restaurant_details_fourshet, R.drawable.ic_fourshet ),
+        SHIPPING( true, R.string.restaurant_details_shipping, R.drawable.ic_shipping ),
+        CREDIT_CARD( true, R.string.restaurant_details_credit_card, R.drawable.ic_credit_card ),
+        PARKING( true, R.string.restaurant_details_parking, R.drawable.ic_parking ),
+        OUTSIDE_SEATING( true, R.string.restaurant_details_outside_seating, R.drawable.ic_nature ),
+        SMOKING_AREAS( true, R.string.restaurant_details_smoking_area, R.mipmap.ic_smoking_area ),
+        SMOKE_FREE_AREAS( true, R.string.restaurant_details_smoke_free_area, R.mipmap.ic_smoke_free_area);
 
         public boolean supported;
-        public String description;
+        public int descriptionResId;
         public int resource;
 
-        Details(boolean supported, String description, int resource) {
+        Details(boolean supported, int description, int resource) {
             this.supported = supported;
-            this.description = description;
+            this.descriptionResId = description;
             this.resource = resource;
         }
     }

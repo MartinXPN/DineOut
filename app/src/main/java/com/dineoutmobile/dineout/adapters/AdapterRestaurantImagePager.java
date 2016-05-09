@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -16,10 +17,11 @@ import com.squareup.picasso.Picasso;
 public class AdapterRestaurantImagePager extends PagerAdapter {
 
     private Context context;
-    private static int NUMBER_OF_PAGES = 5;
+    private RestaurantFullInfo restaurantInfo;
 
-    public AdapterRestaurantImagePager(Context context) {
+    public AdapterRestaurantImagePager(Context context, RestaurantFullInfo restaurantFullInfo) {
         this.context = context;
+        this.restaurantInfo = restaurantFullInfo;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class AdapterRestaurantImagePager extends PagerAdapter {
 
         ImageView image = (ImageView) layout.findViewById( R.id.restaurant_photo );
         Picasso.with(context)
-                .load(R.drawable.restaurant_background_image)
+                .load( restaurantInfo.backgroundPhotoURLs.get( position ) )
                 .resize( Util.getWindowWidth( context ), Util.dpToPx( context.getResources().getDimension( R.dimen.restaurant_background_photo_height ), context ) )
                 .centerInside()
                 .into(image);
@@ -49,7 +51,9 @@ public class AdapterRestaurantImagePager extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return NUMBER_OF_PAGES;
+        if( restaurantInfo == null )                        return 0;
+        if( restaurantInfo.backgroundPhotoURLs == null )    return 0;
+        return restaurantInfo.backgroundPhotoURLs.size();
     }
 
     @Override

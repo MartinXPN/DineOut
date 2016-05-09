@@ -2,95 +2,95 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\USER\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_6dcf9eac3454314276824f49e455ade43d0bf3b1\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_078e302f2d8d4ead63462a23ce31f5261a7b3a86\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_d751b5da87e07c565bd8f9be186ce2d0fb7ced55\classes.dex" />
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_1bebd76e92c4074d4d745eeac7fda19e25c6e3bf\classes.dex" />
     </item>
     <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.3.0_58352c1cf2fc15980b376b0cb73168832a0b2f01\classes.dex" />
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.3.0_50d0e8048890838272812f81529c11f6ae8fd126\classes.dex" />
     </item>
     <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="debf30ce0a7560396b6235edef77e447006454c2">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.3.0_cda2d4fc0f58405c19660b699e9cf2bf11f9ee7b\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="ad038fb989c621d0ba2a6f09c0617f37fda49ee2">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_170a05a0f0ec70e2725323e5615b0daf548083c8\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.githang\viewpagerindicator\2.4.2\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="a9346b378b1040c324f40c5c01b2efb739e90462">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.githang-viewpagerindicator-2.4.2_4de2bcb1957f4101d39b9e14f79065f893f18fdc\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="04bcbd4199766284aef7302f09490ff9e26f471a">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_88cd2172cde001f0ed17c98b218b7cc6c199da0d\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_dc78ea05f38830de0502fdb2bff96a552768e775\classes.dex" />
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_bf601c17448299ec5a3cb13d26646d0ae370e053\classes.dex" />
     </item>
     <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="e09999d4f00ac32a9e761ee48764e860fbb95463">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cc88ca1d98a31e9d2d9aec04cdf090e40bf47e46\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_d72b60b20023e24780edc0d9ce3f136bd79e5e14\classes.dex" />
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_873e8609caffc6bef3c7c20cc9fc336d552ed8ae\classes.dex" />
     </item>
     <item
-        jar="C:\Users\USER\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.3.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_596b4e77fa0209008cb500ba04c21d575d754025\classes.dex" />
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.3.0_19ad4730ed7d5e0fa306fc2611332784b5144567\classes.dex" />
     </item>
     <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_174121e8ebfd6ad2ce2d661a553da8f0b5cd72c1\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_3e5ea19a5432613bb005dd2cb0c0623e601eecd7\classes.dex" />
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_c740705e6bc7b88e522b8936afcada15729859fc\classes.dex" />
     </item>
     <item
-        jar="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.0.0\jars\classes.jar"
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.githang\viewpagerindicator\2.4.2\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a9346b378b1040c324f40c5c01b2efb739e90462">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.githang-viewpagerindicator-2.4.2_0449cd947aee9aec1d04165d0e95fbeb7efbb584\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.0.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
-        <dex dex="C:\Users\USER\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\de.hdodenhof-circleimageview-2.0.0_199d4a96c1120614cda40ace8ff111c297e0b9e9\classes.dex" />
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\de.hdodenhof-circleimageview-2.0.0_7e4d53186fe1981fad12d829f963a777bf159a3f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_36bab43d7ecde21f215c037cef19a097deb9503e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_5c12a089e05e92e2144ac33e9e6e6bec8ed89e9c\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="7b0e4e86caa3a3b57bf911105ab0f9370d6ebb15">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_93c1a7fd5b9ba717449e23cffabe285c970e3a3a\classes.dex" />
     </item>
 
 </items>
