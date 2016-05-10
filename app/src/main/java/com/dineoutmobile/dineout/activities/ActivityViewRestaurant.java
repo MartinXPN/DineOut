@@ -131,6 +131,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
     public void onDataLoaded() {
         adapterRestaurantDetailsGrid.notifyDataSetChanged();
         adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
+        adapterRestaurantImagePager.notifyDataSetChanged();
         Log.d( "ActivityVR", "data loaded" );
         initialize();
     }
@@ -174,6 +175,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         /// initialize restaurant rating
         final RatingBar restaurantRating = (RatingBar) findViewById( R.id.restaurant_rating );
         assert restaurantRating != null;
+        if( restaurantInfo.rating <= 5 )
         restaurantRating.setRating( restaurantInfo.rating );
 
         /// initialize restaurant descriptionResId
@@ -184,10 +186,13 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
         int px = Util.dpToPx( getResources().getDimension( R.dimen.restaurant_detail_grid_item_size), this );
-        int itemWidth = Util.getWindowWidth( this ) / px;
+        int numberOfItems = Util.getWindowWidth( this ) / Util.dpToPx( 100, this );
+        //int numberOfItems = Util.getWindowWidth( this ) / px;
+        Log.d( "ActivityVR", "grid numberOfItems = " + numberOfItems );
+        Log.d( "ActivityVR", "grid item width = " + getResources().getDimension( R.dimen.restaurant_detail_grid_item_size) );
 
         /// initialize restaurant basic info grid
-        GridLayoutManager restaurantDescriptionListLayoutManager = new GridLayoutManager(this, itemWidth);
+        GridLayoutManager restaurantDescriptionListLayoutManager = new GridLayoutManager(this, numberOfItems);
         restaurantDescriptionListLayoutManager.setAutoMeasureEnabled( true );
         final RecyclerView restaurantBasicInfoGrid = (RecyclerView) findViewById( R.id.restaurant_basic_info_grid );
         assert restaurantBasicInfoGrid != null;
@@ -197,7 +202,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         restaurantBasicInfoGrid.setAdapter( adapterRestaurantBasicInfoGrid );
 
         /// initialize restaurant details grid
-        GridLayoutManager restaurantDescriptionGridLayoutManager = new GridLayoutManager(this, itemWidth);
+        GridLayoutManager restaurantDescriptionGridLayoutManager = new GridLayoutManager(this, numberOfItems);
         restaurantDescriptionGridLayoutManager.setAutoMeasureEnabled( true );
         final RecyclerView restaurantDetailsGrid = (RecyclerView) findViewById( R.id.restaurant_details_grid );
         assert restaurantDetailsGrid != null;

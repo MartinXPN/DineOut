@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 
     private static final class Columns {
-        public static final String RESTAURANT_ID = "rest_info.id";
+        public static final String RESTAURANT_ID = "id";
         public static final String ADDRESS_ID = "uid";
         public static final String NAME = "name_";
         public static final String RATING = "rating";
@@ -84,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 Columns.CREDIT_CARD + "," +
                 Columns.PARKING + "," +
                 Columns.OUTSIDE_SEATING + "," +
-                Columns.SMOKING_AREAS +
+                Columns.SMOKING_AREAS + "," +
                 Columns.SMOKE_FREE_AREAS +
 
                 " FROM " + Tables.ADDRESS +
@@ -131,12 +131,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         Cursor cursor = db.rawQuery( query , null );
         cursor.moveToFirst();
+        int counter = 0;
         while( !cursor.isAfterLast() ) {
 
             Address address = new Address();
             address.id = cursor.getLong( cursor.getColumnIndex( Columns.ADDRESS_ID ) );
             address.name = cursor.getString( cursor.getColumnIndex( Columns.ADDRESS_NAME) );
             restaurantInfo.allAddresses.add( address );
+            if( ++counter == 4 )break;
         }
 
         cursor.close();
@@ -148,7 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = getReadableDatabase();
 
         String query =
-                "SELECT " +
+                "SELECT rest_info." +
                         Columns.RESTAURANT_ID + "," +
                         Columns.NAME + language + "," +
                         Columns.RATING + "," +

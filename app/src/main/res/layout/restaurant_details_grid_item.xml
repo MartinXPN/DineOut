@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:id="@+id/restaurant_details_container"
-    android:layout_width="@dimen/restaurant_detail_grid_item_width"
+    android:layout_width="@dimen/restaurant_detail_grid_item_size"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="7dp"
