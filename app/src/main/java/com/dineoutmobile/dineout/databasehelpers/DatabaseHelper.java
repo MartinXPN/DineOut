@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.dineoutmobile.dineout.util.Address;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 
@@ -28,25 +29,116 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private final Context mContext;
 
 
+    private static final class Columns {
+        public static final String RESTAURANT_ID = "rest_info.id";
+        public static final String ADDRESS_ID = "uid";
+        public static final String NAME = "name_";
+        public static final String RATING = "rating";
+        public static final String ADDRESS_NAME = "address";
+        public static final String LOGO_URL = "logo_file";
+        public static final String BACKGROUND_PHOTO_URL = "rest_info.background_file";
+        public static final String ALL_BACKGROUNDS = "rest_addr.background_file";
+        public static final String SHORT_INFO = "shortinfo";
+        public static final String PHONE_NUMBER = "phone1";
+        public static final String WORK_HOURS = "work_hours";
+        public static final String MUSIC = "id_musictype";      /// hope this will be changed
+        public static final String CUISINES = "id_cuisines";    /// hope this will be changed
+        public static final String MENU_URL = "menuurl";
+        public static final String WEBSITE_URL = "website";
+        public static final String WIFI = "wifi";
+        public static final String PRIVATE_ROOMS = "cubicles";
+        public static final String FOURSHET = "furshet";
+        public static final String SHIPPING = "shipping";
+        public static final String CREDIT_CARD = "acceptcards";
+        public static final String PARKING = "parking";
+        public static final String OUTSIDE_SEATING = "inoutside";
+        public static final String SMOKING_AREAS = "smoking";
+        public static final String SMOKE_FREE_AREAS = "nosmoking";
+    }
+    private static final class Tables {
+        public static final String ADDRESS = "rest_addr";
+        public static final String INFO = "rest_info";
+        public static final String RESTAURANT_NAMES = "rest_names";
+    }
+
+
     public void getRestaurantFullInfo( String language, RestaurantFullInfo restaurant ) {
 
         SQLiteDatabase db = getReadableDatabase();
-        String columns = "id,name_"+language +
-                "," +
-                "rating,address,logo_file,shortinfo,phone1,phone2,phone3, work_hours,";
-        columns +=       "id_musictype, id_cuisines, menuurl, website,wifi, cubicles, furshet, shipping, acceptcards, "
-                +        "parking, inoutside, smoking, nosmoking,rest_info.background_file";
-        String query = "select " + columns + "  from rest_addr " +
-                "left join rest_info on  rest_addr.id=rest_info.id " +
-                "left join rest_names on  rest_addr.id=rest_names.id " +
-                "where rest_addr.uid=26";
-        Cursor cursor = db.rawQuery( "SELECT name_" + language + " FROM rest_name", null );
+        String query = "SELECT " +
+                Columns.NAME + language + "," +
+                Columns.RATING + "," +
+                Columns.LOGO_URL + "," +
+                Columns.BACKGROUND_PHOTO_URL + "," +
+                Columns.SHORT_INFO + "," +
+                Columns.PHONE_NUMBER + "," +
+                Columns.WORK_HOURS + "," +
+                Columns.MUSIC + "," +
+                Columns.CUISINES + "," +
+                Columns.MENU_URL + "," +
+                Columns.WEBSITE_URL + "," +
+                Columns.WIFI + "," +
+                Columns.PRIVATE_ROOMS + "," +
+                Columns.FOURSHET + "," +
+                Columns.SHIPPING + "," +
+                Columns.CREDIT_CARD + "," +
+                Columns.PARKING + "," +
+                Columns.OUTSIDE_SEATING + "," +
+                Columns.SMOKING_AREAS +
+                Columns.SMOKE_FREE_AREAS +
+
+                " FROM " + Tables.ADDRESS +
+                " LEFT JOIN " + Tables.INFO + " ON rest_addr.id = rest_info.id" +
+                " LEFT JOIN " + Tables.RESTAURANT_NAMES + " ON rest_addr.id = rest_names.id " +
+                " WHERE " + Tables.ADDRESS + "." + Columns.ADDRESS_ID + "=" + restaurant.currentAddress.id;
+        Cursor cursor = db.rawQuery( query, null );
         cursor.moveToFirst();
 
         if( !cursor.isAfterLast() ) {
-            restaurant.name = cursor.getString( cursor.getColumnIndex( "name_" + language ) );
-            cursor.moveToNext();
+            restaurant.name = cursor.getString( cursor.getColumnIndex( Columns.NAME + language ) );
+            restaurant.rating = cursor.getFloat( cursor.getColumnIndex( Columns.RATING ) );
+            restaurant.logoURL = cursor.getString( cursor.getColumnIndex( Columns.LOGO_URL ) );
+            restaurant.backgroundPhotoURL = cursor.getString( cursor.getColumnIndex( Columns.BACKGROUND_PHOTO_URL ) );
+            restaurant.shortInfo = cursor.getString( cursor.getColumnIndex( Columns.SHORT_INFO ) );
+            restaurant.phoneNumber = cursor.getString( cursor.getColumnIndex( Columns.PHONE_NUMBER) );
+            RestaurantFullInfo.BasicInfo.WORKING_HOURS.description = cursor.getString( cursor.getColumnIndex( Columns.WORK_HOURS ) );
+            RestaurantFullInfo.BasicInfo.MUSIC.description = cursor.getString( cursor.getColumnIndex( Columns.MUSIC ) );
+            RestaurantFullInfo.BasicInfo.CUISINE.description = cursor.getString( cursor.getColumnIndex( Columns.CUISINES ) );
+            RestaurantFullInfo.BasicInfo.MENU.description = cursor.getString( cursor.getColumnIndex( Columns.MENU_URL ) );
+            RestaurantFullInfo.BasicInfo.WEBSITE.description = cursor.getString( cursor.getColumnIndex( Columns.WEBSITE_URL ) );
+            RestaurantFullInfo.Details.WIFI.supported = cursor.getInt( cursor.getColumnIndex( Columns.WIFI ) ) != 0;
+            RestaurantFullInfo.Details.PRIVATE_ROOMS.supported = cursor.getInt( cursor.getColumnIndex( Columns.PRIVATE_ROOMS ) ) != 0;
+            RestaurantFullInfo.Details.FOURSHET.supported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
+            RestaurantFullInfo.Details.SHIPPING.supported = cursor.getInt( cursor.getColumnIndex( Columns.SHIPPING ) ) != 0;
+            RestaurantFullInfo.Details.CREDIT_CARD.supported = cursor.getInt( cursor.getColumnIndex( Columns.CREDIT_CARD ) ) != 0;
+            RestaurantFullInfo.Details.PARKING.supported = cursor.getInt( cursor.getColumnIndex( Columns.PARKING ) ) != 0;
+            RestaurantFullInfo.Details.OUTSIDE_SEATING.supported = cursor.getInt( cursor.getColumnIndex( Columns.OUTSIDE_SEATING ) ) != 0;
+            RestaurantFullInfo.Details.SMOKING_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKING_AREAS ) ) != 0;
+            RestaurantFullInfo.Details.SMOKE_FREE_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKE_FREE_AREAS ) ) != 0;
         }
+        cursor.close();
+    }
+    public void getRestaurantAllAddresses(RestaurantFullInfo restaurantInfo) {
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query =
+                "SELECT " +
+                        Columns.ADDRESS_ID + "," +
+                        Columns.ADDRESS_NAME +
+                        " FROM " + Tables.ADDRESS +
+                        " WHERE " + Columns.RESTAURANT_ID + "=" + restaurantInfo.id;
+
+
+        Cursor cursor = db.rawQuery( query , null );
+        cursor.moveToFirst();
+        while( !cursor.isAfterLast() ) {
+
+            Address address = new Address();
+            address.id = cursor.getLong( cursor.getColumnIndex( Columns.ADDRESS_ID ) );
+            address.name = cursor.getString( cursor.getColumnIndex( Columns.ADDRESS_NAME) );
+            restaurantInfo.allAddresses.add( address );
+        }
+
         cursor.close();
     }
 
@@ -54,24 +146,29 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         ArrayList <RestaurantBasicInfo> res = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        String col_id = "id";
-        String col_name = "name_"+language;
-        String col_rating = "rating";
-        String col_logo_file = "logo_file";
-        String col_background = "background_file";
-        String columns = col_id+"," + col_name +"," +col_rating +"," + col_logo_file +"," + col_background;
-                String joinRestInfo = "join rest_info on rest_names.id=rest_info.id";
-        Cursor cursor = db.rawQuery( "SELECT " + columns + " FROM rest_names" + joinRestInfo, null );
+
+        String query =
+                "SELECT " +
+                        Columns.RESTAURANT_ID + "," +
+                        Columns.NAME + language + "," +
+                        Columns.RATING + "," +
+                        Columns.LOGO_URL + "," +
+                        Columns.BACKGROUND_PHOTO_URL +
+
+                " FROM " + Tables.RESTAURANT_NAMES +
+                " JOIN " + Tables.INFO + " ON rest_names.id=rest_info.id";
+
+        Cursor cursor = db.rawQuery( query, null );
         cursor.moveToFirst();
 
         while( !cursor.isAfterLast() ) {
 
             RestaurantBasicInfo restaurant = new RestaurantBasicInfo();
-            restaurant.id = cursor.getInt(cursor.getColumnIndex(col_id));
-            restaurant.name = cursor.getString( cursor.getColumnIndex( col_name ) );
-            restaurant.rating = cursor.getFloat( cursor.getColumnIndex( col_rating ) );
-            restaurant.logoURL = cursor.getString( cursor.getColumnIndex( col_logo_file ) );
-            restaurant.backgroundPhotoURL = cursor.getString( cursor.getColumnIndex( col_background ) );
+            restaurant.id = cursor.getInt( cursor.getColumnIndex( Columns.RESTAURANT_ID) );
+            restaurant.name = cursor.getString( cursor.getColumnIndex( Columns.NAME + language ) );
+            restaurant.rating = cursor.getFloat( cursor.getColumnIndex( Columns.RATING ) );
+            restaurant.logoURL = cursor.getString( cursor.getColumnIndex( Columns.LOGO_URL) );
+            restaurant.backgroundPhotoURL = cursor.getString( cursor.getColumnIndex( Columns.BACKGROUND_PHOTO_URL) );
 
             res.add( restaurant );
             cursor.moveToNext();
@@ -83,17 +180,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 
 
-    public void loadAllAdresses(long id, String language, RestaurantFullInfo info) {
-        String columns  = "uid,address";
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery( "SELECT " + columns + " FROM rest_addr where id=" + Long.toString(info.id) , null );
-        cursor.moveToFirst();
-
-        while( !cursor.isAfterLast() ) {
-            info.allAddresses.add(cursor.getString( cursor.getColumnIndex( "address")));
-            info.uids.add(cursor.getLong(cursor.getColumnIndex( "uid" )));
-        }
-    }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -21,12 +21,10 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     private DataLoading listener;
     private static Context context;
     public String phoneNumber = "+37499029090";
-    public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();  /// background pictures of the restaurant -> these are displayed only in ActivityViewRestaurant
-    public String address;
-    public ArrayList <String> allAddresses = new ArrayList<>();        /// addresses of the restaurant
-    public ArrayList <Long> uids = new ArrayList<>();        /// addresses of the restaurant
-    Long uid= -1l;
-
+    public String shortInfo;
+    public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();
+    public Address currentAddress;
+    public ArrayList <Address> allAddresses = new ArrayList<>();
 
 
     public RestaurantFullInfo( Context context ) {
@@ -157,10 +155,10 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
         @Override
         protected Object doInBackground(Object... params) {
-            db.loadAllAdresses(id, Util.getLanguage( context ).languageLocale,  RestaurantFullInfo.this);
-            calculatePreferredAddress();
 
             Log.d( "RestaurantFI", "started to load data" );
+            db.getRestaurantAllAddresses( RestaurantFullInfo.this );
+            currentAddress = getPreferredAddress();
             db.getRestaurantFullInfo( Util.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
             return null;
         }
@@ -173,8 +171,8 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         }
     }
 
-    private void calculatePreferredAddress() {
-        uid = uids.get(0);
-        address = allAddresses.get(0);
+
+    private Address getPreferredAddress() {
+        return allAddresses.get( 0 );
     }
 }

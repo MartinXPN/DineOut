@@ -14,7 +14,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RatingBar;
@@ -25,7 +24,6 @@ import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
-import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
@@ -151,9 +149,6 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
     public void initialize() {
 
-        float ht_px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());  /// TODO replace 120 by getResources().getDimension...
-        int itemWidth = (int) (getWindowManager().getDefaultDisplay().getWidth() / ht_px);
-
         /// make collapsing toolbar show title only when it is collapsed
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         assert collapsingToolbarLayout != null;
@@ -186,6 +181,10 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         assert restaurantDescription != null;
         restaurantDescription.setText( restaurantInfo.description );
 
+
+
+        int px = Util.dpToPx( getResources().getDimension( R.dimen.restaurant_detail_grid_item_size), this );
+        int itemWidth = Util.getWindowWidth( this ) / px;
 
         /// initialize restaurant basic info grid
         GridLayoutManager restaurantDescriptionListLayoutManager = new GridLayoutManager(this, itemWidth);

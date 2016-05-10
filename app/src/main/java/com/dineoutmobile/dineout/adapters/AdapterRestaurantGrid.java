@@ -22,6 +22,7 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
 
     ViewHolder holder;
 
+
     public AdapterRestaurantGrid( Context context ) {
         super( context );
     }
@@ -44,14 +45,6 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
         return convertView;
     }
 
-    private String getUrl(String lfn) {
-        if(lfn == null || lfn.isEmpty()) {
-            return "http://dineoutmobile.com/images/placeholder.png";
-        } else {
-            return "http://dineoutmobile.com/images/" + lfn ;
-        }
-    }
-
 
     private void setValues(ViewHolder holder, final RestaurantBasicInfo restaurantInfo ) {
 
@@ -59,7 +52,7 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
             return;
 
         holder.name.setText( restaurantInfo.name );
-        holder.rating.setText( String.format( "%.1f", Math.random()*4 + 1 ) );
+        holder.rating.setText( String.valueOf( restaurantInfo.rating ) );
         //holder.rating.getBackground().setColorFilter(Util.calculateRatingColor( Float.parseFloat( holder.rating.getText().toString() ) ), PorterDuff.Mode.SRC );
         holder.gridItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +63,10 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
                 context.startActivity(i);
             }
         });
-        String imgurl = getUrl(restaurantInfo.logoURL);
 
         Picasso.with(context)
-                .load( imgurl )
-                .placeholder(ContextCompat.getDrawable(context,R.drawable.placeholder))
+                .load( getImageURL( restaurantInfo.logoURL ) )
+                .placeholder( ContextCompat.getDrawable( context,R.drawable.placeholder ) )
                 .resizeDimen( R.dimen.restaurant_grid_item_size, R.dimen.restaurant_grid_item_size )
                 .centerInside()
                 .into( holder.logo );
