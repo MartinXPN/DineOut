@@ -30,7 +30,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 
     private static final class Columns {
-        public static final String RESTAURANT_ID = "id";
+        public static final String NAME_ID = "rest_names.id";
+        public static final String INFO_ID = "rest_info.id";
+        public static final String ADDRESS_ID_OF_RESTAURANT = "rest_addr.id";
         public static final String ADDRESS_ID = "uid";
         public static final String NAME = "name_";
         public static final String RATING = "rating";
@@ -88,9 +90,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 Columns.SMOKE_FREE_AREAS +
 
                 " FROM " + Tables.ADDRESS +
-                " LEFT JOIN " + Tables.INFO + " ON rest_addr.id = rest_info.id" +
-                " LEFT JOIN " + Tables.RESTAURANT_NAMES + " ON rest_addr.id = rest_names.id " +
-                " WHERE " + Tables.ADDRESS + "." + Columns.ADDRESS_ID + "=" + restaurant.currentAddress.id;
+                " LEFT JOIN " + Tables.INFO + " ON " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + Columns.INFO_ID +
+                " LEFT JOIN " + Tables.RESTAURANT_NAMES + " ON " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + Columns.NAME_ID +
+                " WHERE " +  Columns.ADDRESS_ID + "=" + restaurant.currentAddress.id + ";";
         Cursor cursor = db.rawQuery( query, null );
         cursor.moveToFirst();
 
@@ -126,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                         Columns.ADDRESS_ID + "," +
                         Columns.ADDRESS_NAME +
                         " FROM " + Tables.ADDRESS +
-                        " WHERE " + Columns.RESTAURANT_ID + "=" + restaurantInfo.id;
+                        " WHERE " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + restaurantInfo.id + ";";
 
 
         Cursor cursor = db.rawQuery( query , null );
@@ -136,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
             Address address = new Address();
             address.id = cursor.getLong( cursor.getColumnIndex( Columns.ADDRESS_ID ) );
-            address.name = cursor.getString( cursor.getColumnIndex( Columns.ADDRESS_NAME) );
+            address.name = cursor.getString( cursor.getColumnIndex( Columns.ADDRESS_NAME ) );
             restaurantInfo.allAddresses.add( address );
             if( ++counter == 4 )break;
         }
@@ -150,15 +152,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = getReadableDatabase();
 
         String query =
-                "SELECT rest_info." +
-                        Columns.RESTAURANT_ID + "," +
+                "SELECT " +
+                        Columns.INFO_ID + "," +
                         Columns.NAME + language + "," +
                         Columns.RATING + "," +
                         Columns.LOGO_URL + "," +
                         Columns.BACKGROUND_PHOTO_URL +
 
                 " FROM " + Tables.RESTAURANT_NAMES +
-                " JOIN " + Tables.INFO + " ON rest_names.id=rest_info.id";
+                " JOIN " + Tables.INFO + " ON " + Columns.NAME_ID + "=" + Columns.INFO_ID + ";";
 
         Cursor cursor = db.rawQuery( query, null );
         cursor.moveToFirst();
@@ -166,7 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         while( !cursor.isAfterLast() ) {
 
             RestaurantBasicInfo restaurant = new RestaurantBasicInfo();
-            restaurant.id = cursor.getInt( cursor.getColumnIndex( Columns.RESTAURANT_ID) );
+            restaurant.id = cursor.getInt( cursor.getColumnIndex( Columns.NAME_ID) );
             restaurant.name = cursor.getString( cursor.getColumnIndex( Columns.NAME + language ) );
             restaurant.rating = cursor.getFloat( cursor.getColumnIndex( Columns.RATING ) );
             restaurant.logoURL = cursor.getString( cursor.getColumnIndex( Columns.LOGO_URL) );
