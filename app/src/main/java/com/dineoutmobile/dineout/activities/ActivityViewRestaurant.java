@@ -1,12 +1,16 @@
 package com.dineoutmobile.dineout.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -16,16 +20,25 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
-import com.dineoutmobile.dineout.adapters.AdapterRestaurantDetailsGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
+import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
+import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -35,11 +48,13 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
-    private AdapterRestaurantDetailsGrid adapterRestaurantDetailsGrid = new AdapterRestaurantDetailsGrid(this, restaurantInfo);
+    private AdapterRestaurantServicesGrid adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid(this, restaurantInfo);
     private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this, restaurantInfo);
     private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this, restaurantInfo);
     private long id;
     private boolean isLoaded = false;
+    private GoogleMap mMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,60 +73,10 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         }
 
         /// initialize actionbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        /// initialize restaurant photo pager
-        final ViewPager restaurantPhotoPager = (ViewPager) findViewById(R.id.restaurant_photos_pager);
-        assert restaurantPhotoPager != null;
-        restaurantPhotoPager.setAdapter(adapterRestaurantImagePager);
-
-        /// initialize restaurant photo page indicator
-        final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        assert pageIndicator != null;
-        pageIndicator.setViewPager(restaurantPhotoPager);
-
-
-        /// initialize 360 photo-sphere button
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.reserve);
-        assert fab != null;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ActivityViewRestaurant.this, "NO!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        /// initialize 360 photo-sphere button
-        final FloatingActionButton call = (FloatingActionButton) findViewById(R.id.call);
-        assert call != null;
-        call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + restaurantInfo.phoneNumber));
-                startActivity(intent);
-            }
-        });
-
-
-        final NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nestedscrollview);
-        assert nestedScrollView != null;
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY - oldScrollY > 0) {
-                    fab.hide();
-                    call.hide();
-                } else if (scrollY - oldScrollY < 0) {
-                    fab.show();
-                    call.show();
-                }
-            }
-        });
 
 
         initialize();
@@ -129,7 +94,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
     @Override
     public void onDataLoaded() {
-        adapterRestaurantDetailsGrid.notifyDataSetChanged();
+        adapterRestaurantServicesGrid.notifyDataSetChanged();
         adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
         adapterRestaurantImagePager.notifyDataSetChanged();
         Log.d( "ActivityVR", "data loaded" );
@@ -150,6 +115,41 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
     public void initialize() {
 
+        /// initialize restaurant photo pager
+        final ViewPager restaurantPhotoPager = (ViewPager) findViewById(R.id.restaurant_photos_pager);
+        assert restaurantPhotoPager != null;
+        restaurantPhotoPager.setAdapter(adapterRestaurantImagePager);
+
+        /// initialize restaurant photo page indicator
+        final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        assert pageIndicator != null;
+        pageIndicator.setViewPager(restaurantPhotoPager);
+
+
+        /// initialize reservation button
+        final FloatingActionButton reserve = (FloatingActionButton) findViewById(R.id.reserve);
+        assert reserve != null;
+        reserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ActivityViewRestaurant.this, "NO!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /// initialize call button
+        final FloatingActionButton call = (FloatingActionButton) findViewById(R.id.call);
+        assert call != null;
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + restaurantInfo.phoneNumber));
+                startActivity(intent);
+            }
+        });
+
+
+
         /// make collapsing toolbar show title only when it is collapsed
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         assert collapsingToolbarLayout != null;
@@ -161,7 +161,8 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         /// initialize restaurant logo
         final CircleImageView restaurantLogo = (CircleImageView) findViewById( R.id.restaurant_logo );
         Picasso.with(this)
-                .load( restaurantInfo.logoURL )
+                .load( Util.getImageURL( restaurantInfo.logoURL ) )
+                .placeholder( ContextCompat.getDrawable( this,R.drawable.placeholder ) )
                 .resizeDimen(R.dimen.restaurant_logo_size, R.dimen.restaurant_logo_size)
                 .centerCrop()
                 .into(restaurantLogo);
@@ -176,7 +177,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         final RatingBar restaurantRating = (RatingBar) findViewById( R.id.restaurant_rating );
         assert restaurantRating != null;
         if( restaurantInfo.rating <= 5 )
-        restaurantRating.setRating( restaurantInfo.rating );
+            restaurantRating.setRating( restaurantInfo.rating );
 
         /// initialize restaurant descriptionResId
         final TextView restaurantDescription = (TextView) findViewById( R.id.restaurant_description );
@@ -185,11 +186,9 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
 
-        int px = Util.dpToPx( getResources().getDimension( R.dimen.restaurant_detail_grid_item_size), this );
-        int numberOfItems = Util.getWindowWidth( this ) / Util.dpToPx( 100, this );
-        //int numberOfItems = Util.getWindowWidth( this ) / px;
+        int numberOfItems = (int) (Util.getWindowWidth( this ) / getResources().getDimension( R.dimen.restaurant_services_grid_item_size));
         Log.d( "ActivityVR", "grid numberOfItems = " + numberOfItems );
-        Log.d( "ActivityVR", "grid item width = " + getResources().getDimension( R.dimen.restaurant_detail_grid_item_size) );
+        Log.d( "ActivityVR", "grid item width = " + getResources().getDimension( R.dimen.restaurant_services_grid_item_size) );
 
         /// initialize restaurant basic info grid
         GridLayoutManager restaurantDescriptionListLayoutManager = new GridLayoutManager(this, numberOfItems);
@@ -201,14 +200,100 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         restaurantBasicInfoGrid.setLayoutManager( restaurantDescriptionListLayoutManager );
         restaurantBasicInfoGrid.setAdapter( adapterRestaurantBasicInfoGrid );
 
-        /// initialize restaurant details grid
+        /// initialize restaurant services grid
         GridLayoutManager restaurantDescriptionGridLayoutManager = new GridLayoutManager(this, numberOfItems);
         restaurantDescriptionGridLayoutManager.setAutoMeasureEnabled( true );
-        final RecyclerView restaurantDetailsGrid = (RecyclerView) findViewById( R.id.restaurant_details_grid );
-        assert restaurantDetailsGrid != null;
-        restaurantDetailsGrid.setHasFixedSize( true );
-        restaurantDetailsGrid.setNestedScrollingEnabled( false );
-        restaurantDetailsGrid.setLayoutManager( restaurantDescriptionGridLayoutManager );
-        restaurantDetailsGrid.setAdapter( adapterRestaurantDetailsGrid );
+        final RecyclerView restaurantServicesGrid = (RecyclerView) findViewById( R.id.restaurant_details_grid );
+        assert restaurantServicesGrid != null;
+        restaurantServicesGrid.setHasFixedSize( true );
+        restaurantServicesGrid.setNestedScrollingEnabled( false );
+        restaurantServicesGrid.setLayoutManager( restaurantDescriptionGridLayoutManager );
+        restaurantServicesGrid.setAdapter( adapterRestaurantServicesGrid );
+
+
+
+
+        /// initialize current address
+        Button currentAddress = (Button) findViewById(R.id.restaurant_current_address);
+        assert currentAddress != null;
+        currentAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("asd", "clicked");
+            }
+        });
+
+
+        /// initialize Map
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+
+                // Add a marker in Sydney and move the camera
+                LatLng sydney = new LatLng(-34, 151);
+                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                if (ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions( ActivityViewRestaurant.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                mMap.setMyLocationEnabled(true);
+                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                mMap.getUiSettings().setZoomGesturesEnabled(true);
+                mMap.getUiSettings().setRotateGesturesEnabled(true);
+            }
+        });
+
+        /// initialize scrollView
+        final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById(R.id.nestedscrollview);
+        assert nestedScrollView != null;
+        nestedScrollView.setOnScrollChangeListener(new LockableNestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY - oldScrollY > 0) {
+                    reserve.hide();
+                    call.hide();
+                } else if (scrollY - oldScrollY < 0) {
+                    reserve.show();
+                    call.show();
+                }
+            }
+        });
+
+        /// initialize fix scrolling button
+        final ImageButton fixScrolling = (ImageButton) findViewById( R.id.fix_scrolling );
+        assert fixScrolling != null;
+        fixScrolling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nestedScrollView.setScrollingEnabled( !nestedScrollView.isScrollable() );
+
+                if( nestedScrollView.isScrollable() ) {
+                    Toast.makeText( ActivityViewRestaurant.this, "Scrolling enabled", Toast.LENGTH_SHORT ).show();
+                }
+                else {
+                    nestedScrollView.fullScroll( View.FOCUS_DOWN );
+                    Toast.makeText( ActivityViewRestaurant.this, "Scrolling disabled", Toast.LENGTH_SHORT ).show();
+                }
+
+                call.hide();
+                reserve.hide();
+            }
+        });
+        if( !nestedScrollView.isScrollable() ) {
+            nestedScrollView.fullScroll( View.FOCUS_DOWN );
+            call.hide();
+            reserve.hide();
+        }
     }
 }

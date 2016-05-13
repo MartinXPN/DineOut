@@ -10,4 +10,5 @@
     <string name="action_language_arm_title">Հայերեն</string>
     <string name="action_language_eng_title">English</string>
     <string name="action_language_rus_title">Русский</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

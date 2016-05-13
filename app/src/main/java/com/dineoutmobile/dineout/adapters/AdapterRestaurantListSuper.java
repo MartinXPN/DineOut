@@ -31,14 +31,6 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
         getAllRestaurantsBasicInfo();
     }
 
-    protected String getImageURL(String imageName) {
-        if(imageName == null || imageName.isEmpty()) {
-            return "http://dineoutmobile.com/images/placeholder.png";
-        } else {
-            return "http://dineoutmobile.com/images/" + imageName ;
-        }
-    }
-
 
 
     @Override

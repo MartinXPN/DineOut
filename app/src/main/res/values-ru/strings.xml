@@ -14,16 +14,16 @@
     <string name="nav_title_about">О нас</string>
 
 
-    <string name="view_restaurant_details_name">Детали</string>
-    <string name="restaurant_details_wifi">Wifi</string>
-    <string name="restaurant_details_private_rooms">Купэ</string>
-    <string name="restaurant_details_fourshet">Фуршеты</string>
-    <string name="restaurant_details_shipping">Доставка</string>
-    <string name="restaurant_details_credit_card">Принимает карточки</string>
-    <string name="restaurant_details_parking">Парковка</string>
-    <string name="restaurant_details_outside_seating">Outside seating</string>
-    <string name="restaurant_details_smoking_area">Места для курения</string>
-    <string name="restaurant_details_smoke_free_area">Места для некурящих</string>
+    <string name="view_restaurant_services_name">Услуги</string>
+    <string name="restaurant_services_wifi">Wifi</string>
+    <string name="restaurant_services_private_rooms">Купэ</string>
+    <string name="restaurant_services_fourshet">Фуршеты</string>
+    <string name="restaurant_services_shipping">Доставка</string>
+    <string name="restaurant_services_credit_card">Принимает карточки</string>
+    <string name="restaurant_services_parking">Парковка</string>
+    <string name="restaurant_services_outside_seating">Outside seating</string>
+    <string name="restaurant_services_smoking_area">Места для курения</string>
+    <string name="restaurant_services_smoke_free_area">Места для некурящих</string>
 
     <string name="restaurant_call">Позвонить</string>
     <string name="restaurant_reserve">Зарезервировать</string>

@@ -63,7 +63,7 @@ public class AdapterRestaurantList extends AdapterRestaurantListSuper {
         });
 
         Picasso.with(context)
-                .load( getImageURL( restaurantInfo.backgroundPhotoURL ) )
+                .load( Util.getImageURL( restaurantInfo.backgroundPhotoURL ) )
                 .placeholder( ContextCompat.getDrawable( context,R.drawable.placeholder ) )
                 .resize( Util.getWindowWidth( context ), Util.dpToPx( context.getResources().getDimension( R.dimen.restaurant_list_item_size ), context ) )
                 .centerInside()

@@ -13,16 +13,16 @@
     <string name="nav_title_feedback">Feedback</string>
     <string name="nav_title_about">About</string>
 
-    <string name="view_restaurant_details_name">Details</string>
-    <string name="restaurant_details_wifi">Wifi</string>
-    <string name="restaurant_details_private_rooms">Private rooms</string>
-    <string name="restaurant_details_fourshet">Fourshet</string>
-    <string name="restaurant_details_shipping">Shipping</string>
-    <string name="restaurant_details_credit_card">Accepts credit-cards</string>
-    <string name="restaurant_details_parking">Parking</string>
-    <string name="restaurant_details_outside_seating">Outside seating</string>
-    <string name="restaurant_details_smoking_area">Smoking areas</string>
-    <string name="restaurant_details_smoke_free_area">Smoke-free areas</string>
+    <string name="view_restaurant_services_name">Services</string>
+    <string name="restaurant_services_wifi">Wifi</string>
+    <string name="restaurant_services_private_rooms">Private rooms</string>
+    <string name="restaurant_services_fourshet">Fourshet</string>
+    <string name="restaurant_services_shipping">Shipping</string>
+    <string name="restaurant_services_credit_card">Accepts credit-cards</string>
+    <string name="restaurant_services_parking">Parking</string>
+    <string name="restaurant_services_outside_seating">Outside seating</string>
+    <string name="restaurant_services_smoking_area">Smoking areas</string>
+    <string name="restaurant_services_smoke_free_area">Smoke-free areas</string>
 
     <string name="restaurant_call">Call</string>
     <string name="restaurant_reserve">Reserve</string>

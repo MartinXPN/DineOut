@@ -20,7 +20,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     private DataLoading listener;
     private static Context context;
-    public String phoneNumber = "+37499029090";
+    public String phoneNumber;
     public String shortInfo;
     public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();
     public Address currentAddress;
@@ -37,6 +37,18 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         backgroundPhotoURLs.add( "http://www.julios.co.za/wp-content/uploads/2012/10/restaurant.jpeg" );
         backgroundPhotoURLs.add( "http://thebestoffiji.com/wp-content/uploads/2016/02/restaurants-005.jpg" );
         backgroundPhotoURLs.add( "http://www.maiyango.com/images/homeselect/restaurant-002.jpg" );
+/*
+        Address address = new Address();
+        address.name = "hello";
+        allAddresses.add( address );
+        address = new Address();
+        address.name = "world";
+        allAddresses.add( address );
+
+        address = new Address();
+        address.name = "Բաղրամյան 21";
+        allAddresses.add( address );
+        currentAddress = address;*/
     }
     public interface DataLoading {
         void onDataLoaded();
@@ -114,23 +126,23 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             this.onClickListener = onClickListener;
         }
     }
-    public enum Details {
+    public enum Services {
 
-        WIFI( true, R.string.restaurant_details_wifi, R.drawable.ic_wifi ),
-        PRIVATE_ROOMS( true,R.string.restaurant_details_private_rooms, R.drawable.ic_private_room ),
-        FOURSHET( true, R.string.restaurant_details_fourshet, R.drawable.ic_fourshet ),
-        SHIPPING( true, R.string.restaurant_details_shipping, R.drawable.ic_shipping ),
-        CREDIT_CARD( true, R.string.restaurant_details_credit_card, R.drawable.ic_credit_card ),
-        PARKING( true, R.string.restaurant_details_parking, R.drawable.ic_parking ),
-        OUTSIDE_SEATING( true, R.string.restaurant_details_outside_seating, R.drawable.ic_nature ),
-        SMOKING_AREAS( true, R.string.restaurant_details_smoking_area, R.mipmap.ic_smoking_area ),
-        SMOKE_FREE_AREAS( true, R.string.restaurant_details_smoke_free_area, R.mipmap.ic_smoke_free_area);
+        WIFI( true, R.string.restaurant_services_wifi, R.drawable.ic_wifi ),
+        PRIVATE_ROOMS( true,R.string.restaurant_services_private_rooms, R.drawable.ic_private_room ),
+        FOURSHET( true, R.string.restaurant_services_fourshet, R.drawable.ic_fourshet ),
+        SHIPPING( true, R.string.restaurant_services_shipping, R.drawable.ic_shipping ),
+        CREDIT_CARD( true, R.string.restaurant_services_credit_card, R.drawable.ic_credit_card ),
+        PARKING( true, R.string.restaurant_services_parking, R.drawable.ic_parking ),
+        OUTSIDE_SEATING( true, R.string.restaurant_services_outside_seating, R.drawable.ic_nature ),
+        SMOKING_AREAS( true, R.string.restaurant_services_smoking_area, R.mipmap.ic_smoking_area ),
+        SMOKE_FREE_AREAS( true, R.string.restaurant_services_smoke_free_area, R.mipmap.ic_smoke_free_area);
 
         public boolean supported;
         public int descriptionResId;
         public int resource;
 
-        Details(boolean supported, int description, int resource) {
+        Services(boolean supported, int description, int resource) {
             this.supported = supported;
             this.descriptionResId = description;
             this.resource = resource;

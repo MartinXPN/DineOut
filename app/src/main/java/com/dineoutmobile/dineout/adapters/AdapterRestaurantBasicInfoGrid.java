@@ -30,7 +30,7 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate( R.layout.restaurant_details_grid_item, parent, false );
+        View layout = inflater.inflate( R.layout.restaurant_services_grid_item, parent, false );
 
         holder = new ViewHolder(layout);
         return holder;

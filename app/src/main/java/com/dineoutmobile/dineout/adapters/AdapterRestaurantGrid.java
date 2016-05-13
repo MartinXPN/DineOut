@@ -65,7 +65,7 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
         });
 
         Picasso.with(context)
-                .load( getImageURL( restaurantInfo.logoURL ) )
+                .load( Util.getImageURL( restaurantInfo.logoURL ) )
                 .placeholder( ContextCompat.getDrawable( context,R.drawable.placeholder ) )
                 .resizeDimen( R.dimen.restaurant_grid_item_size, R.dimen.restaurant_grid_item_size )
                 .centerInside()

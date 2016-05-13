@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.dineoutmobile.dineout.util.Address;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
@@ -93,10 +94,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " LEFT JOIN " + Tables.INFO + " ON " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + Columns.INFO_ID +
                 " LEFT JOIN " + Tables.RESTAURANT_NAMES + " ON " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + Columns.NAME_ID +
                 " WHERE " +  Columns.ADDRESS_ID + "=" + restaurant.currentAddress.id + ";";
-        Cursor cursor = db.rawQuery( query, null );
-        cursor.moveToFirst();
 
-        if( !cursor.isAfterLast() ) {
+        Log.d( "RestaurantCurrentAddr", "" + restaurant.currentAddress.id );
+
+        Cursor cursor = db.rawQuery( query, null );
+        if( cursor.moveToFirst() ) {
+            Log.d( "DatabaseHelper", "data is loading" );
             restaurant.name = cursor.getString( cursor.getColumnIndex( Columns.NAME + language ) );
             restaurant.rating = cursor.getFloat( cursor.getColumnIndex( Columns.RATING ) );
             restaurant.logoURL = cursor.getString( cursor.getColumnIndex( Columns.LOGO_URL ) );
@@ -108,15 +111,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
             RestaurantFullInfo.BasicInfo.CUISINE.description = cursor.getString( cursor.getColumnIndex( Columns.CUISINES ) );
             RestaurantFullInfo.BasicInfo.MENU.description = cursor.getString( cursor.getColumnIndex( Columns.MENU_URL ) );
             RestaurantFullInfo.BasicInfo.WEBSITE.description = cursor.getString( cursor.getColumnIndex( Columns.WEBSITE_URL ) );
-            RestaurantFullInfo.Details.WIFI.supported = cursor.getInt( cursor.getColumnIndex( Columns.WIFI ) ) != 0;
-            RestaurantFullInfo.Details.PRIVATE_ROOMS.supported = cursor.getInt( cursor.getColumnIndex( Columns.PRIVATE_ROOMS ) ) != 0;
-            RestaurantFullInfo.Details.FOURSHET.supported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
-            RestaurantFullInfo.Details.SHIPPING.supported = cursor.getInt( cursor.getColumnIndex( Columns.SHIPPING ) ) != 0;
-            RestaurantFullInfo.Details.CREDIT_CARD.supported = cursor.getInt( cursor.getColumnIndex( Columns.CREDIT_CARD ) ) != 0;
-            RestaurantFullInfo.Details.PARKING.supported = cursor.getInt( cursor.getColumnIndex( Columns.PARKING ) ) != 0;
-            RestaurantFullInfo.Details.OUTSIDE_SEATING.supported = cursor.getInt( cursor.getColumnIndex( Columns.OUTSIDE_SEATING ) ) != 0;
-            RestaurantFullInfo.Details.SMOKING_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKING_AREAS ) ) != 0;
-            RestaurantFullInfo.Details.SMOKE_FREE_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKE_FREE_AREAS ) ) != 0;
+            RestaurantFullInfo.Services.WIFI.supported = cursor.getInt( cursor.getColumnIndex( Columns.WIFI ) ) != 0;
+            RestaurantFullInfo.Services.PRIVATE_ROOMS.supported = cursor.getInt( cursor.getColumnIndex( Columns.PRIVATE_ROOMS ) ) != 0;
+            RestaurantFullInfo.Services.FOURSHET.supported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
+            RestaurantFullInfo.Services.SHIPPING.supported = cursor.getInt( cursor.getColumnIndex( Columns.SHIPPING ) ) != 0;
+            RestaurantFullInfo.Services.CREDIT_CARD.supported = cursor.getInt( cursor.getColumnIndex( Columns.CREDIT_CARD ) ) != 0;
+            RestaurantFullInfo.Services.PARKING.supported = cursor.getInt( cursor.getColumnIndex( Columns.PARKING ) ) != 0;
+            RestaurantFullInfo.Services.OUTSIDE_SEATING.supported = cursor.getInt( cursor.getColumnIndex( Columns.OUTSIDE_SEATING ) ) != 0;
+            RestaurantFullInfo.Services.SMOKING_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKING_AREAS ) ) != 0;
+            RestaurantFullInfo.Services.SMOKE_FREE_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKE_FREE_AREAS ) ) != 0;
+            Log.d( "Name", restaurant.name );
+            Log.d( "Rating", ""+restaurant.rating );
         }
         cursor.close();
     }
@@ -132,15 +137,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 
         Cursor cursor = db.rawQuery( query , null );
-        cursor.moveToFirst();
-        int counter = 0;
-        while( !cursor.isAfterLast() ) {
+        if( cursor.moveToFirst() ) {
+            int count = 0;
+            while (!cursor.isAfterLast()) {
 
-            Address address = new Address();
-            address.id = cursor.getLong( cursor.getColumnIndex( Columns.ADDRESS_ID ) );
-            address.name = cursor.getString( cursor.getColumnIndex( Columns.ADDRESS_NAME ) );
-            restaurantInfo.allAddresses.add( address );
-            if( ++counter == 4 )break;
+                Address address = new Address();
+                address.id = cursor.getLong(cursor.getColumnIndex(Columns.ADDRESS_ID));
+                address.name = cursor.getString(cursor.getColumnIndex(Columns.ADDRESS_NAME));
+                restaurantInfo.allAddresses.add(address);
+                if( ++count == 3 )break;
+            }
         }
 
         cursor.close();
@@ -162,20 +168,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " FROM " + Tables.RESTAURANT_NAMES +
                 " JOIN " + Tables.INFO + " ON " + Columns.NAME_ID + "=" + Columns.INFO_ID + ";";
 
+
         Cursor cursor = db.rawQuery( query, null );
-        cursor.moveToFirst();
+        if( cursor.moveToFirst() ) {
+            while (!cursor.isAfterLast()) {
 
-        while( !cursor.isAfterLast() ) {
+                RestaurantBasicInfo restaurant = new RestaurantBasicInfo();
+                restaurant.id = cursor.getInt(cursor.getColumnIndex(Columns.INFO_ID));
+                restaurant.name = cursor.getString(cursor.getColumnIndex(Columns.NAME + language));
+                restaurant.rating = cursor.getFloat(cursor.getColumnIndex(Columns.RATING));
+                restaurant.logoURL = cursor.getString(cursor.getColumnIndex(Columns.LOGO_URL));
+                restaurant.backgroundPhotoURL = cursor.getString(cursor.getColumnIndex(Columns.BACKGROUND_PHOTO_URL));
 
-            RestaurantBasicInfo restaurant = new RestaurantBasicInfo();
-            restaurant.id = cursor.getInt( cursor.getColumnIndex( Columns.NAME_ID) );
-            restaurant.name = cursor.getString( cursor.getColumnIndex( Columns.NAME + language ) );
-            restaurant.rating = cursor.getFloat( cursor.getColumnIndex( Columns.RATING ) );
-            restaurant.logoURL = cursor.getString( cursor.getColumnIndex( Columns.LOGO_URL) );
-            restaurant.backgroundPhotoURL = cursor.getString( cursor.getColumnIndex( Columns.BACKGROUND_PHOTO_URL) );
-
-            res.add( restaurant );
-            cursor.moveToNext();
+                res.add(restaurant);
+                cursor.moveToNext();
+            }
         }
 
         cursor.close();

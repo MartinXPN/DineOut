@@ -46,6 +46,16 @@ public class Util {
     }
 
 
+
+    public static String getImageURL(String imageName) {
+        if(imageName == null || imageName.isEmpty()) {
+            return "http://dineoutmobile.com/images/placeholder.png";
+        } else {
+            return "http://dineoutmobile.com/images/" + imageName ;
+        }
+    }
+
+
     ////////////////////////////////// LANGUAGE ////////////////////////////////////////////////////
     public enum Language {
 
