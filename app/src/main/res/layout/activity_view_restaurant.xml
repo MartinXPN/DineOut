@@ -65,7 +65,55 @@
 
 
     <!-- Reserve & Call buttons -->
-    <android.support.design.widget.FloatingActionButton
+    <com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout
+        android:id="@+id/fabtoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:showDuration="600"
+        app:hideDuration="200"
+        app:horizontalMargin="@dimen/fab_margin"
+        app:verticalMargin="@dimen/fab_margin"
+        app:fadeInFraction="0.2"
+        app:fabId="@+id/reserve"
+        app:containerId="@+id/fab_container"
+        app:fabToolbarId="@+id/reserve_layout">
+
+
+        <RelativeLayout
+            android:id="@+id/fab_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/reserve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="normal"
+                android:src="@drawable/ic_fix_scrolling"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/reserve_layout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/one"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_search"/>
+        </LinearLayout>
+
+    </com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout>
+
+    <!--android.support.design.widget.FloatingActionButton
         android:id="@+id/reserve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,7 +121,7 @@
         android:layout_gravity="bottom|end"
         android:src="@mipmap/ic_reserve"
         app:backgroundTint="@color/default_color_accent"
-        app:rippleColor="@android:color/white"/>
+        app:rippleColor="@android:color/white"/-->
 
 
     <LinearLayout

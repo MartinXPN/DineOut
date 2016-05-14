@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.dineoutmobile.dineout"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -29,7 +29,9 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.google.android.gms:play-services-location:8.4.0'
+
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.fafaldo:fab-toolbar:1.2.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.githang:viewpagerindicator:2.4.2@aar'
 }

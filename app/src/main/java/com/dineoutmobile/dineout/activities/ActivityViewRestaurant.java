@@ -33,6 +33,7 @@ import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
+import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -117,6 +118,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
         View.OnTouchListener enableScrollingOnTouch = new View.OnTouchListener() {
+
             final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById( R.id.nestedscrollview );
 
             @Override
@@ -152,15 +154,6 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
 
-        /// initialize reservation button
-        final FloatingActionButton reserve = (FloatingActionButton) findViewById(R.id.reserve);
-        assert reserve != null;
-        reserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ActivityViewRestaurant.this, "NO!", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         /// initialize call button
         final FloatingActionButton call = (FloatingActionButton) findViewById(R.id.call);
@@ -171,6 +164,26 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + restaurantInfo.phoneNumber));
                 startActivity(intent);
+            }
+        });
+
+        /// initialize reservation button
+        final FloatingActionButton reserveButton = (FloatingActionButton) findViewById(R.id.reserve);
+        assert reserveButton != null;
+        final com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout reserveLayout = (FABToolbarLayout) findViewById( R.id.fabtoolbar );
+        assert reserveLayout != null;
+        reserveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if( reserveLayout.isFab() ) {
+                    reserveLayout.show();
+                    call.hide();
+                }
+                else {
+                    reserveLayout.hide();
+                    call.show();
+                }
             }
         });
 
@@ -308,12 +321,16 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         nestedScrollView.setOnScrollChangeListener(new LockableNestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                /// move down
                 if (scrollY - oldScrollY > 0) {
-                    reserve.hide();
+                    reserveLayout.hide();
+                    reserveButton.hide();
                     call.hide();
-                } else if (scrollY - oldScrollY < 0) {
-                    reserve.show();
-                    call.show();
+                }
+                /// move up
+                else if (scrollY - oldScrollY < 0) {
+                    if( !reserveButton.isShown() )  reserveButton.show();
+                    if( reserveLayout.isFab() )     call.show();
                 }
             }
         });
