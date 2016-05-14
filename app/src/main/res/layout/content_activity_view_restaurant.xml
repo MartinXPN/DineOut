@@ -115,18 +115,16 @@
         <fragment
             android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="220dp"
             android:name="com.google.android.gms.maps.SupportMapFragment">
 
-            <ImageButton
+            <Button
                 android:id="@+id/fix_scrolling"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:clickable="false" />
 
-                android:background="@drawable/circle_semitransparent"
-                android:layout_gravity="start|top"
-                android:src="@drawable/ic_fix_scrolling"
-                android:layout_margin="15dp" />
         </fragment>
     </LinearLayout>
 

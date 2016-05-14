@@ -16,19 +16,17 @@
             android:configChanges="layoutDirection|locale|orientation|screenSize"
             android:label="@string/restaurant_list_label"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.ActivityViewRestaurant"
             android:configChanges="layoutDirection|locale|orientation|screenSize"
             android:label="@null"
             android:theme="@style/AppTheme.NoActionBar" />
-
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

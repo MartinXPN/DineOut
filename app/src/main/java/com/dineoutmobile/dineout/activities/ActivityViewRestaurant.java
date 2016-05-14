@@ -19,9 +19,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,15 +115,41 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
     public void initialize() {
 
+
+        View.OnTouchListener enableScrollingOnTouch = new View.OnTouchListener() {
+            final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById( R.id.nestedscrollview );
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                nestedScrollView.setScrollingEnabled( true );
+                return false;
+            }
+        };
+        View.OnTouchListener disableScrollingOnTouch = new View.OnTouchListener() {
+
+            final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById( R.id.nestedscrollview );
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                nestedScrollView.setScrollingEnabled( false );
+                return false;
+            }
+        };
+
+
         /// initialize restaurant photo pager
         final ViewPager restaurantPhotoPager = (ViewPager) findViewById(R.id.restaurant_photos_pager);
         assert restaurantPhotoPager != null;
         restaurantPhotoPager.setAdapter(adapterRestaurantImagePager);
+        restaurantPhotoPager.setOnTouchListener( enableScrollingOnTouch );
 
         /// initialize restaurant photo page indicator
         final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         assert pageIndicator != null;
         pageIndicator.setViewPager(restaurantPhotoPager);
+        pageIndicator.setOnTouchListener( enableScrollingOnTouch );
+
+
 
 
         /// initialize reservation button
@@ -150,6 +176,8 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
 
+
+
         /// make collapsing toolbar show title only when it is collapsed
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         assert collapsingToolbarLayout != null;
@@ -158,8 +186,12 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         collapsingToolbarLayout.setCollapsedTitleTextColor( Color.WHITE );
 
 
+
+
         /// initialize restaurant logo
         final CircleImageView restaurantLogo = (CircleImageView) findViewById( R.id.restaurant_logo );
+        assert restaurantLogo != null;
+        restaurantLogo.setOnTouchListener( enableScrollingOnTouch );
         Picasso.with(this)
                 .load( Util.getImageURL( restaurantInfo.logoURL ) )
                 .placeholder( ContextCompat.getDrawable( this,R.drawable.placeholder ) )
@@ -171,18 +203,22 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         /// initialize restaurant name
         final TextView restaurantName = (TextView) findViewById( R.id.restaurant_name );
         assert restaurantName != null;
+        restaurantName.setOnTouchListener( enableScrollingOnTouch );
         restaurantName.setText( restaurantInfo.name );
 
         /// initialize restaurant rating
         final RatingBar restaurantRating = (RatingBar) findViewById( R.id.restaurant_rating );
         assert restaurantRating != null;
+        restaurantRating.setOnTouchListener( enableScrollingOnTouch );
         if( restaurantInfo.rating <= 5 )
             restaurantRating.setRating( restaurantInfo.rating );
 
         /// initialize restaurant descriptionResId
         final TextView restaurantDescription = (TextView) findViewById( R.id.restaurant_description );
         assert restaurantDescription != null;
+        restaurantDescription.setOnTouchListener( enableScrollingOnTouch );
         restaurantDescription.setText( restaurantInfo.description );
+
 
 
 
@@ -199,6 +235,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         restaurantBasicInfoGrid.setNestedScrollingEnabled( false );
         restaurantBasicInfoGrid.setLayoutManager( restaurantDescriptionListLayoutManager );
         restaurantBasicInfoGrid.setAdapter( adapterRestaurantBasicInfoGrid );
+        restaurantBasicInfoGrid.setOnTouchListener( enableScrollingOnTouch );
 
         /// initialize restaurant services grid
         GridLayoutManager restaurantDescriptionGridLayoutManager = new GridLayoutManager(this, numberOfItems);
@@ -209,6 +246,8 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         restaurantServicesGrid.setNestedScrollingEnabled( false );
         restaurantServicesGrid.setLayoutManager( restaurantDescriptionGridLayoutManager );
         restaurantServicesGrid.setAdapter( adapterRestaurantServicesGrid );
+        restaurantServicesGrid.setOnTouchListener( enableScrollingOnTouch );
+
 
 
 
@@ -222,6 +261,8 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
                 Log.d("asd", "clicked");
             }
         });
+        currentAddress.setOnTouchListener( enableScrollingOnTouch );
+
 
 
         /// initialize Map
@@ -254,7 +295,14 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
             }
         });
 
-        /// initialize scrollView
+        /// don't scroll when working with map and scroll otherwise
+        Button fixScrolling = (Button) findViewById( R.id.fix_scrolling);
+        assert fixScrolling != null;
+        fixScrolling.setOnTouchListener( disableScrollingOnTouch );
+
+
+
+        /// initialize the whole scrollView
         final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById(R.id.nestedscrollview);
         assert nestedScrollView != null;
         nestedScrollView.setOnScrollChangeListener(new LockableNestedScrollView.OnScrollChangeListener() {
@@ -269,31 +317,5 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
                 }
             }
         });
-
-        /// initialize fix scrolling button
-        final ImageButton fixScrolling = (ImageButton) findViewById( R.id.fix_scrolling );
-        assert fixScrolling != null;
-        fixScrolling.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nestedScrollView.setScrollingEnabled( !nestedScrollView.isScrollable() );
-
-                if( nestedScrollView.isScrollable() ) {
-                    Toast.makeText( ActivityViewRestaurant.this, "Scrolling enabled", Toast.LENGTH_SHORT ).show();
-                }
-                else {
-                    nestedScrollView.fullScroll( View.FOCUS_DOWN );
-                    Toast.makeText( ActivityViewRestaurant.this, "Scrolling disabled", Toast.LENGTH_SHORT ).show();
-                }
-
-                call.hide();
-                reserve.hide();
-            }
-        });
-        if( !nestedScrollView.isScrollable() ) {
-            nestedScrollView.fullScroll( View.FOCUS_DOWN );
-            call.hide();
-            reserve.hide();
-        }
     }
 }
