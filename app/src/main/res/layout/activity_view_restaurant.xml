@@ -64,7 +64,7 @@
     <include layout="@layout/content_activity_view_restaurant" />
 
 
-    <!-- Reserve & Call buttons -->
+    <!-- Reserve -->
     <com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout
         android:id="@+id/fabtoolbar"
         android:layout_width="match_parent"
@@ -90,40 +90,25 @@
                 android:id="@+id/reserve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@mipmap/ic_reserve"
                 app:fabSize="normal"
-                android:src="@drawable/ic_fix_scrolling"/>
+                app:rippleColor="@android:color/white"/>
 
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/reserve_layout"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/one"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_search"/>
+            <include layout="@layout/content_reserve" />
         </LinearLayout>
 
     </com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout>
 
-    <!--android.support.design.widget.FloatingActionButton
-        android:id="@+id/reserve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_gravity="bottom|end"
-        android:src="@mipmap/ic_reserve"
-        app:backgroundTint="@color/default_color_accent"
-        app:rippleColor="@android:color/white"/-->
-
-
+    <!-- Call -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

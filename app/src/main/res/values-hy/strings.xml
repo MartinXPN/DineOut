@@ -24,6 +24,14 @@
     <string name="restaurant_services_smoking_area">Ծխողների տարածք</string>
     <string name="restaurant_services_smoke_free_area">Չծխողների տարածք</string>
 
+    <string name="working_hours">Աշխատանքային ժամերը</string>
+    <string name="price_range">Գնային սահմանները</string>
+    <string name="music">Երաժշտություն</string>
+    <string name="cuisines">Խոհանոցը</string>
+    <string name="menu">Մենյուն</string>
+    <string name="feedbacks">Feedbacks</string>
+    <string name="restaurant_website">Ռեստորանի կայքը</string>
+
     <string name="restaurant_call">Զանգահարել</string>
     <string name="restaurant_reserve">Պատվիրել</string>
 </resources>

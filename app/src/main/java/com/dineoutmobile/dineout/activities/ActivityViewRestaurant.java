@@ -22,15 +22,19 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
+import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoWithLinksGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
+import com.dineoutmobile.dineout.util.NumberPicker;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
@@ -43,6 +47,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ActivityViewRestaurant extends AppCompatActivity implements RestaurantFullInfo.DataLoading {
@@ -51,6 +60,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
     private AdapterRestaurantServicesGrid adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid(this, restaurantInfo);
     private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this, restaurantInfo);
+    private AdapterRestaurantBasicInfoWithLinksGrid adapterRestaurantBasicInfoWithLinksGrid = new AdapterRestaurantBasicInfoWithLinksGrid( this, restaurantInfo );
     private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this, restaurantInfo);
     private long id;
     private boolean isLoaded = false;
@@ -188,6 +198,82 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         });
 
 
+        /// initialize cancel reservation button
+        final ImageButton cancel = (ImageButton) findViewById( R.id.close);
+        assert cancel != null;
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reserveLayout.hide();
+                reserveButton.show();
+                call.show();
+            }
+        });
+
+        /// initialize person picker
+        final NumberPicker numberOfPeople = (NumberPicker) findViewById( R.id.number_of_people_picker);
+        assert numberOfPeople != null;
+        numberOfPeople.setMinValue( 1 );
+        numberOfPeople.setMaxValue( 11 );
+        numberOfPeople.setWrapSelectorWheel( false );
+        String[] people = new String[11];
+        for( int i=1; i <= 10; i++ ) people[i-1] = String.valueOf( i );
+        people[10] = "11+";
+        numberOfPeople.setDisplayedValues( people );
+
+
+        /// initialize date picker
+        final NumberPicker datePicker = (NumberPicker) findViewById( R.id.date_picker);
+        assert datePicker != null;
+        datePicker.setMinValue( 1 );
+        datePicker.setMaxValue( 4 );
+        datePicker.setWrapSelectorWheel( false );
+        String[] date = new String[4];
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.ENGLISH);
+        for (int i = 0; i < 4; i++) {
+            Calendar calendar = new GregorianCalendar();
+            calendar.add(Calendar.DATE, i);
+            date[i] = sdf.format(calendar.getTime());
+        }
+        datePicker.setDisplayedValues( date );
+
+        /// initialize time picker
+        final NumberPicker timePicker = (NumberPicker) findViewById( R.id.time_picker);
+        assert timePicker != null;
+        timePicker.setMinValue( 1 );
+        timePicker.setMaxValue( 48 );
+        timePicker.setWrapSelectorWheel( false );
+        String[] time = new String[48];
+        for (int i = 0; i < 48; i++)
+            time[i] = String.valueOf( i / 2 ) + ( i%2 == 0 ? ":00" : ":30" );
+        timePicker.setDisplayedValues( time );
+
+
+        /// initialize reservation layout
+        final LinearLayout reservationLayout = (LinearLayout) findViewById( R.id.reserve_layout );
+        assert reservationLayout != null;
+        reservationLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+        /// initialize reservation button
+        final Button reserveRestaurant = (Button) findViewById( R.id.reserve_restaurant_button );
+        assert  reserveRestaurant != null;
+        reserveRestaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText( ActivityViewRestaurant.this, "Your reservation was successful", Toast.LENGTH_LONG ).show();
+                call.hide();
+                reserveLayout.hide();
+                reserveButton.hide();
+            }
+        });
+
+
+
 
 
 
@@ -240,15 +326,26 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         Log.d( "ActivityVR", "grid item width = " + getResources().getDimension( R.dimen.restaurant_services_grid_item_size) );
 
         /// initialize restaurant basic info grid
-        GridLayoutManager restaurantDescriptionListLayoutManager = new GridLayoutManager(this, numberOfItems);
-        restaurantDescriptionListLayoutManager.setAutoMeasureEnabled( true );
+        GridLayoutManager restaurantBasicInfoListLayoutManager = new GridLayoutManager(this, numberOfItems);
+        restaurantBasicInfoListLayoutManager.setAutoMeasureEnabled( true );
         final RecyclerView restaurantBasicInfoGrid = (RecyclerView) findViewById( R.id.restaurant_basic_info_grid );
         assert restaurantBasicInfoGrid != null;
         restaurantBasicInfoGrid.setHasFixedSize( true );
         restaurantBasicInfoGrid.setNestedScrollingEnabled( false );
-        restaurantBasicInfoGrid.setLayoutManager( restaurantDescriptionListLayoutManager );
+        restaurantBasicInfoGrid.setLayoutManager(restaurantBasicInfoListLayoutManager);
         restaurantBasicInfoGrid.setAdapter( adapterRestaurantBasicInfoGrid );
         restaurantBasicInfoGrid.setOnTouchListener( enableScrollingOnTouch );
+
+        /// initialize restaurant basic info with links grid
+        GridLayoutManager restaurantBasicInfoWithLinksListLayoutManager = new GridLayoutManager(this, numberOfItems);
+        restaurantBasicInfoWithLinksListLayoutManager.setAutoMeasureEnabled( true );
+        final RecyclerView restaurantBasicInfoWithLinksGrid = (RecyclerView) findViewById( R.id.restaurant_basic_info_with_links_grid );
+        assert restaurantBasicInfoWithLinksGrid != null;
+        restaurantBasicInfoWithLinksGrid.setHasFixedSize( true );
+        restaurantBasicInfoWithLinksGrid.setNestedScrollingEnabled( false );
+        restaurantBasicInfoWithLinksGrid.setLayoutManager(restaurantBasicInfoWithLinksListLayoutManager);
+        restaurantBasicInfoWithLinksGrid.setAdapter( adapterRestaurantBasicInfoWithLinksGrid );
+        restaurantBasicInfoWithLinksGrid.setOnTouchListener( enableScrollingOnTouch );
 
         /// initialize restaurant services grid
         GridLayoutManager restaurantDescriptionGridLayoutManager = new GridLayoutManager(this, numberOfItems);

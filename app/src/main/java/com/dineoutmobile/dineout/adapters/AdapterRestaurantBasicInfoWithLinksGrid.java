@@ -1,0 +1,66 @@
+package com.dineoutmobile.dineout.adapters;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+
+
+public class AdapterRestaurantBasicInfoWithLinksGrid extends RecyclerView.Adapter<AdapterRestaurantBasicInfoWithLinksGrid.ViewHolder> {
+
+    ViewHolder holder;
+    Context context;
+    RestaurantFullInfo restaurantInfo;
+
+
+    public AdapterRestaurantBasicInfoWithLinksGrid(Context context, RestaurantFullInfo restaurantInfo ) {
+        this.context = context;
+        this.restaurantInfo = restaurantInfo;
+    }
+
+
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate( R.layout.restaurant_services_grid_item, parent, false );
+
+        holder = new ViewHolder(layout);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.image.setImageResource( RestaurantFullInfo.BasicInfoWithLinks.values()[position].resource );
+        holder.description.setText( RestaurantFullInfo.BasicInfoWithLinks.values()[position].description );
+        holder.image.setBackgroundResource( R.drawable.circle_neutral );
+        holder.restaurantDetailsContainer.setOnClickListener( RestaurantFullInfo.BasicInfoWithLinks.values()[position].onClickListener );
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return RestaurantFullInfo.BasicInfoWithLinks.values().length;
+    }
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageButton image;
+        TextView description;
+        LinearLayout restaurantDetailsContainer;
+
+        ViewHolder( View v ) {
+            super( v );
+            image = (ImageButton) v.findViewById( R.id.restaurant_details_grid_image );
+            description = (TextView ) v.findViewById( R.id.restaurant_details_grid_description );
+            restaurantDetailsContainer = (LinearLayout) v.findViewById( R.id.restaurant_details_container );
+        }
+    }
+}

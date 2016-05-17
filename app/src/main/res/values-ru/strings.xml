@@ -25,6 +25,14 @@
     <string name="restaurant_services_smoking_area">Места для курения</string>
     <string name="restaurant_services_smoke_free_area">Места для некурящих</string>
 
+    <string name="working_hours">Часы</string>
+    <string name="price_range">Price Range</string>
+    <string name="music">Музыка</string>
+    <string name="cuisines">Кухня</string>
+    <string name="menu">Меню</string>
+    <string name="feedbacks">Feedbacks</string>
+    <string name="restaurant_website">Сайт ресторана</string>
+
     <string name="restaurant_call">Позвонить</string>
     <string name="restaurant_reserve">Зарезервировать</string>
 </resources>

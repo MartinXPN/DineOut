@@ -5,17 +5,24 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dineoutmobile.dineout.util.Address;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 
@@ -39,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         public static final String RATING = "rating";
         public static final String ADDRESS_NAME = "address";
         public static final String LOGO_URL = "logo_file";
-        public static final String BACKGROUND_PHOTO_URL = "rest_info.background_file";
+        public static final String BACKGROUND_PHOTO_URL = "background_file";
         public static final String ALL_BACKGROUNDS = "rest_addr.background_file";
         public static final String SHORT_INFO = "shortinfo";
         public static final String PHONE_NUMBER = "phone1";
@@ -109,8 +116,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
             RestaurantFullInfo.BasicInfo.WORKING_HOURS.description = cursor.getString( cursor.getColumnIndex( Columns.WORK_HOURS ) );
             RestaurantFullInfo.BasicInfo.MUSIC.description = cursor.getString( cursor.getColumnIndex( Columns.MUSIC ) );
             RestaurantFullInfo.BasicInfo.CUISINE.description = cursor.getString( cursor.getColumnIndex( Columns.CUISINES ) );
-            RestaurantFullInfo.BasicInfo.MENU.description = cursor.getString( cursor.getColumnIndex( Columns.MENU_URL ) );
-            RestaurantFullInfo.BasicInfo.WEBSITE.description = cursor.getString( cursor.getColumnIndex( Columns.WEBSITE_URL ) );
+            RestaurantFullInfo.BasicInfoWithLinks.MENU.URL = cursor.getString( cursor.getColumnIndex( Columns.MENU_URL ) );
+            RestaurantFullInfo.BasicInfoWithLinks.WEBSITE.URL = cursor.getString( cursor.getColumnIndex( Columns.WEBSITE_URL ) );
+            RestaurantFullInfo.BasicInfoWithLinks.FEEDBACKS.URL = "http://dineoutmobile.com/";
             RestaurantFullInfo.Services.WIFI.supported = cursor.getInt( cursor.getColumnIndex( Columns.WIFI ) ) != 0;
             RestaurantFullInfo.Services.PRIVATE_ROOMS.supported = cursor.getInt( cursor.getColumnIndex( Columns.PRIVATE_ROOMS ) ) != 0;
             RestaurantFullInfo.Services.FOURSHET.supported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
@@ -188,7 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         cursor.close();
         return res;
     }
-
+    ///////////////////////////////////// Download Database ////////////////////////////////////////
 
 
 

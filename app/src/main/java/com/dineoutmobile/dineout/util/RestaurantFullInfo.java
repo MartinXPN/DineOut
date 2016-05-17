@@ -76,43 +76,25 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         WORKING_HOURS( "00:00 - 00:00", R.drawable.ic_time, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog( "Working hours", WORKING_HOURS.description );
+                showDialog( context.getResources().getString( R.string.working_hours ), WORKING_HOURS.description );
             }
         }),
         PRICE_RANGE( "100-200 $", R.drawable.ic_price, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog( "Price range", PRICE_RANGE.description );
+                showDialog( context.getResources().getString( R.string.price_range ), PRICE_RANGE.description );
             }
         }),
         MUSIC("Jazz, Classic, Pop", R.drawable.ic_music, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog( "Music", MUSIC.description );
+                showDialog( context.getResources().getString( R.string.music ), MUSIC.description );
             }
         }),
         CUISINE( "Seafood, Italian, National", R.drawable.ic_restaurant_menu, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog( "Cuisines", CUISINE.description );
-            }
-        }),
-        MENU( "Menu", R.drawable.ic_restaurant_menu, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUrlInBrowser("http://www.dineoutmobile.com");
-            }
-        }),
-        FEEDBACKS("Feedbacks", R.drawable.ic_feedback_white, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUrlInBrowser("http://www.dineoutmobile.com");
-            }
-        }),
-        WEBSITE( "Restaurant website", R.drawable.ic_link, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUrlInBrowser("http://www.dineoutmobile.com");
+                showDialog( context.getResources().getString( R.string.cuisines ), CUISINE.description );
             }
         });
 
@@ -121,6 +103,38 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         public View.OnClickListener onClickListener;
 
         BasicInfo(String description, int resource, View.OnClickListener onClickListener) {
+            this.description = description;
+            this.resource = resource;
+            this.onClickListener = onClickListener;
+        }
+    }
+    public enum BasicInfoWithLinks {
+
+        MENU( context.getResources().getString( R.string.menu ), R.drawable.ic_restaurant_menu, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrlInBrowser( MENU.URL );
+            }
+        }),
+        FEEDBACKS(context.getResources().getString( R.string.feedbacks ), R.drawable.ic_feedback_white, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrlInBrowser( FEEDBACKS.URL );
+            }
+        }),
+        WEBSITE( context.getResources().getString( R.string.restaurant_website ), R.drawable.ic_link, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrlInBrowser( WEBSITE.URL );
+            }
+        });
+
+        public String description;
+        public String URL;
+        public int resource;
+        public View.OnClickListener onClickListener;
+
+        BasicInfoWithLinks(String description, int resource, View.OnClickListener onClickListener) {
             this.description = description;
             this.resource = resource;
             this.onClickListener = onClickListener;
