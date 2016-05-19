@@ -4,8 +4,6 @@ package com.dineoutmobile.dineout.util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -37,18 +35,6 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         backgroundPhotoURLs.add( "http://www.julios.co.za/wp-content/uploads/2012/10/restaurant.jpeg" );
         backgroundPhotoURLs.add( "http://thebestoffiji.com/wp-content/uploads/2016/02/restaurants-005.jpg" );
         backgroundPhotoURLs.add( "http://www.maiyango.com/images/homeselect/restaurant-002.jpg" );
-/*
-        Address address = new Address();
-        address.name = "hello";
-        allAddresses.add( address );
-        address = new Address();
-        address.name = "world";
-        allAddresses.add( address );
-
-        address = new Address();
-        address.name = "Բաղրամյան 21";
-        allAddresses.add( address );
-        currentAddress = address;*/
     }
     public interface DataLoading {
         void onDataLoaded();
@@ -65,10 +51,6 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
                         dialog.cancel();
                     }
                 }).show();
-    }
-    protected static void openUrlInBrowser( String url ) {
-        Intent browserIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
-        context.startActivity( browserIntent );
     }
 
     public enum BasicInfo {
@@ -113,19 +95,19 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         MENU( context.getResources().getString( R.string.menu ), R.drawable.ic_restaurant_menu, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openUrlInBrowser( MENU.URL );
+                Util.openUrlInBrowser( context, MENU.URL );
             }
         }),
         FEEDBACKS(context.getResources().getString( R.string.feedbacks ), R.drawable.ic_feedback_white, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openUrlInBrowser( FEEDBACKS.URL );
+                Util.openUrlInBrowser( context, FEEDBACKS.URL );
             }
         }),
         WEBSITE( context.getResources().getString( R.string.restaurant_website ), R.drawable.ic_link, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openUrlInBrowser( WEBSITE.URL );
+                Util.openUrlInBrowser( context, WEBSITE.URL );
             }
         });
 

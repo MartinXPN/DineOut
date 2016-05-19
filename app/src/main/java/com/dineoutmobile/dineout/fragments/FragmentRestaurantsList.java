@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,8 +25,7 @@ import com.dineoutmobile.dineout.util.Util;
 
 
 public class FragmentRestaurantsList extends    Fragment
-                                    implements  SwipeRefreshLayout.OnRefreshListener,
-                                                SearchView.OnQueryTextListener {
+                                    implements  SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout refreshLayout;
     private GridView restaurantGrid;
@@ -37,7 +35,6 @@ public class FragmentRestaurantsList extends    Fragment
     private static boolean showAsGrid = true;
 
     private boolean isRefreshLayoutSpinning = false;
-    private SearchView searchView;
     private Menu menu;
     private ViewGroup container;
 
@@ -60,13 +57,13 @@ public class FragmentRestaurantsList extends    Fragment
         View rootView;
 
         if( showAsGrid ) {
-            rootView = getActivity().getLayoutInflater().inflate( R.layout.fragment_restaurant_grid, container, false );
+            rootView = inflater.inflate( R.layout.fragment_restaurant_grid, container, false );
             restaurantGrid = (GridView) rootView.findViewById( R.id.restaurant_grid );
             adapterRestaurantGrid = new AdapterRestaurantGrid( getActivity() );
             restaurantGrid.setAdapter( adapterRestaurantGrid );
         }
         else {
-            rootView = getActivity().getLayoutInflater().inflate( R.layout.fragment_restaurant_list, container, false );
+            rootView = inflater.inflate( R.layout.fragment_restaurant_list, container, false );
             restaurantList = (ListView) rootView.findViewById( R.id.restaurant_list );
             adapterRestaurantList = new AdapterRestaurantList( getActivity() );
             restaurantList.setAdapter( adapterRestaurantList );
@@ -132,12 +129,7 @@ public class FragmentRestaurantsList extends    Fragment
 
         Log.d("FragmentGrid", "hello created options Menu");
         inflater.inflate( R.menu.activity_choose_restaurant, menu );
-        MenuItem menuItem = menu.findItem(R.id.action_search);
         this.menu = menu;
-
-        searchView = (SearchView) menuItem.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE); // A bad way of forcing the SearchView to expand as much as possible
-        searchView.setOnQueryTextListener(this);
         super.onCreateOptionsMenu(menu, inflater);
 
 
@@ -168,20 +160,6 @@ public class FragmentRestaurantsList extends    Fragment
         if( id == R.id.action_language_eng )    { setLanguage( Util.Language.EN );  return true; }
         return super.onOptionsItemSelected(item);
     }
-
-
-    /////////////////////////////// SEARCH /////////////////////////////////////////////
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        Log.d( "SearchView", query );
-        searchView.clearFocus();
-        return true;
-    }
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-
 
 
     /////////////////////////////// REFRESH /////////////////////////////////////////////

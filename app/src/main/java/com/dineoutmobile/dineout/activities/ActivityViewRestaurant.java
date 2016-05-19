@@ -405,11 +405,9 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
             }
         });
 
-        /// don't scroll when working with map and scroll otherwise
-        Button fixScrolling = (Button) findViewById( R.id.fix_scrolling);
-        assert fixScrolling != null;
-        fixScrolling.setOnTouchListener( disableScrollingOnTouch );
-
+        Button navigateInGoogleMaps = (Button) findViewById( R.id.fix_scrolling );
+        assert navigateInGoogleMaps != null;
+        navigateInGoogleMaps.setOnTouchListener( disableScrollingOnTouch );
 
 
         /// initialize the whole scrollView

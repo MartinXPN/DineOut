@@ -2,8 +2,6 @@ package com.dineoutmobile.dineout.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,11 +9,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.fragments.FragmentNearbyPlaces;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantsList;
 import com.dineoutmobile.dineout.util.Util;
 
@@ -27,6 +24,7 @@ public class ActivityChooseRestaurant
 
 
     FragmentRestaurantsList fragmentRestaurantsList = null;
+    FragmentNearbyPlaces fragmentNearbyPlaces = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,24 +66,6 @@ public class ActivityChooseRestaurant
     }
 
 
-    protected void openUrlInBrowser( String url ) {
-        Intent browserIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
-        ActivityChooseRestaurant.this.startActivity( browserIntent );
-    }
-    private void writeFeedback() {
-
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_SUBJECT, "DineOut Feedback");
-        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"XPNInc@gmail.com"});
-        try {
-            startActivity(Intent.createChooser(i, "Choose an Email client:"));
-        }
-        catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ActivityChooseRestaurant.this, "There are no Email applications installed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -94,9 +74,9 @@ public class ActivityChooseRestaurant
 
         if( id == R.id.nav_restaurant_list )    showRestaurantList();
         else if( id == R.id.nav_nearby )        showRestaurantsInGoogleMaps();
-        else if( id == R.id.nav_help )          openUrlInBrowser( "http://dineoutmobile.com/" );
-        else if( id == R.id.nav_feedback )      writeFeedback();
-        else if( id == R.id.nav_about )         openUrlInBrowser( "http://dineoutmobile.com/" );
+        else if( id == R.id.nav_help )          Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
+        else if( id == R.id.nav_feedback )      Util.writeFeedback( this );
+        else if( id == R.id.nav_about )         Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -124,6 +104,19 @@ public class ActivityChooseRestaurant
     }
 
     public void showRestaurantsInGoogleMaps() {
-        Log.d( "hello", "nothing" );
+
+        // get fragment manager
+        FragmentManager fm = getFragmentManager();
+        // Make sure the current transaction finishes first
+        fm.executePendingTransactions();
+
+        // If there is no fragment yet with this tag...
+        if( fm.findFragmentByTag( Util.Tags.NEARBY_PLACES_FRAGMENT) == null ) {
+            // Add fragment
+            FragmentTransaction ft = fm.beginTransaction();
+            fragmentNearbyPlaces = new FragmentNearbyPlaces();
+            ft.replace( R.id.container, fragmentNearbyPlaces, Util.Tags.NEARBY_PLACES_FRAGMENT);
+            ft.commit();
+        }
     }
 }

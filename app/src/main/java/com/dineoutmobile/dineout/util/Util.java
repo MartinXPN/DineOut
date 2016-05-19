@@ -2,14 +2,17 @@ package com.dineoutmobile.dineout.util;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.util.TypedValue;
+import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 
@@ -32,6 +35,7 @@ public class Util {
         public static final String SHARED_PREFS_SHOW_AS_GRID = "show_grid";
         public static final String BUNDLE_RESTAURANT_ID = "rest_id";
         public static final String RESTAURANT_LIST_FRAGMENT = "rest_grid_f";
+        public static final String NEARBY_PLACES_FRAGMENT = "nearby_f";
     }
 
     public static int dpToPx( float dp, Context context ) {
@@ -43,6 +47,27 @@ public class Util {
     }
     public static int getWindowHeight( Context context ) {
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+
+
+
+    public static void openUrlInBrowser( Context context, String url ) {
+        Intent browserIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
+        context.startActivity( browserIntent );
+    }
+    public static void writeFeedback( Context context ) {
+
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_SUBJECT, "DineOut Feedback");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"XPNInc@gmail.com"});
+        try {
+            context.startActivity(Intent.createChooser(i, "Choose an Email client:"));
+        }
+        catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(context, "There are no Email applications installed", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
