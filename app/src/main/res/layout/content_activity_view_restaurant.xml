@@ -28,7 +28,6 @@
                 android:id="@+id/restaurant_logo"
                 android:layout_width="@dimen/restaurant_logo_size"
                 android:layout_height="@dimen/restaurant_logo_size"
-                android:src="@drawable/ic_test"
                 android:clickable="false"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 app:civ_border_overlay="false"
@@ -100,7 +99,8 @@
             android:layout_height="wrap_content" />
 
 
-        <!-- Google Maps -->
+
+        <!-- Addresses -->
         <Button
             android:id="@+id/restaurant_current_address"
             android:layout_width="match_parent"
@@ -108,7 +108,9 @@
             android:background="?attr/selectableItemBackground"
 
 
-            android:padding="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"
             android:drawableRight="@drawable/ic_expand"
             android:gravity="start"
 
@@ -119,6 +121,12 @@
             android:textAllCaps="false"
             android:text="Գյուլբենկյան 21" />
 
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/restaurant_addresses_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!-- Google Maps -->
         <fragment
             android:id="@+id/map"
             android:layout_width="match_parent"
@@ -132,6 +140,6 @@
                 android:background="#00000000"
                 android:clickable="false" />
         </fragment>
-    </LinearLayout>
 
+    </LinearLayout>
 </com.dineoutmobile.dineout.util.LockableNestedScrollView>

@@ -21,7 +21,6 @@
             android:id="@+id/restaurant_logo"
             android:layout_width="@dimen/restaurant_grid_item_size"
             android:layout_height="@dimen/restaurant_grid_item_size"
-            android:src="@drawable/ic_test"
             android:clickable="false"
             app:civ_border_width="3dp"
             app:civ_border_color="#ffffff" />

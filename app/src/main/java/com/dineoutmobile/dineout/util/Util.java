@@ -36,6 +36,7 @@ public class Util {
         public static final String BUNDLE_RESTAURANT_ID = "rest_id";
         public static final String RESTAURANT_LIST_FRAGMENT = "rest_grid_f";
         public static final String NEARBY_PLACES_FRAGMENT = "nearby_f";
+        public static final String RESTAURANT_ADDRESSES_LIST_FRAGMENT = "address_list_f";
     }
 
     public static int dpToPx( float dp, Context context ) {

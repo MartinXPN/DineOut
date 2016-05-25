@@ -151,12 +151,17 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     public void loadData( long id) {
         this.id = id;
 
-        GetRestaurantFullInfoTask getRestaurantFullInfoTask = new GetRestaurantFullInfoTask();
-        getRestaurantFullInfoTask.execute();
+        LoadRestaurantWholeInfoTask loadRestaurantWholeInfoTask = new LoadRestaurantWholeInfoTask();
+        loadRestaurantWholeInfoTask.execute();
+    }
+    public void loadRestaurantFullInfo() {
+
+        LoadRestaurantAddressInfoTask loadRestaurantAddressInfoTask = new LoadRestaurantAddressInfoTask();
+        loadRestaurantAddressInfoTask.execute();
     }
 
 
-    class GetRestaurantFullInfoTask extends AsyncTask<Object, Object, Object> {
+    class LoadRestaurantWholeInfoTask extends AsyncTask<Object, Object, Object> {
 
         /// db is single-tone
         private DatabaseHelper db = DatabaseHelper.getInstance( context );
@@ -166,7 +171,28 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
             Log.d( "RestaurantFI", "started to load data" );
             db.getRestaurantAllAddresses( RestaurantFullInfo.this );
-            currentAddress = getPreferredAddress();
+            if( currentAddress == null )
+                currentAddress = getPreferredAddress();
+            db.getRestaurantFullInfo( Util.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+
+            Log.d( "RestaurantFI", "finished loading data" );
+            listener.onDataLoaded();
+        }
+    }
+    class LoadRestaurantAddressInfoTask extends AsyncTask<Object, Object, Object> {
+
+        /// db is single-tone
+        private DatabaseHelper db = DatabaseHelper.getInstance( context );
+
+        @Override
+        protected Object doInBackground(Object... params) {
+
+            Log.d( "RestaurantFI", "started to load data" );
             db.getRestaurantFullInfo( Util.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
             return null;
         }
@@ -182,5 +208,11 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     private Address getPreferredAddress() {
         return allAddresses.get( 0 );
+    }
+    public void setCurrentAddress( Address address ) {
+        if( currentAddress != address ) {
+            currentAddress = address;
+            loadRestaurantFullInfo();
+        }
     }
 }

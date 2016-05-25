@@ -135,6 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
     public void getRestaurantAllAddresses(RestaurantFullInfo restaurantInfo) {
 
+        restaurantInfo.allAddresses.clear();
         SQLiteDatabase db = getReadableDatabase();
         String query =
                 "SELECT " +
@@ -146,14 +147,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         Cursor cursor = db.rawQuery( query , null );
         if( cursor.moveToFirst() ) {
-            int count = 0;
             while (!cursor.isAfterLast()) {
 
                 Address address = new Address();
                 address.id = cursor.getLong(cursor.getColumnIndex(Columns.ADDRESS_ID));
                 address.name = cursor.getString(cursor.getColumnIndex(Columns.ADDRESS_NAME));
                 restaurantInfo.allAddresses.add(address);
-                if( ++count == 3 )break;
+                cursor.moveToNext();
             }
         }
 

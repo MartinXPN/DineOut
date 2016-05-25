@@ -60,7 +60,7 @@
         android:paddingLeft="@dimen/restaurant_reservation_layout_side_padding"
         android:paddingRight="@dimen/restaurant_reservation_layout_side_padding"
         android:orientation="vertical"
-        android:layout_above="@+id/reserve_restaurant_button"
+        android:layout_below="@+id/close"
         android:layout_centerHorizontal="true">
 
         <ImageView
@@ -93,7 +93,7 @@
         android:paddingLeft="@dimen/restaurant_reservation_layout_side_padding"
         android:paddingRight="@dimen/restaurant_reservation_layout_side_padding"
         android:orientation="vertical"
-        android:layout_above="@+id/reserve_restaurant_button"
+        android:layout_above="@+id/user_phone_number"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
@@ -117,6 +117,18 @@
     </LinearLayout>
 
 
+    <EditText
+        android:id="@+id/user_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/people_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:inputType="phone"
+        android:hint="Your phone number"/>
+
+
     <Button
         android:id="@+id/reserve_restaurant_button"
         android:layout_width="match_parent"
@@ -126,5 +138,7 @@
         android:text="RESERVE"
         android:textSize="@dimen/restaurant_reservation_reserve_button_text_size"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/people_layout" />
+        android:layout_below="@+id/user_phone_number"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

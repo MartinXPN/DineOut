@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoWithLinksGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
@@ -54,7 +57,9 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ActivityViewRestaurant extends AppCompatActivity implements RestaurantFullInfo.DataLoading {
+public class ActivityViewRestaurant extends     AppCompatActivity
+                                    implements  RestaurantFullInfo.DataLoading,
+                                                AdapterRestaurantAddressesList.OnAddressSelectedListener {
 
 
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
@@ -62,8 +67,11 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
     private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this, restaurantInfo);
     private AdapterRestaurantBasicInfoWithLinksGrid adapterRestaurantBasicInfoWithLinksGrid = new AdapterRestaurantBasicInfoWithLinksGrid( this, restaurantInfo );
     private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this, restaurantInfo);
-    private long id;
+    private AdapterRestaurantAddressesList adapterRestaurantAddressesList = new AdapterRestaurantAddressesList( this, restaurantInfo );
+    private RecyclerView restaurantAddressList;
+    private Button restaurantCurrentAddress;
     private boolean isLoaded = false;
+    private boolean isExpanded = false;
     private GoogleMap mMap;
 
 
@@ -75,7 +83,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
         /// initialize restaurant information
         Bundle extras = getIntent().getExtras();
-        id = extras.getLong(Util.Tags.BUNDLE_RESTAURANT_ID);
+        long id = extras.getLong(Util.Tags.BUNDLE_RESTAURANT_ID);
         Log.d("ActivityVR", "created, id = " + id);
         if (!isLoaded) {
             Log.d("Data", "is not loaded");
@@ -88,9 +96,29 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         initialize();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        final FABToolbarLayout reserveLayout = (FABToolbarLayout) findViewById( R.id.fabtoolbar );
+        assert reserveLayout != null;
+
+        if( !reserveLayout.isFab() ) {
+            reserveLayout.hide();
+
+            final FloatingActionButton reserveButton = (FloatingActionButton) findViewById(R.id.reserve);
+            assert reserveButton != null;
+            reserveButton.show();
+
+            final FloatingActionButton call = (FloatingActionButton) findViewById(R.id.call);
+            assert call != null;
+            call.show();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
 
@@ -108,6 +136,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         adapterRestaurantServicesGrid.notifyDataSetChanged();
         adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
         adapterRestaurantImagePager.notifyDataSetChanged();
+        adapterRestaurantAddressesList.notifyDataSetChanged();
         Log.d( "ActivityVR", "data loaded" );
         initialize();
     }
@@ -121,6 +150,17 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE || newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             initialize();
         }
+    }
+
+    public void collapseAddressList() {
+        isExpanded = false;
+        restaurantAddressList.setVisibility( View.GONE );
+        restaurantCurrentAddress.setCompoundDrawablesWithIntrinsicBounds( 0, 0, R.drawable.ic_expand, 0);
+    }
+    public void expandAddressList() {
+        isExpanded = true;
+        restaurantAddressList.setVisibility( View.VISIBLE );
+        restaurantCurrentAddress.setCompoundDrawablesWithIntrinsicBounds( 0, 0, R.drawable.ic_collapse, 0);
     }
 
 
@@ -180,7 +220,7 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         /// initialize reservation button
         final FloatingActionButton reserveButton = (FloatingActionButton) findViewById(R.id.reserve);
         assert reserveButton != null;
-        final com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout reserveLayout = (FABToolbarLayout) findViewById( R.id.fabtoolbar );
+        final FABToolbarLayout reserveLayout = (FABToolbarLayout) findViewById( R.id.fabtoolbar );
         assert reserveLayout != null;
         reserveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +287,15 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
         for (int i = 0; i < 48; i++)
             time[i] = String.valueOf( i / 2 ) + ( i%2 == 0 ? ":00" : ":30" );
         timePicker.setDisplayedValues( time );
+
+
+        /// initialize user phone number
+        final EditText userPhoneNumber = (EditText) findViewById( R.id.user_phone_number );
+        assert userPhoneNumber != null;
+        /// TODO read phone number from shared preferences
+
+
+
 
 
         /// initialize reservation layout
@@ -362,16 +411,36 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
 
 
 
-        /// initialize current address
-        Button currentAddress = (Button) findViewById(R.id.restaurant_current_address);
-        assert currentAddress != null;
-        currentAddress.setOnClickListener(new View.OnClickListener() {
+        /// initialize addresses
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( this );
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        restaurantAddressList = (RecyclerView) findViewById( R.id.restaurant_addresses_list );
+        assert restaurantAddressList != null;
+        restaurantAddressList.setHasFixedSize( true );
+        restaurantAddressList.setNestedScrollingEnabled( false );
+        restaurantAddressList.setLayoutManager( linearLayoutManager );
+        restaurantAddressList.setAdapter( adapterRestaurantAddressesList );
+        restaurantAddressList.setOnTouchListener( enableScrollingOnTouch );
+
+
+        restaurantCurrentAddress = (Button) findViewById( R.id.restaurant_current_address );
+        assert restaurantCurrentAddress != null;
+        restaurantCurrentAddress.setText( restaurantInfo.currentAddress.name == null ? "" : restaurantInfo.currentAddress.name );
+        restaurantCurrentAddress.setOnTouchListener( enableScrollingOnTouch );
+        restaurantCurrentAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("asd", "clicked");
+                isExpanded = !isExpanded;
+                if( isExpanded )    expandAddressList();
+                else                collapseAddressList();
             }
         });
-        currentAddress.setOnTouchListener( enableScrollingOnTouch );
+        if( isExpanded )    expandAddressList();
+        else                collapseAddressList();
+
+
+
+
 
 
 
@@ -429,5 +498,11 @@ public class ActivityViewRestaurant extends AppCompatActivity implements Restaur
                 }
             }
         });
+    }
+
+    @Override
+    public void onAddressSelected(int position) {
+        collapseAddressList();
+        restaurantCurrentAddress.setText( restaurantInfo.currentAddress.name );
     }
 }
