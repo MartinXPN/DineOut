@@ -21,7 +21,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     public String phoneNumber;
     public String shortInfo;
     public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();
-    public Address currentAddress;
+    public Address currentAddress = null;
     public ArrayList <Address> allAddresses = new ArrayList<>();
 
 

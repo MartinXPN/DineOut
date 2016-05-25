@@ -318,6 +318,12 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                 call.hide();
                 reserveLayout.hide();
                 reserveButton.hide();
+
+                Intent i = new Intent( ActivityViewRestaurant.this, ActivityPanoramaView.class );
+                i.putExtra( Util.Tags.BUNDLE_RESTAURANT_NAME, restaurantInfo.name );
+                i.putExtra( Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LAT, restaurantInfo.currentAddress.latLng.latitude );
+                i.putExtra( Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LNG, restaurantInfo.currentAddress.latLng.longitude );
+                startActivity( i );
             }
         });
 
