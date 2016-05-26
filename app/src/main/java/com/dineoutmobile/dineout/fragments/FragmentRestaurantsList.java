@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantList;
+import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
 
 
@@ -105,13 +106,13 @@ public class FragmentRestaurantsList extends    Fragment
         editor.apply();
     }
 
-    public void setLanguage( Util.Language language ) {
+    public void setLanguage( LanguageUtil.Language language ) {
 
         menu.findItem(R.id.action_language).setIcon( language.iconResource );
 
-        if( Util.getLanguage( getActivity() ) == language )
+        if( LanguageUtil.getLanguage( getActivity() ) == language )
             return;
-        Util.setLanguage( language, getActivity() );
+        LanguageUtil.setLanguage( language, getActivity() );
 
         /// recreate the whole activity
         getActivity().recreate();
@@ -146,7 +147,7 @@ public class FragmentRestaurantsList extends    Fragment
         }
 
         /// update current language
-        setLanguage( Util.getLanguage( getActivity() ) );
+        setLanguage( LanguageUtil.getLanguage( getActivity() ) );
     }
 
     @Override
@@ -155,9 +156,9 @@ public class FragmentRestaurantsList extends    Fragment
         Log.d( "FragmentRG", "menu item selected -> " + item.getItemId() );
         int id = item.getItemId();
         if( id == R.id.action_view_type)        { setShowAsGrid( !showAsGrid );     recreate();     return true; }
-        if( id == R.id.action_language_arm )    { setLanguage( Util.Language.HY );  return true; }
-        if( id == R.id.action_language_rus )    { setLanguage( Util.Language.RU );  return true; }
-        if( id == R.id.action_language_eng )    { setLanguage( Util.Language.EN );  return true; }
+        if( id == R.id.action_language_arm )    { setLanguage( LanguageUtil.Language.HY );          return true; }
+        if( id == R.id.action_language_rus )    { setLanguage( LanguageUtil.Language.RU );          return true; }
+        if( id == R.id.action_language_eng )    { setLanguage( LanguageUtil.Language.EN );          return true; }
         return super.onOptionsItemSelected(item);
     }
 

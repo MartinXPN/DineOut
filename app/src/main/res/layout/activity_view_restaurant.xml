@@ -63,7 +63,6 @@
 
     <include layout="@layout/content_activity_view_restaurant" />
 
-
     <!-- Reserve -->
     <com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout
         android:id="@+id/fabtoolbar"
@@ -96,12 +95,20 @@
 
         </RelativeLayout>
 
+
+        <LinearLayout
+            android:id="@+id/cancel_reservation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#78ffffff"
+            android:visibility="gone"
+            android:orientation="horizontal" />
+
         <LinearLayout
             android:id="@+id/reserve_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:layout_alignParentBottom="true">
 
             <include layout="@layout/content_reserve" />
         </LinearLayout>
@@ -127,7 +134,6 @@
             app:backgroundTint="#039603"
             app:rippleColor="@android:color/white"/>
     </LinearLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

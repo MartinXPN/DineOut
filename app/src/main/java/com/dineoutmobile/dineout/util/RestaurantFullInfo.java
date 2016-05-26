@@ -173,7 +173,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             db.getRestaurantAllAddresses( RestaurantFullInfo.this );
             if( currentAddress == null )
                 currentAddress = getPreferredAddress();
-            db.getRestaurantFullInfo( Util.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
+            db.getRestaurantFullInfo( LanguageUtil.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
             return null;
         }
 
@@ -193,7 +193,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         protected Object doInBackground(Object... params) {
 
             Log.d( "RestaurantFI", "started to load data" );
-            db.getRestaurantFullInfo( Util.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
+            db.getRestaurantFullInfo( LanguageUtil.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
             return null;
         }
 

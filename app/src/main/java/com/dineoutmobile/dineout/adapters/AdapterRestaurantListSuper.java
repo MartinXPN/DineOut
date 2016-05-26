@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.BaseAdapter;
 
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
+import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.Util;
 
@@ -54,7 +55,7 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
 
     public void getAllRestaurantsBasicInfo() {
 
-        if( Util.getLanguage( context ) == null )
+        if( LanguageUtil.getLanguage( context ) == null )
             return;
 
         /// do loading in background because it may take a lot of time...
@@ -70,7 +71,7 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
         protected Object doInBackground(Object... params) {
 
             Log.d( "Adapter", "started to load data" );
-            restaurants = database.getAllRestaurantsBasicInfo( Util.getLanguage( context ).languageLocale );
+            restaurants = database.getAllRestaurantsBasicInfo( LanguageUtil.getLanguage( context ).languageLocale );
             return null;
         }
 

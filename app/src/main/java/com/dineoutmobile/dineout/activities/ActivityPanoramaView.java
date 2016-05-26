@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 
 public class ActivityPanoramaView extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback  {
 
-    private LatLng currentPosition = new LatLng( 42.6593506, 44.5551702 );
+    private LatLng currentPosition = new LatLng( 40.1743643,44.5050949 );
 
 
     @Override
@@ -54,7 +54,7 @@ public class ActivityPanoramaView extends AppCompatActivity implements OnStreetV
     private static final LatLng SAN_FRAN = new LatLng(37.765927, -122.449972);
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
-        streetViewPanorama.setPosition(SAN_FRAN);
+        streetViewPanorama.setPosition(currentPosition);
         streetViewPanorama.setPanningGesturesEnabled( true );
         streetViewPanorama.setUserNavigationEnabled( true );
         streetViewPanorama.setZoomGesturesEnabled( false );

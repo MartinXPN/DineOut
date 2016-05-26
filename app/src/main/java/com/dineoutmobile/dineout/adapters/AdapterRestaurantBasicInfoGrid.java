@@ -38,16 +38,26 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.image.setImageResource( RestaurantFullInfo.BasicInfo.values()[position].resource );
-        holder.description.setText( RestaurantFullInfo.BasicInfo.values()[position].description );
-        holder.image.setBackgroundResource( R.drawable.circle_neutral );
-        holder.restaurantDetailsContainer.setOnClickListener( RestaurantFullInfo.BasicInfo.values()[position].onClickListener );
+
+        if (position < RestaurantFullInfo.BasicInfo.values().length) {
+            holder.image.setImageResource(RestaurantFullInfo.BasicInfo.values()[position].resource);
+            holder.description.setText(RestaurantFullInfo.BasicInfo.values()[position].description);
+            holder.image.setBackgroundResource(R.drawable.circle_neutral);
+            holder.restaurantDetailsContainer.setOnClickListener(RestaurantFullInfo.BasicInfo.values()[position].onClickListener);
+        }
+        else {
+            position -= RestaurantFullInfo.BasicInfo.values().length;
+            holder.image.setImageResource( RestaurantFullInfo.BasicInfoWithLinks.values()[position].resource );
+            holder.description.setText( RestaurantFullInfo.BasicInfoWithLinks.values()[position].description );
+            holder.image.setBackgroundResource( R.drawable.circle_neutral );
+            holder.restaurantDetailsContainer.setOnClickListener( RestaurantFullInfo.BasicInfoWithLinks.values()[position].onClickListener );
+        }
     }
 
 
     @Override
     public int getItemCount() {
-        return RestaurantFullInfo.BasicInfo.values().length;
+        return RestaurantFullInfo.BasicInfo.values().length + RestaurantFullInfo.BasicInfoWithLinks.values().length;
     }
 
 

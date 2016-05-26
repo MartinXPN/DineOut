@@ -23,17 +23,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
-import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoWithLinksGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
@@ -65,7 +63,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
     private AdapterRestaurantServicesGrid adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid(this, restaurantInfo);
     private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this, restaurantInfo);
-    private AdapterRestaurantBasicInfoWithLinksGrid adapterRestaurantBasicInfoWithLinksGrid = new AdapterRestaurantBasicInfoWithLinksGrid( this, restaurantInfo );
     private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this, restaurantInfo);
     private AdapterRestaurantAddressesList adapterRestaurantAddressesList = new AdapterRestaurantAddressesList( this, restaurantInfo );
     private RecyclerView restaurantAddressList;
@@ -105,8 +102,12 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         final FABToolbarLayout reserveLayout = (FABToolbarLayout) findViewById( R.id.fabtoolbar );
         assert reserveLayout != null;
 
-        if( !reserveLayout.isFab() ) {
+        if( reserveLayout.isToolbar() ) {
             reserveLayout.hide();
+
+            final LinearLayout cancelReservation = (LinearLayout) findViewById( R.id.cancel_reservation );
+            assert cancelReservation != null;
+            cancelReservation.setVisibility( View.GONE );
 
             final FloatingActionButton reserveButton = (FloatingActionButton) findViewById(R.id.reserve);
             assert reserveButton != null;
@@ -203,6 +204,8 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
 
 
+        final LinearLayout cancelReservation = (LinearLayout) findViewById( R.id.cancel_reservation );
+        assert cancelReservation != null;
 
 
         /// initialize call button
@@ -222,31 +225,23 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         assert reserveButton != null;
         final FABToolbarLayout reserveLayout = (FABToolbarLayout) findViewById( R.id.fabtoolbar );
         assert reserveLayout != null;
+        final RelativeLayout contentReserve = (RelativeLayout) findViewById( R.id.content_reserve );
+        assert contentReserve != null;
+        contentReserve.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
         reserveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if( reserveLayout.isFab() ) {
+                    cancelReservation.setVisibility( View.VISIBLE );
                     reserveLayout.show();
                     call.hide();
                 }
-                else {
-                    reserveLayout.hide();
-                    call.show();
-                }
-            }
-        });
-
-
-        /// initialize cancel reservation button
-        final ImageButton cancel = (ImageButton) findViewById( R.id.close);
-        assert cancel != null;
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reserveLayout.hide();
-                reserveButton.show();
-                call.show();
             }
         });
 
@@ -289,24 +284,11 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         timePicker.setDisplayedValues( time );
 
 
-        /// initialize user phone number
-        final EditText userPhoneNumber = (EditText) findViewById( R.id.user_phone_number );
-        assert userPhoneNumber != null;
-        /// TODO read phone number from shared preferences
-
-
-
 
 
         /// initialize reservation layout
         final LinearLayout reservationLayout = (LinearLayout) findViewById( R.id.reserve_layout );
         assert reservationLayout != null;
-        reservationLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
 
         /// initialize reservation button
         final Button reserveRestaurant = (Button) findViewById( R.id.reserve_restaurant_button );
@@ -318,12 +300,29 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                 call.hide();
                 reserveLayout.hide();
                 reserveButton.hide();
+                cancelReservation.setVisibility( View.GONE );
 
                 Intent i = new Intent( ActivityViewRestaurant.this, ActivityPanoramaView.class );
                 i.putExtra( Util.Tags.BUNDLE_RESTAURANT_NAME, restaurantInfo.name );
                 i.putExtra( Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LAT, restaurantInfo.currentAddress.latLng.latitude );
                 i.putExtra( Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LNG, restaurantInfo.currentAddress.latLng.longitude );
                 startActivity( i );
+            }
+        });
+
+        /// initialize reservation cancel layout
+        cancelReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /// because of the animation delay
+                /// reservation layout may not be fast enough to turn to toolbar before out click
+                if( reserveLayout.isToolbar() ) {
+                    reserveLayout.hide();
+                    reserveButton.show();
+                    call.show();
+                    cancelReservation.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -377,8 +376,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
 
         int numberOfItems = (int) (Util.getWindowWidth( this ) / getResources().getDimension( R.dimen.restaurant_services_grid_item_size));
-        Log.d( "ActivityVR", "grid numberOfItems = " + numberOfItems );
-        Log.d( "ActivityVR", "grid item width = " + getResources().getDimension( R.dimen.restaurant_services_grid_item_size) );
 
         /// initialize restaurant basic info grid
         GridLayoutManager restaurantBasicInfoListLayoutManager = new GridLayoutManager(this, numberOfItems);
@@ -390,17 +387,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         restaurantBasicInfoGrid.setLayoutManager(restaurantBasicInfoListLayoutManager);
         restaurantBasicInfoGrid.setAdapter( adapterRestaurantBasicInfoGrid );
         restaurantBasicInfoGrid.setOnTouchListener( enableScrollingOnTouch );
-
-        /// initialize restaurant basic info with links grid
-        GridLayoutManager restaurantBasicInfoWithLinksListLayoutManager = new GridLayoutManager(this, numberOfItems);
-        restaurantBasicInfoWithLinksListLayoutManager.setAutoMeasureEnabled( true );
-        final RecyclerView restaurantBasicInfoWithLinksGrid = (RecyclerView) findViewById( R.id.restaurant_basic_info_with_links_grid );
-        assert restaurantBasicInfoWithLinksGrid != null;
-        restaurantBasicInfoWithLinksGrid.setHasFixedSize( true );
-        restaurantBasicInfoWithLinksGrid.setNestedScrollingEnabled( false );
-        restaurantBasicInfoWithLinksGrid.setLayoutManager(restaurantBasicInfoWithLinksListLayoutManager);
-        restaurantBasicInfoWithLinksGrid.setAdapter( adapterRestaurantBasicInfoWithLinksGrid );
-        restaurantBasicInfoWithLinksGrid.setOnTouchListener( enableScrollingOnTouch );
 
         /// initialize restaurant services grid
         GridLayoutManager restaurantDescriptionGridLayoutManager = new GridLayoutManager(this, numberOfItems);
@@ -505,6 +491,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
             }
         });
     }
+
 
     @Override
     public void onAddressSelected(int position) {

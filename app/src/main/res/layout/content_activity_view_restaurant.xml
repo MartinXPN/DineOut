@@ -72,12 +72,6 @@
             android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <!-- Basic info with links -->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurant_basic_info_with_links_grid"
-            android:paddingTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <!-- Services -->
         <TextView

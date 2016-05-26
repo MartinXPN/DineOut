@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.fragments.FragmentNearbyPlaces;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantsList;
+import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
 
 
@@ -30,7 +31,7 @@ public class ActivityChooseRestaurant
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Util.setLanguage( Util.getLanguage( this ), this );
+        LanguageUtil.setLanguage( LanguageUtil.getLanguage( this ), this );
         setContentView(R.layout.activity_choose_restaurant);
 
 
