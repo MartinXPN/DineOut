@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.fragments.FragmentReservedRestaurants;
 import com.dineoutmobile.dineout.fragments.FragmentNearbyPlaces;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantsList;
 import com.dineoutmobile.dineout.util.LanguageUtil;
@@ -26,6 +27,7 @@ public class ActivityChooseRestaurant
 
     FragmentRestaurantsList fragmentRestaurantsList = null;
     FragmentNearbyPlaces fragmentNearbyPlaces = null;
+    FragmentReservedRestaurants fragmentReservedRestaurants = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +75,12 @@ public class ActivityChooseRestaurant
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if( id == R.id.nav_restaurant_list )    showRestaurantList();
-        else if( id == R.id.nav_nearby )        showRestaurantsInGoogleMaps();
-        else if( id == R.id.nav_help )          Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
-        else if( id == R.id.nav_feedback )      Util.writeFeedback( this );
-        else if( id == R.id.nav_about )         Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
+        if( id == R.id.nav_restaurant_list )            showRestaurantList();
+        else if( id == R.id.nav_nearby )                showRestaurantsInGoogleMaps();
+        else if( id == R.id.nav_reserved_restaurants )  showReservedRestaurants();
+        else if( id == R.id.nav_help )                  Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
+        else if( id == R.id.nav_feedback )              Util.writeFeedback( this );
+        else if( id == R.id.nav_about )                 Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -96,10 +99,31 @@ public class ActivityChooseRestaurant
 
         // If there is no fragment yet with this tag...
         if( fm.findFragmentByTag( Util.Tags.RESTAURANT_LIST_FRAGMENT) == null ) {
+            fm.popBackStack();
+
             // Add fragment
             FragmentTransaction ft = fm.beginTransaction();
             fragmentRestaurantsList = new FragmentRestaurantsList();
             ft.replace( R.id.container, fragmentRestaurantsList, Util.Tags.RESTAURANT_LIST_FRAGMENT);
+            ft.commit();
+        }
+    }
+
+    public void showReservedRestaurants() {
+
+        // get fragment manager
+        FragmentManager fm = getFragmentManager();
+        // Make sure the current transaction finishes first
+        fm.executePendingTransactions();
+
+        // If there is no fragment yet with this tag...
+        if( fm.findFragmentByTag( Util.Tags.RESERVED_RESTAURANTS_FRAGMENT) == null ) {
+            fm.popBackStack();
+
+            // Add fragment
+            FragmentTransaction ft = fm.beginTransaction();
+            fragmentReservedRestaurants = new FragmentReservedRestaurants();
+            ft.replace( R.id.container, fragmentReservedRestaurants, Util.Tags.RESERVED_RESTAURANTS_FRAGMENT );
             ft.commit();
         }
     }
@@ -113,6 +137,8 @@ public class ActivityChooseRestaurant
 
         // If there is no fragment yet with this tag...
         if( fm.findFragmentByTag( Util.Tags.NEARBY_PLACES_FRAGMENT) == null ) {
+            fm.popBackStack();
+
             // Add fragment
             FragmentTransaction ft = fm.beginTransaction();
             fragmentNearbyPlaces = new FragmentNearbyPlaces();

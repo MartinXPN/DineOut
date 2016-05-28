@@ -7,6 +7,7 @@
 
     <string name="nav_title_restaurant_list">Բոլոր Ռեստորանները</string>
     <string name="nav_title_nearby">Մոտակա Ռեստորանները</string>
+    <string name="nav_title_reserved_restaurants">My Reservations</string>
     <string name="nav_section_title_the_app">Հավելված</string>
     <string name="nav_title_tips">Տրյուկեր</string>
     <string name="nav_title_help">Օգնություն</string>

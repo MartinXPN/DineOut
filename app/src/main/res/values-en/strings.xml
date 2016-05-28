@@ -7,6 +7,7 @@
 
     <string name="nav_title_restaurant_list">All Restaurants</string>
     <string name="nav_title_nearby">Nearby Places</string>
+    <string name="nav_title_reserved_restaurants">My Reservations</string>
     <string name="nav_section_title_the_app">The App</string>
     <string name="nav_title_tips">Tips</string>
     <string name="nav_title_help">Help</string>

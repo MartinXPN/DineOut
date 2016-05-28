@@ -29,8 +29,6 @@ public class FragmentRestaurantsList extends    Fragment
                                     implements  SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout refreshLayout;
-    private GridView restaurantGrid;
-    private ListView restaurantList;
     private AdapterRestaurantGrid adapterRestaurantGrid;
     private AdapterRestaurantList adapterRestaurantList;
     private static boolean showAsGrid = true;
@@ -59,13 +57,13 @@ public class FragmentRestaurantsList extends    Fragment
 
         if( showAsGrid ) {
             rootView = inflater.inflate( R.layout.fragment_restaurant_grid, container, false );
-            restaurantGrid = (GridView) rootView.findViewById( R.id.restaurant_grid );
+            GridView restaurantGrid = (GridView) rootView.findViewById(R.id.restaurant_grid);
             adapterRestaurantGrid = new AdapterRestaurantGrid( getActivity() );
             restaurantGrid.setAdapter( adapterRestaurantGrid );
         }
         else {
             rootView = inflater.inflate( R.layout.fragment_restaurant_list, container, false );
-            restaurantList = (ListView) rootView.findViewById( R.id.restaurant_list );
+            ListView restaurantList = (ListView) rootView.findViewById(R.id.restaurant_list);
             adapterRestaurantList = new AdapterRestaurantList( getActivity() );
             restaurantList.setAdapter( adapterRestaurantList );
         }

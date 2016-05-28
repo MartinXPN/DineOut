@@ -70,7 +70,7 @@ public class AdapterReserveQuestionsPager extends PagerAdapter {
             numberOfPeople.setMaxValue( MAX_NUMBER_OF_PEOPLE );
             numberOfPeople.setWrapSelectorWheel( false );
             numberOfPeople.setDisplayedValues( people );
-            numberOfPeople.setValue( CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_RESERVE_TIME, numberOfPeople.getValue() ) );
+            numberOfPeople.setValue( CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_RESERVE_PEOPLE, 2 ) );
             numberOfPeople.setOnValueChangedListener( new OnNumberPickerValueChangeListener( Util.Tags.SHARED_PREFS_RESERVE_PEOPLE ) );
 
 
@@ -81,7 +81,7 @@ public class AdapterReserveQuestionsPager extends PagerAdapter {
             datePicker.setMaxValue( MAX_NUMBER_OF_DAYS );
             datePicker.setWrapSelectorWheel( false );
             datePicker.setDisplayedValues( date );
-            datePicker.setValue( CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_RESERVE_TIME, datePicker.getValue() ) );
+            datePicker.setValue( CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_RESERVE_DATE, 2 ) );
             datePicker.setOnValueChangedListener( new OnNumberPickerValueChangeListener( Util.Tags.SHARED_PREFS_RESERVE_DATE ) );
 
             /// initialize time picker
@@ -91,7 +91,7 @@ public class AdapterReserveQuestionsPager extends PagerAdapter {
             timePicker.setMaxValue( MAX_NUMBER_OF_HOURS );
             timePicker.setWrapSelectorWheel( false );
             timePicker.setDisplayedValues( time );
-            timePicker.setValue( CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_RESERVE_TIME, timePicker.getValue() ) );
+            timePicker.setValue( CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_RESERVE_TIME, 40 ) );
             timePicker.setOnValueChangedListener( new OnNumberPickerValueChangeListener( Util.Tags.SHARED_PREFS_RESERVE_TIME ) );
         }
         else {

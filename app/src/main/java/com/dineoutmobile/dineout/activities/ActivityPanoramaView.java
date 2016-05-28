@@ -11,11 +11,10 @@ import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
 import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 
 public class ActivityPanoramaView extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback  {
 
-    private LatLng currentPosition = new LatLng( 40.1743643,44.5050949 );
+    private LatLng currentPosition = new LatLng( 40.1841744,44.5146147 );
 
 
     @Override
@@ -59,10 +58,5 @@ public class ActivityPanoramaView extends AppCompatActivity implements OnStreetV
         streetViewPanorama.setUserNavigationEnabled( true );
         streetViewPanorama.setZoomGesturesEnabled( false );
         streetViewPanorama.setStreetNamesEnabled( true );
-
-        StreetViewPanoramaLocation location = streetViewPanorama.getLocation();
-        if (location != null && location.links != null) {
-            streetViewPanorama.setPosition(location.links[0].panoId);
-        }
     }
 }

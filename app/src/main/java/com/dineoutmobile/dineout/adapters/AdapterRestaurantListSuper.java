@@ -18,6 +18,8 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
     protected static DatabaseHelper database;
     protected static ArrayList <RestaurantBasicInfo> restaurants = new ArrayList<>();
     Context context;
+    LanguageUtil.Language currentLanguage;
+
 
     public AdapterRestaurantListSuper( Context context ) {
 
@@ -54,9 +56,10 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
 
     public void getAllRestaurantsBasicInfo() {
 
-        if( LanguageUtil.getLanguage( context ) == null )
+        if( LanguageUtil.getLanguage( context ) == null || ( !restaurants.isEmpty() && currentLanguage == LanguageUtil.getLanguage( context ) ) )
             return;
 
+        currentLanguage = LanguageUtil.getLanguage( context );
         /// do loading in background because it may take a lot of time...
         /// we can't do it in UI thread
         GetAllRestaurantsBasicInfoTask getInfoTask = new GetAllRestaurantsBasicInfoTask();

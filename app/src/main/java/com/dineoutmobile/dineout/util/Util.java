@@ -27,6 +27,7 @@ public class Util {
         public static final String BUNDLE_RESTAURANT_COORDINATE_LNG = "rest_cord_lng";
         public static final String RESTAURANT_LIST_FRAGMENT = "rest_grid_f";
         public static final String NEARBY_PLACES_FRAGMENT = "nearby_f";
+        public static final String RESERVED_RESTAURANTS_FRAGMENT = "reserved_f";
     }
 
     public static int calculateRatingColor( float rating ) {
@@ -50,6 +51,7 @@ public class Util {
 
     ///////////////////////////////// URL Helpers //////////////////////////////////////////////////
     public static void openUrlInBrowser( Context context, String url ) {
+        if( url == null )   return;
         Intent browserIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
         context.startActivity( browserIntent );
     }

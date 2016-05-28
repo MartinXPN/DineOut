@@ -13,6 +13,7 @@
     <dimen name="text_subtitle_size">18sp</dimen>
     <dimen name="text_restaurant_grid_item_name_size">15sp</dimen>
     <dimen name="text_restaurant_list_item_name_size">22sp</dimen>
+    <dimen name="text_restaurant_list_item_address_size">17sp</dimen>
     <dimen name="text_secondary_size">13sp</dimen>
 
 
@@ -22,7 +23,7 @@
     <dimen name="restaurant_grid_item_size">90dp</dimen>
     <dimen name="restaurant_grid_column_width">120dp</dimen>
     <dimen name="restaurant_services_grid_item_size">100dp</dimen>
-    <dimen name="restaurant_services_grid_item_image_size">50dp</dimen>
+    <dimen name="restaurant_services_grid_item_image_size">45dp</dimen>
 
 
     <dimen name="restaurant_reservation_description_text_size">15sp</dimen>
