@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class RestaurantFullInfo extends RestaurantBasicInfo {
 
-    private DataLoading listener;
+    private OnDataLoadedListener listener;
     private static Context context;
     public String phoneNumber;
     public String shortInfo;
@@ -28,7 +28,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     public RestaurantFullInfo( Context context ) {
         Log.d( "RestaurantFI", "created" );
         RestaurantFullInfo.context = context;
-        listener = (DataLoading) context;
+        listener = (OnDataLoadedListener) context;
 
         backgroundPhotoURLs.clear();
         backgroundPhotoURLs.add( "https://www.lenordik.com/app/assets/media/generated/55afa22ff1c80bb4097cb1349324a8fc1320719438_gallery_gallery.jpg?1335469974" );
@@ -36,7 +36,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         backgroundPhotoURLs.add( "http://thebestoffiji.com/wp-content/uploads/2016/02/restaurants-005.jpg" );
         backgroundPhotoURLs.add( "http://www.maiyango.com/images/homeselect/restaurant-002.jpg" );
     }
-    public interface DataLoading {
+    public interface OnDataLoadedListener {
         void onDataLoaded();
     }
 

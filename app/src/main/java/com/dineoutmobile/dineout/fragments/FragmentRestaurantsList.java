@@ -138,12 +138,12 @@ public class FragmentRestaurantsList extends    Fragment
         if( showAsGrid ) {
             /// provide options for viewing content as a list
             menu.findItem(R.id.action_view_type).setIcon( R.drawable.ic_view_list );
-            menu.findItem(R.id.action_view_type).setTitle( "View as list" );
+            menu.findItem(R.id.action_view_type).setTitle( getActivity().getResources().getString( R.string.view_as_list ) );
         }
         else {
             /// provide options for viewing content as a grid
             menu.findItem(R.id.action_view_type).setIcon( R.drawable.ic_view_grid );
-            menu.findItem(R.id.action_view_type).setTitle( "View as grid" );
+            menu.findItem(R.id.action_view_type).setTitle( getActivity().getResources().getString( R.string.view_as_grid ) );
         }
 
         /// update current language
@@ -168,7 +168,6 @@ public class FragmentRestaurantsList extends    Fragment
     public void onRefresh() {
         updateViewState(ViewState.LOADING, null);
         Log.d("Grid", "Refreshed");
-        Toast.makeText( getActivity(), "Data is up-to-date", Toast.LENGTH_SHORT ).show();
         updateViewState(ViewState.DONE, null);
     }
     private enum ViewState {

@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="default_color_primary">#ffbb00</color>
-    <color name="default_color_primary_dark">#f99f00</color>
-    <color name="default_color_window">#eeeeee</color>
-    <color name="default_color_accent">#4285f4</color>
+    <color name="default_primary">#ffbb00</color>
+    <color name="default_primary_dark">#f99f00</color>
+    <color name="default_window">#eeeeee</color>
+    <color name="default_accent">#4285f4</color>
 
-    <color name="black_overlay">#66000000</color>
+
+    <color name="circle_page_indicator_fillColor">#ffffff</color>
+    <color name="circle_page_indicator_pageColor">#77ffffff</color>
+
+    <color name="call_button_background">#039603</color>
+    <color name="reserve_close_semitransparent_color">#78ffffff</color>
+
+    <color name="restaurant_grid_and_list_rating_star">#FF4285f4</color>
+    <color name="restaurant_grid_rating_oval">#cecece</color>
+    <color name="restaurant_grid_rating_text">#252525</color>
+    <color name="restaurant_grid_name">#aa000000</color>
+    <color name="restaurant_list_rating_text">#ffffff</color>
+    <color name="restaurant_list_name">#ffffff</color>
+
+    <color name="restaurant_neutral_circle">#767676</color>
+    <color name="restaurant_services_grid_description">#99000000</color>
+    <color name="restaurant_services_grid_supported_circle">#aa1E9D66</color>
+    <color name="restaurant_services_grid_not_supported_circle">#bbfd564d</color>
+
+
+    <color name="reserve_layout_background">#00aeff</color>
+    <color name="address_list_item_text">#2d2d2d</color>
+
 </resources>

@@ -23,7 +23,7 @@
             android:layout_height="@dimen/restaurant_grid_item_size"
             android:clickable="false"
             app:civ_border_width="3dp"
-            app:civ_border_color="#ffffff" />
+            app:civ_border_color="@android:color/white" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,16 +41,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:textColor="#252525"
+                android:textColor="@color/restaurant_grid_rating_text"
                 android:gravity="center" />
 
-            <RatingBar
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:isIndicator="true"
-                android:numStars="1"
-                android:rating="1"
-                style="?android:attr/ratingBarStyleSmall" />
+                android:src="@drawable/ic_rating_star"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -62,7 +59,7 @@
         android:layout_gravity="center"
         android:gravity="top|center_horizontal"
         android:textSize="@dimen/text_restaurant_grid_item_name_size"
-        android:textColor="#aa000000"
+        android:textColor="@color/restaurant_grid_name"
         android:lineSpacingMultiplier="0.9"
         android:lines="2"
         android:ellipsize="end" />

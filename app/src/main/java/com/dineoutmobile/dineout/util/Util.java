@@ -16,6 +16,11 @@ public class Util {
         public static final String SHARED_PREFS_NAME = "cache";
         public static final String SHARED_PREFS_LANGUAGE_LOCALE = "lang_locale";
         public static final String SHARED_PREFS_SHOW_AS_GRID = "show_grid";
+        public static final String SHARED_PREFS_USER_NAME = "user_name";
+        public static final String SHARED_PREFS_USER_PHONE = "user_phone";
+        public static final String SHARED_PREFS_RESERVE_PEOPLE = "reserve_people";
+        public static final String SHARED_PREFS_RESERVE_DATE = "reserve_date";
+        public static final String SHARED_PREFS_RESERVE_TIME = "reserve_time";
         public static final String BUNDLE_RESTAURANT_ID = "rest_id";
         public static final String BUNDLE_RESTAURANT_NAME = "rest_name";
         public static final String BUNDLE_RESTAURANT_COORDINATE_LAT = "rest_cord_lat";

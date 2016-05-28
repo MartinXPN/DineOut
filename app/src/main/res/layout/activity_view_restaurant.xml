@@ -42,9 +42,9 @@
                     android:padding="10dp"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    app:fillColor="#ffffff"
-                    app:pageColor="#77ffffff"
-                    app:strokeColor="#00000000"
+                    app:fillColor="@color/circle_page_indicator_fillColor"
+                    app:pageColor="@color/circle_page_indicator_pageColor"
+                    app:strokeColor="@android:color/transparent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"/>
@@ -63,11 +63,21 @@
 
     <include layout="@layout/content_activity_view_restaurant" />
 
+
+
+    <LinearLayout
+        android:id="@+id/cancel_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/reserve_close_semitransparent_color"
+        android:visibility="gone"
+        android:orientation="horizontal" />
+
     <!-- Reserve -->
     <com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout
         android:id="@+id/fabtoolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:showDuration="600"
         app:hideDuration="200"
         app:horizontalMargin="@dimen/fab_margin"
@@ -76,6 +86,7 @@
         app:fabId="@+id/reserve"
         app:containerId="@+id/fab_container"
         app:fabToolbarId="@+id/reserve_layout">
+
 
 
         <RelativeLayout
@@ -92,17 +103,7 @@
                 android:src="@mipmap/ic_reserve"
                 app:fabSize="normal"
                 app:rippleColor="@android:color/white"/>
-
         </RelativeLayout>
-
-
-        <LinearLayout
-            android:id="@+id/cancel_reservation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#78ffffff"
-            android:visibility="gone"
-            android:orientation="horizontal" />
 
         <LinearLayout
             android:id="@+id/reserve_layout"
@@ -110,7 +111,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
-            <include layout="@layout/content_reserve" />
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.dineoutmobile.dineout.fragments.FragmentReserveQuestions" />
         </LinearLayout>
 
     </com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout>
@@ -129,9 +133,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_call"
-            android:background="#00000000"
+            android:background="@android:color/transparent"
             app:fabSize="mini"
-            app:backgroundTint="#039603"
+            app:backgroundTint="@color/call_button_background"
             app:rippleColor="@android:color/white"/>
     </LinearLayout>
 

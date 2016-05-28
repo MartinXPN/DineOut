@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/content_reserve"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:background="@color/reserve_layout_background"
+    android:gravity="center_horizontal">
+
+    <com.dineoutmobile.dineout.util.DynamicHeightViewPager
+        android:id="@+id/questions_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:fillColor="@color/circle_page_indicator_fillColor"
+        app:pageColor="@color/circle_page_indicator_pageColor"
+        app:strokeColor="@android:color/transparent"
+        android:layout_alignBottom="@+id/questions_pager"/>
+
+    <Button
+        android:id="@+id/reserve_restaurant_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Reserve"
+        android:textSize="@dimen/restaurant_reservation_reserve_button_text_size"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/questions_pager"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

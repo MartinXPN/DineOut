@@ -18,7 +18,7 @@
         android:background="?attr/selectableItemBackground"
 
         android:textSize="15sp"
-        android:textColor="#2d2d2d"
+        android:textColor="@color/address_list_item_text"
         android:textAllCaps="false"
-        android:text="Գյուլբենկյան 21"/>
+        android:text="Address" />
 </LinearLayout>

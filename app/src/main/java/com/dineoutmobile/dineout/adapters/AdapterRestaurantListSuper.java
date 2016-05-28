@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
-import com.dineoutmobile.dineout.util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;

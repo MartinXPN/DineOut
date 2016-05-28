@@ -68,9 +68,9 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
 
         ViewHolder( View v ) {
             super( v );
-            image = (ImageButton) v.findViewById( R.id.restaurant_details_grid_image );
-            description = (TextView ) v.findViewById( R.id.restaurant_details_grid_description );
-            restaurantDetailsContainer = (LinearLayout) v.findViewById( R.id.restaurant_details_container );
+            image = (ImageButton) v.findViewById( R.id.restaurant_services_grid_image);
+            description = (TextView ) v.findViewById( R.id.restaurant_services_grid_description);
+            restaurantDetailsContainer = (LinearLayout) v.findViewById( R.id.restaurant_services_container);
         }
     }
 }

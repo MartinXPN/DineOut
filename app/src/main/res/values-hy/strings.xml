@@ -34,4 +34,7 @@
 
     <string name="restaurant_call">Զանգահարել</string>
     <string name="restaurant_reserve">Պատվիրել</string>
+
+    <string name="view_as_list">Ցուցակի տեսք</string>
+    <string name="view_as_grid">Տախտակի տեսք</string>
 </resources>

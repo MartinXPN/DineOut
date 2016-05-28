@@ -1,10 +1,10 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/default_color_primary</item>
-        <item name="colorPrimaryDark">@color/default_color_primary_dark</item>
-        <item name="android:windowBackground">@color/default_color_window</item>
-        <item name="colorAccent">@color/default_color_accent</item>
+        <item name="colorPrimary">@color/default_primary</item>
+        <item name="colorPrimaryDark">@color/default_primary_dark</item>
+        <item name="android:windowBackground">@color/default_window</item>
+        <item name="colorAccent">@color/default_accent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

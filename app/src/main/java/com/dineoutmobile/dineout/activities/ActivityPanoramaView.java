@@ -54,7 +54,7 @@ public class ActivityPanoramaView extends AppCompatActivity implements OnStreetV
     private static final LatLng SAN_FRAN = new LatLng(37.765927, -122.449972);
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
-        streetViewPanorama.setPosition(currentPosition);
+        streetViewPanorama.setPosition(SAN_FRAN);
         streetViewPanorama.setPanningGesturesEnabled( true );
         streetViewPanorama.setUserNavigationEnabled( true );
         streetViewPanorama.setZoomGesturesEnabled( false );

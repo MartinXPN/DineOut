@@ -58,8 +58,8 @@ public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterR
 
         ViewHolder( View v ) {
             super(v);
-            image = (ImageButton) v.findViewById( R.id.restaurant_details_grid_image );
-            description = (TextView ) v.findViewById( R.id.restaurant_details_grid_description );
+            image = (ImageButton) v.findViewById( R.id.restaurant_services_grid_image);
+            description = (TextView ) v.findViewById( R.id.restaurant_services_grid_description);
         }
     }
 }

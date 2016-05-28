@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/reserve_layout_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/people_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/restaurant_reservation_layout_side_padding"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_private_room" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/restaurant_reservation_description_text_size"
+            android:textColor="@android:color/white"
+            android:text="People"/>
+        <com.dineoutmobile.dineout.util.NumberPicker
+            android:id="@+id/number_of_people_picker"
+            android:layout_width="@dimen/restaurant_reservation_number_picker_width"
+            android:layout_height="@dimen/restaurant_reservation_number_picker_height"
+            android:descendantFocusability="blocksDescendants" />
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/date_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/restaurant_reservation_layout_side_padding"
+        android:orientation="vertical"
+        android:layout_alignTop="@+id/people_layout"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_date" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/restaurant_reservation_description_text_size"
+            android:textColor="@android:color/white"
+            android:text="Date"/>
+        <com.dineoutmobile.dineout.util.NumberPicker
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/restaurant_reservation_number_picker_height"
+            android:descendantFocusability="blocksDescendants" />
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/time_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/restaurant_reservation_layout_side_padding"
+        android:orientation="vertical"
+        android:layout_alignTop="@+id/date_layout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_time" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/restaurant_reservation_description_text_size"
+            android:textColor="@android:color/white"
+            android:text="Time"/>
+        <com.dineoutmobile.dineout.util.NumberPicker
+            android:id="@+id/time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/restaurant_reservation_number_picker_height"
+            android:descendantFocusability="blocksDescendants" />
+    </LinearLayout>
+
+</RelativeLayout>

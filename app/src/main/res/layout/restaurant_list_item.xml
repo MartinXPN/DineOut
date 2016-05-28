@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_restaurant_list_item_name_size"
-            android:textColor="#ffffff"
+            android:textColor="@color/restaurant_list_name"
             android:maxLines="2"
             android:ellipsize="end"/>
 
@@ -44,16 +44,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:textColor="#ffffff"
+                android:textColor="@color/restaurant_list_rating_text"
                 android:gravity="center" />
 
-            <RatingBar
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:isIndicator="true"
-                android:numStars="1"
-                android:rating="1"
-                style="?android:attr/ratingBarStyleSmall" />
+                android:src="@drawable/ic_rating_star"/>
         </LinearLayout>
     </LinearLayout>
 

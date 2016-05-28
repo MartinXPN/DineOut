@@ -3,5 +3,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-    <solid android:color="#aa1E9D66" />
+    <solid android:color="@color/restaurant_services_grid_supported_circle" />
 </shape>
