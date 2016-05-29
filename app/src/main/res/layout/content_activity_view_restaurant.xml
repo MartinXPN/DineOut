@@ -95,31 +95,12 @@
 
 
         <!-- Addresses -->
-        <Button
-            android:id="@+id/restaurant_current_address"
+        <fragment
+            android:id="@+id/restaurant_addresses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
+            android:name="com.dineoutmobile.dineout.fragments.FragmentAddressPicker" />
 
-
-            android:paddingLeft="15dp"
-            android:paddingTop="15dp"
-            android:paddingRight="15dp"
-            android:drawableRight="@drawable/ic_expand"
-            android:gravity="start"
-
-
-            android:textStyle="bold"
-            android:textSize="17sp"
-            android:textColor="#2d2d2d"
-            android:textAllCaps="false"
-            android:text="Address" />
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurant_addresses_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <!-- Google Maps -->
         <fragment
             android:id="@+id/map"

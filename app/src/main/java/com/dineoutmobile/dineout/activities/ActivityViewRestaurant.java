@@ -17,7 +17,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,10 +30,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
+import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
@@ -51,26 +50,23 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ActivityViewRestaurant extends AppCompatActivity
-        implements RestaurantFullInfo.OnDataLoadedListener,
-        AdapterRestaurantAddressesList.OnAddressSelectedListener,
-        FragmentReserveQuestions.OnRestaurantReservedListener,
-        OnMapReadyCallback {
+public class ActivityViewRestaurant extends     AppCompatActivity
+                                    implements  RestaurantFullInfo.OnDataLoadedListener,
+                                                FragmentReserveQuestions.OnRestaurantReservedListener,
+                                                FragmentAddressPicker.OnAddressTouchListener,
+                                                OnMapReadyCallback {
 
 
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
     private AdapterRestaurantServicesGrid adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid(this, restaurantInfo);
     private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this, restaurantInfo);
     private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this, restaurantInfo);
-    private AdapterRestaurantAddressesList adapterRestaurantAddressesList = new AdapterRestaurantAddressesList(this, restaurantInfo);
-    private RecyclerView restaurantAddressList;
-    private Button restaurantCurrentAddress;
+    private FragmentAddressPicker fragmentAddressPicker;
+    private LockableNestedScrollView lockableNestedScrollView;
     private boolean isLoaded = false;
-    private boolean isExpanded = false;
-    View.OnTouchListener enableScrollingOnTouch;
-    View.OnTouchListener disableScrollingOnTouch;
-    GoogleMap map;
+    private GoogleMap map;
     private static final int PERMISSION_CODE_LOCATION = 1;
+    private View.OnTouchListener enableScrollingOnTouch;
 
 
     @Override
@@ -78,6 +74,11 @@ public class ActivityViewRestaurant extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_restaurant);
+
+        /// initialize whole scrollview
+        lockableNestedScrollView = (LockableNestedScrollView) findViewById(R.id.nestedscrollview);
+        assert lockableNestedScrollView != null;
+
 
         /// initialize restaurant information
         Bundle extras = getIntent().getExtras();
@@ -87,21 +88,10 @@ public class ActivityViewRestaurant extends AppCompatActivity
             isLoaded = true;
         }
 
-        disableScrollingOnTouch = new View.OnTouchListener() {
-            final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById(R.id.nestedscrollview);
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                nestedScrollView.setScrollingEnabled(false);
-                return false;
-            }
-        };
         enableScrollingOnTouch = new View.OnTouchListener() {
-            final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById(R.id.nestedscrollview);
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                nestedScrollView.setScrollingEnabled(true);
+                lockableNestedScrollView.setScrollingEnabled( true );
                 return false;
             }
         };
@@ -157,7 +147,7 @@ public class ActivityViewRestaurant extends AppCompatActivity
         adapterRestaurantServicesGrid.notifyDataSetChanged();
         adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
         adapterRestaurantImagePager.notifyDataSetChanged();
-        adapterRestaurantAddressesList.notifyDataSetChanged();
+        fragmentAddressPicker.notifyDataSetChanged();
         Log.d("ActivityVR", "data loaded");
         initializeVariableViews();
     }
@@ -173,17 +163,10 @@ public class ActivityViewRestaurant extends AppCompatActivity
         }
     }
 
-    public void collapseAddressList() {
-        isExpanded = false;
-        restaurantAddressList.setVisibility(View.GONE);
-        restaurantCurrentAddress.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand, 0);
+    public RestaurantFullInfo getRestaurantFullInfo() {
+        return restaurantInfo;
     }
 
-    public void expandAddressList() {
-        isExpanded = true;
-        restaurantAddressList.setVisibility(View.VISIBLE);
-        restaurantCurrentAddress.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_collapse, 0);
-    }
 
 
     public void initializeStaticViews() {
@@ -192,13 +175,12 @@ public class ActivityViewRestaurant extends AppCompatActivity
         final ViewPager restaurantPhotoPager = (ViewPager) findViewById(R.id.restaurant_photos_pager);
         assert restaurantPhotoPager != null;
         restaurantPhotoPager.setAdapter(adapterRestaurantImagePager);
-        restaurantPhotoPager.setOnTouchListener(enableScrollingOnTouch);
+        restaurantPhotoPager.setOnTouchListener( enableScrollingOnTouch );
 
         /// initialize restaurant photo page indicator
         final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         assert pageIndicator != null;
         pageIndicator.setViewPager(restaurantPhotoPager);
-        pageIndicator.setOnTouchListener(enableScrollingOnTouch);
 
 
         int numberOfItems = (int) (Util.getWindowWidth(this) / getResources().getDimension(R.dimen.restaurant_services_grid_item_size));
@@ -212,7 +194,8 @@ public class ActivityViewRestaurant extends AppCompatActivity
         restaurantBasicInfoGrid.setNestedScrollingEnabled(false);
         restaurantBasicInfoGrid.setLayoutManager(restaurantBasicInfoListLayoutManager);
         restaurantBasicInfoGrid.setAdapter(adapterRestaurantBasicInfoGrid);
-        restaurantBasicInfoGrid.setOnTouchListener(enableScrollingOnTouch);
+        restaurantBasicInfoGrid.setOnTouchListener( enableScrollingOnTouch );
+
 
         /// initialize restaurant services grid
         GridLayoutManager restaurantDescriptionGridLayoutManager = new GridLayoutManager(this, numberOfItems);
@@ -223,36 +206,12 @@ public class ActivityViewRestaurant extends AppCompatActivity
         restaurantServicesGrid.setNestedScrollingEnabled(false);
         restaurantServicesGrid.setLayoutManager(restaurantDescriptionGridLayoutManager);
         restaurantServicesGrid.setAdapter(adapterRestaurantServicesGrid);
-        restaurantServicesGrid.setOnTouchListener(enableScrollingOnTouch);
+        restaurantServicesGrid.setOnTouchListener( enableScrollingOnTouch );
 
 
-        /// initialize addresses list
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        restaurantAddressList = (RecyclerView) findViewById(R.id.restaurant_addresses_list);
-        assert restaurantAddressList != null;
-        restaurantAddressList.setHasFixedSize(true);
-        restaurantAddressList.setNestedScrollingEnabled(false);
-        restaurantAddressList.setLayoutManager(linearLayoutManager);
-        restaurantAddressList.setAdapter(adapterRestaurantAddressesList);
-        restaurantAddressList.setOnTouchListener(enableScrollingOnTouch);
 
-
-        /// initialize current address
-        restaurantCurrentAddress = (Button) findViewById(R.id.restaurant_current_address);
-        assert restaurantCurrentAddress != null;
-        restaurantCurrentAddress.setText(restaurantInfo.currentAddress == null ? "" : restaurantInfo.currentAddress.name);
-        restaurantCurrentAddress.setOnTouchListener(enableScrollingOnTouch);
-        restaurantCurrentAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isExpanded = !isExpanded;
-                if (isExpanded) expandAddressList();
-                else collapseAddressList();
-            }
-        });
-        if (isExpanded) expandAddressList();
-        else collapseAddressList();
+        /// initialize address picker fragment
+        fragmentAddressPicker = (FragmentAddressPicker) getFragmentManager().findFragmentById( R.id.restaurant_addresses );
 
 
         /// initialize call button
@@ -313,20 +272,8 @@ public class ActivityViewRestaurant extends AppCompatActivity
         });
 
 
-        /// initialize Map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        /// initialize google maps navigation touch
-        Button navigateInGoogleMaps = (Button) findViewById(R.id.fix_scrolling);
-        assert navigateInGoogleMaps != null;
-        navigateInGoogleMaps.setOnTouchListener(disableScrollingOnTouch);
-
-
         /// initialize the whole scrollView
-        final LockableNestedScrollView nestedScrollView = (LockableNestedScrollView) findViewById(R.id.nestedscrollview);
-        assert nestedScrollView != null;
-        nestedScrollView.setOnScrollChangeListener(new LockableNestedScrollView.OnScrollChangeListener() {
+        lockableNestedScrollView.setOnScrollChangeListener(new LockableNestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 /// move down
@@ -339,6 +286,23 @@ public class ActivityViewRestaurant extends AppCompatActivity
                     reserveButton.show();
                     call.show();
                 }
+            }
+        });
+
+
+
+        /// initialize Map
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        /// initialize google maps navigation touch
+        Button navigateInGoogleMaps = (Button) findViewById(R.id.fix_scrolling);
+        assert navigateInGoogleMaps != null;
+        navigateInGoogleMaps.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                lockableNestedScrollView.setScrollingEnabled( false );
+                return false;
             }
         });
     }
@@ -357,7 +321,7 @@ public class ActivityViewRestaurant extends AppCompatActivity
         /// initialize restaurant logo
         final CircleImageView restaurantLogo = (CircleImageView) findViewById(R.id.restaurant_logo);
         assert restaurantLogo != null;
-        restaurantLogo.setOnTouchListener(enableScrollingOnTouch);
+        restaurantLogo.setOnTouchListener( enableScrollingOnTouch );
         Picasso.with(this)
                 .load(Util.getImageURL(restaurantInfo.logoURL))
                 .placeholder(ContextCompat.getDrawable(this, R.drawable.placeholder))
@@ -369,35 +333,23 @@ public class ActivityViewRestaurant extends AppCompatActivity
         /// initialize restaurant name
         final TextView restaurantName = (TextView) findViewById(R.id.restaurant_name);
         assert restaurantName != null;
-        restaurantName.setOnTouchListener(enableScrollingOnTouch);
+        restaurantName.setOnTouchListener( enableScrollingOnTouch );
         restaurantName.setText(restaurantInfo.name);
 
         /// initialize restaurant rating
         final RatingBar restaurantRating = (RatingBar) findViewById(R.id.restaurant_rating);
         assert restaurantRating != null;
-        restaurantRating.setOnTouchListener(enableScrollingOnTouch);
+        restaurantRating.setOnTouchListener( enableScrollingOnTouch );
         if (restaurantInfo.rating <= 5)
             restaurantRating.setRating(restaurantInfo.rating);
 
-        /// initialize restaurant description
+        /// initialize restaurant descriptionResId
         final TextView restaurantDescription = (TextView) findViewById(R.id.restaurant_description);
         assert restaurantDescription != null;
-        restaurantDescription.setOnTouchListener(enableScrollingOnTouch);
+        restaurantDescription.setOnTouchListener( enableScrollingOnTouch );
         restaurantDescription.setText(restaurantInfo.description);
-
-
-        /// initialize current address
-        restaurantCurrentAddress = (Button) findViewById(R.id.restaurant_current_address);
-        assert restaurantCurrentAddress != null;
-        restaurantCurrentAddress.setText(restaurantInfo.currentAddress == null ? "" : restaurantInfo.currentAddress.name);
     }
 
-
-    @Override
-    public void onAddressSelected(int position) {
-        collapseAddressList();
-        restaurantCurrentAddress.setText(restaurantInfo.currentAddress.name);
-    }
 
     @Override
     public void onRestaurantReserved() {
@@ -452,5 +404,11 @@ public class ActivityViewRestaurant extends AppCompatActivity
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
         }
+    }
+
+    @Override
+    public void onTouch() {
+
+        lockableNestedScrollView.setScrollingEnabled( true );
     }
 }

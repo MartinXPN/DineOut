@@ -1,5 +1,6 @@
 package com.dineoutmobile.dineout.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -24,10 +25,6 @@ public class ActivityChooseRestaurant
         implements  NavigationView.OnNavigationItemSelectedListener {
 
 
-
-    FragmentRestaurantsList fragmentRestaurantsList = null;
-    FragmentNearbyPlaces fragmentNearbyPlaces = null;
-    FragmentReservedRestaurants fragmentReservedRestaurants = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +72,9 @@ public class ActivityChooseRestaurant
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if( id == R.id.nav_restaurant_list )            showRestaurantList();
-        else if( id == R.id.nav_nearby )                showRestaurantsInGoogleMaps();
-        else if( id == R.id.nav_reserved_restaurants )  showReservedRestaurants();
+        if( id == R.id.nav_restaurant_list )            showFragment( id, Util.Tags.RESTAURANT_LIST_FRAGMENT );
+        else if( id == R.id.nav_nearby )                showFragment( id, Util.Tags.NEARBY_PLACES_FRAGMENT );
+        else if( id == R.id.nav_reserved_restaurants )  showFragment( id, Util.Tags.RESERVED_RESTAURANTS_FRAGMENT );
         else if( id == R.id.nav_help )                  Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
         else if( id == R.id.nav_feedback )              Util.writeFeedback( this );
         else if( id == R.id.nav_about )                 Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
@@ -90,60 +87,26 @@ public class ActivityChooseRestaurant
     }
 
 
-    public void showRestaurantList() {
+    public void showFragment(int navId, String fragmentTag ) {
 
         // get fragment manager
         FragmentManager fm = getFragmentManager();
         // Make sure the current transaction finishes first
         fm.executePendingTransactions();
 
-        // If there is no fragment yet with this tag...
-        if( fm.findFragmentByTag( Util.Tags.RESTAURANT_LIST_FRAGMENT) == null ) {
-            fm.popBackStack();
+        // If there is a fragment with this tag...
+        if( fm.findFragmentByTag( fragmentTag ) != null )
+            return;
 
-            // Add fragment
-            FragmentTransaction ft = fm.beginTransaction();
-            fragmentRestaurantsList = new FragmentRestaurantsList();
-            ft.replace( R.id.container, fragmentRestaurantsList, Util.Tags.RESTAURANT_LIST_FRAGMENT);
-            ft.commit();
-        }
-    }
+        Fragment fragment = null;
+        if( navId == R.id.nav_restaurant_list )             fragment = new FragmentRestaurantsList();
+        else if( navId == R.id.nav_nearby )                 fragment = new FragmentNearbyPlaces();
+        else if( navId == R.id.nav_reserved_restaurants )   fragment = new FragmentReservedRestaurants();
 
-    public void showReservedRestaurants() {
-
-        // get fragment manager
-        FragmentManager fm = getFragmentManager();
-        // Make sure the current transaction finishes first
-        fm.executePendingTransactions();
-
-        // If there is no fragment yet with this tag...
-        if( fm.findFragmentByTag( Util.Tags.RESERVED_RESTAURANTS_FRAGMENT) == null ) {
-            fm.popBackStack();
-
-            // Add fragment
-            FragmentTransaction ft = fm.beginTransaction();
-            fragmentReservedRestaurants = new FragmentReservedRestaurants();
-            ft.replace( R.id.container, fragmentReservedRestaurants, Util.Tags.RESERVED_RESTAURANTS_FRAGMENT );
-            ft.commit();
-        }
-    }
-
-    public void showRestaurantsInGoogleMaps() {
-
-        // get fragment manager
-        FragmentManager fm = getFragmentManager();
-        // Make sure the current transaction finishes first
-        fm.executePendingTransactions();
-
-        // If there is no fragment yet with this tag...
-        if( fm.findFragmentByTag( Util.Tags.NEARBY_PLACES_FRAGMENT) == null ) {
-            fm.popBackStack();
-
-            // Add fragment
-            FragmentTransaction ft = fm.beginTransaction();
-            fragmentNearbyPlaces = new FragmentNearbyPlaces();
-            ft.replace( R.id.container, fragmentNearbyPlaces, Util.Tags.NEARBY_PLACES_FRAGMENT);
-            ft.commit();
-        }
+        // Add fragment
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace( R.id.container, fragment, fragmentTag );
+        fm.popBackStack();
+        ft.commit();
     }
 }

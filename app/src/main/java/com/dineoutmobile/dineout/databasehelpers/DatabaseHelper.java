@@ -5,24 +5,17 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.dineoutmobile.dineout.util.Address;
 import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 

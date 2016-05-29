@@ -86,32 +86,32 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     }
     public enum BasicInfoWithLinks {
 
-        MENU( context.getResources().getString( R.string.menu ), R.drawable.ic_restaurant_menu, new View.OnClickListener() {
+        MENU( R.string.menu, R.drawable.ic_restaurant_menu, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.openUrlInBrowser( context, MENU.URL );
             }
         }),
-        FEEDBACKS(context.getResources().getString( R.string.feedbacks ), R.drawable.ic_feedback_white, new View.OnClickListener() {
+        FEEDBACKS( R.string.feedbacks, R.drawable.ic_feedback_white, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.openUrlInBrowser( context, FEEDBACKS.URL );
             }
         }),
-        WEBSITE( context.getResources().getString( R.string.restaurant_website ), R.drawable.ic_link, new View.OnClickListener() {
+        WEBSITE( R.string.restaurant_website, R.drawable.ic_link, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.openUrlInBrowser( context, WEBSITE.URL );
             }
         });
 
-        public String description;
+        public int descriptionResId;
         public String URL;
         public int resource;
         public View.OnClickListener onClickListener;
 
-        BasicInfoWithLinks(String description, int resource, View.OnClickListener onClickListener) {
-            this.description = description;
+        BasicInfoWithLinks(int descriptionResId, int resource, View.OnClickListener onClickListener) {
+            this.descriptionResId = descriptionResId;
             this.resource = resource;
             this.onClickListener = onClickListener;
         }

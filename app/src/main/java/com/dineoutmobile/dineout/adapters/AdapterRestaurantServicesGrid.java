@@ -40,7 +40,7 @@ public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterR
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         holder.image.setImageResource( RestaurantFullInfo.Services.values()[position].resource );
-        if( RestaurantFullInfo.Services.values()[position].supported )   holder.image.setBackgroundResource( R.drawable.circle_green );
+        if( RestaurantFullInfo.Services.values()[position].supported )  holder.image.setBackgroundResource( R.drawable.circle_green );
         else                                                            holder.image.setBackgroundResource( R.drawable.circle_red );
 
         holder.description.setText( context.getResources().getString( RestaurantFullInfo.Services.values()[position].descriptionResId ) );

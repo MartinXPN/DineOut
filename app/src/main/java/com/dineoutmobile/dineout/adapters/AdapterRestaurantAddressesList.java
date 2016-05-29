@@ -1,6 +1,7 @@
 package com.dineoutmobile.dineout.adapters;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,10 +24,10 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
     }
 
 
-    public AdapterRestaurantAddressesList(Context context, RestaurantFullInfo restaurantInfo) {
+    public AdapterRestaurantAddressesList(Context context, Fragment parentFragment, RestaurantFullInfo restaurantInfo) {
         this.context = context;
         this.restaurantInfo = restaurantInfo;
-        listener = (OnAddressSelectedListener) context;
+        listener = (OnAddressSelectedListener) parentFragment;
     }
 
 

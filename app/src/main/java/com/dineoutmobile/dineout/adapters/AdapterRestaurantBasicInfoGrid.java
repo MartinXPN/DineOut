@@ -48,7 +48,7 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
         else {
             position -= RestaurantFullInfo.BasicInfo.values().length;
             holder.image.setImageResource( RestaurantFullInfo.BasicInfoWithLinks.values()[position].resource );
-            holder.description.setText( RestaurantFullInfo.BasicInfoWithLinks.values()[position].description );
+            holder.description.setText( context.getResources().getString( RestaurantFullInfo.BasicInfoWithLinks.values()[position].descriptionResId ) );
             holder.image.setBackgroundResource( R.drawable.circle_neutral );
             holder.restaurantDetailsContainer.setOnClickListener( RestaurantFullInfo.BasicInfoWithLinks.values()[position].onClickListener );
         }

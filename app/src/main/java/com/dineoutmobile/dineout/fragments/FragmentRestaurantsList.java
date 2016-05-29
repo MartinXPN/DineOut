@@ -3,8 +3,6 @@ package com.dineoutmobile.dineout.fragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -21,6 +19,7 @@ import android.widget.Toast;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantList;
+import com.dineoutmobile.dineout.util.CacheUtil;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
 
@@ -88,8 +87,7 @@ public class FragmentRestaurantsList extends    Fragment
 
 
     public boolean getShowAsGrid() {
-        SharedPreferences sp = getActivity().getSharedPreferences(Util.Tags.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        return sp.getBoolean( Util.Tags.SHARED_PREFS_SHOW_AS_GRID, true );
+        return CacheUtil.getCache( getActivity(), Util.Tags.SHARED_PREFS_SHOW_AS_GRID, true );
     }
     public void setShowAsGrid( boolean asGrid ) {
 
@@ -98,10 +96,7 @@ public class FragmentRestaurantsList extends    Fragment
 
         /// set value in shared preferences for later use
         showAsGrid = asGrid;
-        SharedPreferences sp = getActivity().getSharedPreferences(Util.Tags.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean( Util.Tags.SHARED_PREFS_SHOW_AS_GRID, asGrid );
-        editor.apply();
+        CacheUtil.setCache( getActivity(), Util.Tags.SHARED_PREFS_SHOW_AS_GRID, asGrid );
     }
 
     public void setLanguage( LanguageUtil.Language language ) {

@@ -5,10 +5,14 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class FragmentNearbyPlaces extends Fragment implements OnMapReadyCallback {
 
+    private static final int PERMISSION_CODE_LOCATION = 7;
     MapView mapView;
     GoogleMap map;
 
@@ -43,6 +48,16 @@ public class FragmentNearbyPlaces extends Fragment implements OnMapReadyCallback
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate( R.menu.empty_menu, menu );
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+
+
+    @Override
     public void onResume() {
         mapView.onResume();
         super.onResume();
@@ -61,29 +76,48 @@ public class FragmentNearbyPlaces extends Fragment implements OnMapReadyCallback
     }
 
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
+        map = googleMap;
         map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        map.getUiSettings().setZoomGesturesEnabled(true);
+        map.getUiSettings().setRotateGesturesEnabled(true);
 
-            ActivityCompat.requestPermissions( getActivity(), new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE_LOCATION);
             return;
         }
         map.setMyLocationEnabled(true);
         map.getUiSettings().setMyLocationButtonEnabled(true);
-        map.getUiSettings().setZoomGesturesEnabled(true);
-        map.getUiSettings().setRotateGesturesEnabled(true);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case PERMISSION_CODE_LOCATION: {
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)return;
+                    map.setMyLocationEnabled(true);
+                    map.getUiSettings().setMyLocationButtonEnabled(true);
+                }
+                else {
+                    Toast.makeText( getActivity(), "Location is needed to find nearest restaurants", Toast.LENGTH_LONG ).show();
+                    getActivity().finish();
+                }
+                break;
+            }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+        }
     }
 }
