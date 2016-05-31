@@ -1,6 +1,7 @@
 package com.dineoutmobile.dineout.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,9 +26,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
@@ -53,7 +56,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ActivityViewRestaurant extends     AppCompatActivity
                                     implements  RestaurantFullInfo.OnDataLoadedListener,
                                                 FragmentReserveQuestions.OnRestaurantReservedListener,
-                                                FragmentAddressPicker.OnAddressTouchListener,
+                                                FragmentAddressPicker.OnAddressFragmentInteractionListener,
                                                 OnMapReadyCallback {
 
 
@@ -162,11 +165,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
             initializeStaticViews();
         }
     }
-
-    public RestaurantFullInfo getRestaurantFullInfo() {
-        return restaurantInfo;
-    }
-
 
 
     public void initializeStaticViews() {
@@ -295,6 +293,20 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        /// initialize 360 view button
+        ImageButton viewRestaurantInPhotoSphere = (ImageButton) findViewById( R.id.view_360 );
+        assert viewRestaurantInPhotoSphere != null;
+        viewRestaurantInPhotoSphere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ActivityViewRestaurant.this, ActivityPanoramaView.class);
+                i.putExtra(Util.Tags.BUNDLE_RESTAURANT_NAME, restaurantInfo.name);
+                i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LAT, restaurantInfo.currentAddress.latLng.latitude);
+                i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LNG, restaurantInfo.currentAddress.latLng.longitude);
+                startActivity(i);
+            }
+        });
+
         /// initialize google maps navigation touch
         Button navigateInGoogleMaps = (Button) findViewById(R.id.fix_scrolling);
         assert navigateInGoogleMaps != null;
@@ -351,15 +363,27 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     }
 
 
+    protected void showDialog( String title, String message ) {
+        new AlertDialog
+                .Builder( this, AlertDialog.THEME_DEVICE_DEFAULT_DARK )
+                .setTitle( title )
+                .setMessage( message ).show();
+    }
+
     @Override
     public void onRestaurantReserved() {
 
-        finish();
-        Intent i = new Intent(this, ActivityPanoramaView.class);
-        i.putExtra(Util.Tags.BUNDLE_RESTAURANT_NAME, restaurantInfo.name);
-        i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LAT, restaurantInfo.currentAddress.latLng.latitude);
-        i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LNG, restaurantInfo.currentAddress.latLng.longitude);
-        startActivity(i);
+        if( !Util.isNetworkAvailable( this ) ) {
+
+            Toast.makeText( this, "Network not available\nPlease check internet connection and retry again", Toast.LENGTH_LONG ).show();
+            return;
+        }
+        /// 1. check user in black-list
+        /// 2. check if there are available seats -> API needed
+        showDialog( "Your reservation was successful!",
+                    "We'll call you shortly for confirmation\n" +
+                    "If you don't receive a call please submit your reservation again" );
+        //finish();
     }
 
 
@@ -406,9 +430,15 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         }
     }
 
+
+
     @Override
     public void onTouch() {
-
         lockableNestedScrollView.setScrollingEnabled( true );
+    }
+
+    @Override
+    public RestaurantFullInfo getRestaurantFullInfo() {
+        return restaurantInfo;
     }
 }

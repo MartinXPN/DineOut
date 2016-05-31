@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.TypedValue;
 import android.widget.Toast;
@@ -71,5 +73,12 @@ public class Util {
     public static String getImageURL(String imageName) {
         if(imageName == null || imageName.isEmpty())    return "http://dineoutmobile.com/images/placeholder.png";
         else                                            return "http://dineoutmobile.com/images/" + imageName ;
+    }
+
+
+    public static boolean isNetworkAvailable( Context context ) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected();
     }
 }

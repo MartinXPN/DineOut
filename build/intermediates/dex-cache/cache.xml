@@ -30,18 +30,18 @@
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_c643dbad0134aff7bcdf73d4c3ae29588f011039\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.github.fafaldo\fab-toolbar\1.2.0\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="914655ea8bbd3367dd5cebf2282e636cd3d95389">
-        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.fafaldo-fab-toolbar-1.2.0_cc05c442243cf00fd1f903440bdd9470aced991e\classes.dex" />
-    </item>
-    <item
         jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.0.0\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="1941832901fc4e7a93300b53762e9f65d7650b99">
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.0.0_d3c2a908e2562604eebbdd26190004a2bfd26366\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.github.fafaldo\fab-toolbar\1.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="914655ea8bbd3367dd5cebf2282e636cd3d95389">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.fafaldo-fab-toolbar-1.2.0_cc05c442243cf00fd1f903440bdd9470aced991e\classes.dex" />
     </item>
     <item
         jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
@@ -54,14 +54,14 @@
         jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="07100b301ce0f70b6d814216cfe36997e0cc5552">
+        sha1="187f764c1b52e36101639cb6598a6d841ec25609">
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_93c1a7fd5b9ba717449e23cffabe285c970e3a3a\classes.dex" />
     </item>
     <item
         jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="c216fe099c54d84373cf9d0c5de1bb4cf12dbff0">
+        sha1="959d6ed5e865bbc5a1ac3ed79fb25f3b1f9c558f">
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cc88ca1d98a31e9d2d9aec04cdf090e40bf47e46\classes.dex" />
     </item>
     <item
