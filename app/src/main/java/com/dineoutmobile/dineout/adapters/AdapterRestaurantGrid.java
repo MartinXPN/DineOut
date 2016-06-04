@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
-import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
 

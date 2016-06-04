@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
 public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<AdapterRestaurantAddressesList.ViewHolder> {
 

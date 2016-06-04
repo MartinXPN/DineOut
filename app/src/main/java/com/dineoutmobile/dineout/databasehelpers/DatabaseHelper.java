@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.dineoutmobile.dineout.util.Address;
-import com.dineoutmobile.dineout.util.RestaurantBasicInfo;
-import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -106,21 +106,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
             restaurant.backgroundPhotoURL = cursor.getString( cursor.getColumnIndex( Columns.BACKGROUND_PHOTO_URL ) );
             restaurant.shortInfo = cursor.getString( cursor.getColumnIndex( Columns.SHORT_INFO ) );
             restaurant.phoneNumber = cursor.getString( cursor.getColumnIndex( Columns.PHONE_NUMBER) );
-            RestaurantFullInfo.BasicInfo.WORKING_HOURS.description = cursor.getString( cursor.getColumnIndex( Columns.WORK_HOURS ) );
-            RestaurantFullInfo.BasicInfo.MUSIC.description = cursor.getString( cursor.getColumnIndex( Columns.MUSIC ) );
-            RestaurantFullInfo.BasicInfo.CUISINE.description = cursor.getString( cursor.getColumnIndex( Columns.CUISINES ) );
-            RestaurantFullInfo.BasicInfoWithLinks.MENU.URL = cursor.getString( cursor.getColumnIndex( Columns.MENU_URL ) );
-            RestaurantFullInfo.BasicInfoWithLinks.WEBSITE.URL = cursor.getString( cursor.getColumnIndex( Columns.WEBSITE_URL ) );
-            RestaurantFullInfo.BasicInfoWithLinks.FEEDBACKS.URL = "http://dineoutmobile.com/";
-            RestaurantFullInfo.Services.WIFI.supported = cursor.getInt( cursor.getColumnIndex( Columns.WIFI ) ) != 0;
-            RestaurantFullInfo.Services.PRIVATE_ROOMS.supported = cursor.getInt( cursor.getColumnIndex( Columns.PRIVATE_ROOMS ) ) != 0;
-            RestaurantFullInfo.Services.FOURSHET.supported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
-            RestaurantFullInfo.Services.SHIPPING.supported = cursor.getInt( cursor.getColumnIndex( Columns.SHIPPING ) ) != 0;
-            RestaurantFullInfo.Services.CREDIT_CARD.supported = cursor.getInt( cursor.getColumnIndex( Columns.CREDIT_CARD ) ) != 0;
-            RestaurantFullInfo.Services.PARKING.supported = cursor.getInt( cursor.getColumnIndex( Columns.PARKING ) ) != 0;
-            RestaurantFullInfo.Services.OUTSIDE_SEATING.supported = cursor.getInt( cursor.getColumnIndex( Columns.OUTSIDE_SEATING ) ) != 0;
-            RestaurantFullInfo.Services.SMOKING_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKING_AREAS ) ) != 0;
-            RestaurantFullInfo.Services.SMOKE_FREE_AREAS.supported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKE_FREE_AREAS ) ) != 0;
+            restaurant.WORKING_HOURS.description = cursor.getString( cursor.getColumnIndex( Columns.WORK_HOURS ) );
+            restaurant.MUSIC.description = cursor.getString( cursor.getColumnIndex( Columns.MUSIC ) );
+            restaurant.CUISINE.description = cursor.getString( cursor.getColumnIndex( Columns.CUISINES ) );
+            restaurant.MENU.URL = cursor.getString( cursor.getColumnIndex( Columns.MENU_URL ) );
+            restaurant.WEBSITE.URL = cursor.getString( cursor.getColumnIndex( Columns.WEBSITE_URL ) );
+            restaurant.FEEDBACKS.URL = "http://dineoutmobile.com/";
+            restaurant.WIFI.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.WIFI ) ) != 0;
+            restaurant.PRIVATE_ROOMS.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.PRIVATE_ROOMS ) ) != 0;
+            restaurant.FOURSHET.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
+            restaurant.SHIPPING.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.SHIPPING ) ) != 0;
+            restaurant.CREDIT_CARD.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.CREDIT_CARD ) ) != 0;
+            restaurant.PARKING.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.PARKING ) ) != 0;
+            restaurant.OUTSIDE_SEATING.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.OUTSIDE_SEATING ) ) != 0;
+            restaurant.SMOKING_AREAS.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKING_AREAS ) ) != 0;
+            restaurant.SMOKE_FREE_AREAS.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.SMOKE_FREE_AREAS ) ) != 0;
             Log.d( "Name", restaurant.name );
             Log.d( "Rating", ""+restaurant.rating );
         }

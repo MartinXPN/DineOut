@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
 

@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
-import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
 public class FragmentAddressPicker extends Fragment implements AdapterRestaurantAddressesList.OnAddressSelectedListener {
 

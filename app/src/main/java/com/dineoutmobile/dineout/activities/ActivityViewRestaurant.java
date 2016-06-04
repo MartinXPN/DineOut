@@ -24,7 +24,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -38,9 +37,11 @@ import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantMap;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
-import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -159,6 +160,13 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         fragmentAddressPicker.notifyDataSetChanged();
         Log.d("ActivityVR", "data loaded");
         initializeVariableViews();
+
+
+        //// GSON TEST
+        GsonBuilder gson = new GsonBuilder().setPrettyPrinting();
+        Gson myGson = gson.create();
+        String json = myGson.toJson( restaurantInfo );
+        Log.d( "GSON!!!", json );
     }
 
 

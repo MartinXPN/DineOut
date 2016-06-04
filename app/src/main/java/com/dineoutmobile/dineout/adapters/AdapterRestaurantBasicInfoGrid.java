@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
 
 public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<AdapterRestaurantBasicInfoGrid.ViewHolder> {
@@ -39,25 +39,25 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        if (position < RestaurantFullInfo.BasicInfo.values().length) {
-            holder.image.setImageResource(RestaurantFullInfo.BasicInfo.values()[position].resource);
-            holder.description.setText(RestaurantFullInfo.BasicInfo.values()[position].description);
+        if (position < RestaurantFullInfo.BasicInfo.all.size()) {
+            holder.image.setImageResource(RestaurantFullInfo.BasicInfo.all.get(position).resource);
+            holder.description.setText(RestaurantFullInfo.BasicInfo.all.get(position).description);
             holder.image.setBackgroundResource(R.drawable.circle_neutral);
-            holder.restaurantDetailsContainer.setOnClickListener(RestaurantFullInfo.BasicInfo.values()[position].onClickListener);
+            holder.restaurantDetailsContainer.setOnClickListener(RestaurantFullInfo.BasicInfo.all.get(position).onClickListener);
         }
         else {
-            position -= RestaurantFullInfo.BasicInfo.values().length;
-            holder.image.setImageResource( RestaurantFullInfo.BasicInfoWithLinks.values()[position].resource );
-            holder.description.setText( context.getResources().getString( RestaurantFullInfo.BasicInfoWithLinks.values()[position].descriptionResId ) );
+            position -= RestaurantFullInfo.BasicInfo.all.size();
+            holder.image.setImageResource( RestaurantFullInfo.BasicInfoWithLinks.all.get(position).resource );
+            holder.description.setText( context.getResources().getString( RestaurantFullInfo.BasicInfoWithLinks.all.get(position).descriptionResId ) );
             holder.image.setBackgroundResource( R.drawable.circle_neutral );
-            holder.restaurantDetailsContainer.setOnClickListener( RestaurantFullInfo.BasicInfoWithLinks.values()[position].onClickListener );
+            holder.restaurantDetailsContainer.setOnClickListener( RestaurantFullInfo.BasicInfoWithLinks.all.get(position).onClickListener );
         }
     }
 
 
     @Override
     public int getItemCount() {
-        return RestaurantFullInfo.BasicInfo.values().length + RestaurantFullInfo.BasicInfoWithLinks.values().length;
+        return RestaurantFullInfo.BasicInfo.all.size() + RestaurantFullInfo.BasicInfoWithLinks.all.size();
     }
 
 

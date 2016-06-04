@@ -40,6 +40,11 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             this.description = description;
             this.resource = resource;
             this.onClickListener = onClickListener;
+            for( int i=0; i < all.size(); i++ )
+                if( all.get( i ).resource == resource ) {
+                    all.clear();
+                    break;
+                }
             all.add( this );
         }
     }
@@ -83,6 +88,12 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             this.descriptionResId = descriptionResId;
             this.resource = resource;
             this.onClickListener = onClickListener;
+
+            for( int i=0; i < all.size(); i++ )
+                if( all.get( i ).resource == resource ) {
+                    all.clear();
+                    break;
+                }
             all.add( this );
         }
     }
@@ -119,6 +130,12 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             this.isSupported = isSupported;
             this.descriptionResId = description;
             this.resource = resource;
+
+            for( int i=0; i < all.size(); i++ )
+                if( all.get( i ).resource == resource ) {
+                    all.clear();
+                    break;
+                }
             all.add( this );
         }
     }
@@ -140,6 +157,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         Log.d( "RestaurantFI", "created" );
         RestaurantFullInfo.context = context;
         listener = (OnDataLoadedListener) context;
+
 
         backgroundPhotoURLs.clear();
         backgroundPhotoURLs.add( "https://www.lenordik.com/app/assets/media/generated/55afa22ff1c80bb4097cb1349324a8fc1320719438_gallery_gallery.jpg?1335469974" );

@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
 
 public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterRestaurantServicesGrid.ViewHolder> {
@@ -39,16 +39,16 @@ public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterR
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.image.setImageResource( RestaurantFullInfo.Services.values()[position].resource );
-        if( RestaurantFullInfo.Services.values()[position].supported )  holder.image.setBackgroundResource( R.drawable.circle_green );
+        holder.image.setImageResource( RestaurantFullInfo.Services.all.get(position).resource );
+        if( RestaurantFullInfo.Services.all.get(position).isSupported)  holder.image.setBackgroundResource( R.drawable.circle_green );
         else                                                            holder.image.setBackgroundResource( R.drawable.circle_red );
 
-        holder.description.setText( context.getResources().getString( RestaurantFullInfo.Services.values()[position].descriptionResId ) );
+        holder.description.setText( context.getResources().getString( RestaurantFullInfo.Services.all.get(position).descriptionResId ) );
     }
 
     @Override
     public int getItemCount() {
-        return RestaurantFullInfo.Services.values().length;
+        return RestaurantFullInfo.Services.all.size();
     }
 
 
