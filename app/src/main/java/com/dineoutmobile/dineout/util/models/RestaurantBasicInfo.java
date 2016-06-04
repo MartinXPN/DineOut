@@ -1,4 +1,4 @@
-package com.dineoutmobile.dineout.util;
+package com.dineoutmobile.dineout.util.models;
 
 
 public class RestaurantBasicInfo {
