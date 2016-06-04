@@ -54,14 +54,21 @@
         jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="36028539da51e5ee863745316453d0b5e146eb62">
+        sha1="03b841be58bae79daf3271437948ecb3b7122451">
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_93c1a7fd5b9ba717449e23cffabe285c970e3a3a\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.0.2\43eeae0b9fb087bb3194ba59ab63a38a32fbf3e\retrofit-2.0.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.0.2_aa4a483d27c57a37bbf70b832cfc5c603f010841\classes.dex" />
     </item>
     <item
         jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="5444f89e6720c33f09926dc995df669ee07bea8a">
+        sha1="44845f702c221e92254ac7af05bdf25f7e0edf88">
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cc88ca1d98a31e9d2d9aec04cdf090e40bf47e46\classes.dex" />
     </item>
     <item
@@ -77,6 +84,13 @@
         revision="23.0.3"
         sha1="6f65c144283b31b4b9a70e6e7aa4c4a1c897d4b8">
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.0.0_5380b3c40807a78717da5864b6203bc7eda43567\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.2.0\f7873a2ebde246a45c2a8d6f3247108b4c88a879\okhttp-3.2.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.2.0_4b55aa29f314af47a241e5945d8cc740c43d5776\classes.dex" />
     </item>
     <item
         jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.4\695b63d702f505b9b916e02272e3b6381bade7f\gson-2.4.jar"
@@ -105,6 +119,13 @@
         revision="23.0.3"
         sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
         <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\de.hdodenhof-circleimageview-2.0.0_7e4d53186fe1981fad12d829f963a777bf159a3f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.6.0_27ff0591eed1ca1d00290c629f3f7ca1d72c69c7\classes.dex" />
     </item>
     <item
         jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.0.0\jars\classes.jar"

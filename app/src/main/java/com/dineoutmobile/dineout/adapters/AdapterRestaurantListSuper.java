@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,6 +84,9 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
 
             Log.d( "Adapter", "finished loading data" );
             notifyDataSetChanged();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson( restaurants );
+            Log.d( "ALL RESTAURANTS IN JSON", json );
         }
     }
 }
