@@ -112,6 +112,7 @@
             android:layout_alignParentBottom="true">
 
             <fragment
+                android:id="@+id/reserve_layout_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:name="com.dineoutmobile.dineout.fragments.FragmentReserveQuestions" />
@@ -138,6 +139,19 @@
             app:backgroundTint="@color/call_button_background"
             app:rippleColor="@android:color/white"/>
     </LinearLayout>
+
+
+
+
+    <!-- 360 view -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/view_360"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_360"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end" />
 
 
 </android.support.design.widget.CoordinatorLayout>

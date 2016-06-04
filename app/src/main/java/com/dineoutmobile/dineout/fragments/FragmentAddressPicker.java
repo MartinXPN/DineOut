@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 

@@ -27,9 +27,11 @@ public class Util {
         public static final String BUNDLE_RESTAURANT_NAME = "rest_name";
         public static final String BUNDLE_RESTAURANT_COORDINATE_LAT = "rest_cord_lat";
         public static final String BUNDLE_RESTAURANT_COORDINATE_LNG = "rest_cord_lng";
-        public static final String RESTAURANT_LIST_FRAGMENT = "rest_grid_f";
+        public static final String RESTAURANT_LIST_FRAGMENT = "rest_list_f";
+        public static final String RESTAURANT_GRID_FRAGMENT = "rest_grid_f";
         public static final String NEARBY_PLACES_FRAGMENT = "nearby_f";
         public static final String RESERVED_RESTAURANTS_FRAGMENT = "reserved_f";
+        public static final String GOOGLE_MAPS_FRAGMENT = "maps_f";
     }
 
     public static int calculateRatingColor( float rating ) {

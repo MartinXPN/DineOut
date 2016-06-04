@@ -1,18 +1,16 @@
 package com.dineoutmobile.dineout.activities;
 
-import android.Manifest;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
@@ -38,16 +36,11 @@ import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
 import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
+import com.dineoutmobile.dineout.fragments.FragmentRestaurantMap;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -56,8 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ActivityViewRestaurant extends     AppCompatActivity
                                     implements  RestaurantFullInfo.OnDataLoadedListener,
                                                 FragmentReserveQuestions.OnRestaurantReservedListener,
-                                                FragmentAddressPicker.OnAddressFragmentInteractionListener,
-                                                OnMapReadyCallback {
+                                                FragmentAddressPicker.OnAddressFragmentInteractionListener {
 
 
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
@@ -67,8 +59,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     private FragmentAddressPicker fragmentAddressPicker;
     private LockableNestedScrollView lockableNestedScrollView;
     private boolean isLoaded = false;
-    private GoogleMap map;
-    private static final int PERMISSION_CODE_LOCATION = 1;
     private View.OnTouchListener enableScrollingOnTouch;
 
 
@@ -90,6 +80,22 @@ public class ActivityViewRestaurant extends     AppCompatActivity
             restaurantInfo.loadRestaurantWholeInfo(id);
             isLoaded = true;
         }
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                if (!isFinishing()) {
+                    FragmentManager fm = getFragmentManager();
+                    fm.executePendingTransactions();
+
+                    if( fm.findFragmentByTag( Util.Tags.GOOGLE_MAPS_FRAGMENT) == null ) {
+                        FragmentRestaurantMap mapFragment = new FragmentRestaurantMap();
+                        fm.beginTransaction().replace(R.id.map, mapFragment, Util.Tags.GOOGLE_MAPS_FRAGMENT).commit();
+                    }
+                }
+            }
+        }, 500);
 
         enableScrollingOnTouch = new View.OnTouchListener() {
             @Override
@@ -289,12 +295,9 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
 
 
-        /// initialize Map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         /// initialize 360 view button
-        ImageButton viewRestaurantInPhotoSphere = (ImageButton) findViewById( R.id.view_360 );
+        FloatingActionButton viewRestaurantInPhotoSphere = (FloatingActionButton) findViewById( R.id.view_360 );
         assert viewRestaurantInPhotoSphere != null;
         viewRestaurantInPhotoSphere.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -375,7 +378,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
         if( !Util.isNetworkAvailable( this ) ) {
 
-            Toast.makeText( this, "Network not available\nPlease check internet connection and retry again", Toast.LENGTH_LONG ).show();
+            Toast.makeText( this, "Network not available\nPlease check internet connection and try again", Toast.LENGTH_LONG ).show();
             return;
         }
         /// 1. check user in black-list
@@ -385,52 +388,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                     "If you don't receive a call please submit your reservation again" );
         //finish();
     }
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        map = googleMap;
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        map.getUiSettings().setZoomGesturesEnabled(true);
-        map.getUiSettings().setRotateGesturesEnabled(true);
-
-        if (ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ActivityViewRestaurant.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(ActivityViewRestaurant.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE_LOCATION);
-            return;
-        }
-        map.setMyLocationEnabled(true);
-        map.getUiSettings().setMyLocationButtonEnabled(true);
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        switch (requestCode) {
-            case PERMISSION_CODE_LOCATION: {
-
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    map.setMyLocationEnabled(true);
-                    map.getUiSettings().setMyLocationButtonEnabled(true);
-                }
-                break;
-            }
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-                break;
-        }
-    }
-
-
 
     @Override
     public void onTouch() {

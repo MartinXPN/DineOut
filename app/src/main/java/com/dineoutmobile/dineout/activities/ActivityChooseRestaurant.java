@@ -15,14 +15,18 @@ import android.view.MenuItem;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.fragments.FragmentReservedRestaurants;
 import com.dineoutmobile.dineout.fragments.FragmentNearbyPlaces;
+import com.dineoutmobile.dineout.fragments.FragmentRestaurantsGrid;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantsList;
+import com.dineoutmobile.dineout.util.CacheUtil;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
 
 
 public class ActivityChooseRestaurant
         extends     AppCompatActivity
-        implements  NavigationView.OnNavigationItemSelectedListener {
+        implements  NavigationView.OnNavigationItemSelectedListener,
+                    FragmentRestaurantsList.ShowAsGridListener,
+                    FragmentRestaurantsGrid.ShowAsListListener {
 
 
 
@@ -72,7 +76,10 @@ public class ActivityChooseRestaurant
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if( id == R.id.nav_restaurant_list )            showFragment( id, Util.Tags.RESTAURANT_LIST_FRAGMENT );
+        if( id == R.id.nav_restaurant_list &&  CacheUtil.getCache( this, Util.Tags.SHARED_PREFS_SHOW_AS_GRID, true ) )
+            showFragment( id, Util.Tags.RESTAURANT_GRID_FRAGMENT );
+        else if( id == R.id.nav_restaurant_list &&  !CacheUtil.getCache( this, Util.Tags.SHARED_PREFS_SHOW_AS_GRID, true ) )
+            showFragment( id, Util.Tags.RESTAURANT_LIST_FRAGMENT );
         else if( id == R.id.nav_nearby )                showFragment( id, Util.Tags.NEARBY_PLACES_FRAGMENT );
         else if( id == R.id.nav_reserved_restaurants )  showFragment( id, Util.Tags.RESERVED_RESTAURANTS_FRAGMENT );
         else if( id == R.id.nav_help )                  Util.openUrlInBrowser( this, "http://dineoutmobile.com/" );
@@ -99,14 +106,31 @@ public class ActivityChooseRestaurant
             return;
 
         Fragment fragment = null;
-        if( navId == R.id.nav_restaurant_list )             fragment = new FragmentRestaurantsList();
+        if( navId == R.id.nav_restaurant_list ) {
+            if( CacheUtil.getCache( this, Util.Tags.SHARED_PREFS_SHOW_AS_GRID, true ) ) fragment = new FragmentRestaurantsGrid();
+            else                                                                        fragment = new FragmentRestaurantsList();
+        }
         else if( navId == R.id.nav_nearby )                 fragment = new FragmentNearbyPlaces();
         else if( navId == R.id.nav_reserved_restaurants )   fragment = new FragmentReservedRestaurants();
 
         // Add fragment
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace( R.id.container, fragment, fragmentTag );
-        fm.popBackStack();
+        //fm.popBackStack();
         ft.commit();
+    }
+
+    @Override
+    public void showAsGrid() {
+
+        CacheUtil.setCache( this, Util.Tags.SHARED_PREFS_SHOW_AS_GRID, true );
+        showFragment( R.id.nav_restaurant_list, Util.Tags.RESTAURANT_GRID_FRAGMENT );
+    }
+
+    @Override
+    public void showAsList() {
+
+        CacheUtil.setCache( this, Util.Tags.SHARED_PREFS_SHOW_AS_GRID, false );
+        showFragment( R.id.nav_restaurant_list, Util.Tags.RESTAURANT_LIST_FRAGMENT );
     }
 }
