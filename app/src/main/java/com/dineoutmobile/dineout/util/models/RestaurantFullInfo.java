@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
-import com.dineoutmobile.dineout.util.Address;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
 

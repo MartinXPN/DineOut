@@ -12,25 +12,22 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/restaurant_reservation_layout_side_padding"
         android:orientation="vertical"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/date_layout"
+        android:layout_toStartOf="@+id/date_layout">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_private_room" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:drawableTop="@drawable/ic_private_room"
             android:textSize="@dimen/restaurant_reservation_description_text_size"
             android:textColor="@android:color/white"
             android:text="People"/>
         <com.dineoutmobile.dineout.util.NumberPicker
             android:id="@+id/number_of_people_picker"
-            android:layout_width="@dimen/restaurant_reservation_number_picker_width"
-            android:layout_height="@dimen/restaurant_reservation_number_picker_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:descendantFocusability="blocksDescendants" />
     </LinearLayout>
 
@@ -43,26 +40,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/restaurant_reservation_layout_side_padding"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:orientation="vertical"
         android:layout_alignTop="@+id/people_layout"
         android:layout_centerHorizontal="true">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_date" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:drawableTop="@drawable/ic_date"
             android:textSize="@dimen/restaurant_reservation_description_text_size"
             android:textColor="@android:color/white"
             android:text="Date"/>
         <com.dineoutmobile.dineout.util.NumberPicker
             android:id="@+id/date_picker"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/restaurant_reservation_number_picker_height"
+            android:layout_height="wrap_content"
             android:descendantFocusability="blocksDescendants" />
     </LinearLayout>
 
@@ -76,26 +71,23 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/restaurant_reservation_layout_side_padding"
         android:orientation="vertical"
-        android:layout_alignTop="@+id/date_layout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/date_layout"
+        android:layout_toEndOf="@+id/date_layout">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_time" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:drawableTop="@drawable/ic_time"
             android:textSize="@dimen/restaurant_reservation_description_text_size"
             android:textColor="@android:color/white"
             android:text="Time"/>
         <com.dineoutmobile.dineout.util.NumberPicker
             android:id="@+id/time_picker"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/restaurant_reservation_number_picker_height"
+            android:layout_height="wrap_content"
             android:descendantFocusability="blocksDescendants" />
     </LinearLayout>
 

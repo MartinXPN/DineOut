@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.dineoutmobile.dineout.util.Address;
+import com.dineoutmobile.dineout.util.models.Address;
 import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 

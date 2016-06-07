@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -33,10 +34,12 @@ import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
+import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
 import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantMap;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
+import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
@@ -45,7 +48,15 @@ import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ActivityViewRestaurant extends     AppCompatActivity
                                     implements  RestaurantFullInfo.OnDataLoadedListener,
@@ -96,7 +107,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                     }
                 }
             }
-        }, 500);
+        }, 777);
 
         enableScrollingOnTouch = new View.OnTouchListener() {
             @Override
@@ -167,6 +178,27 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         Gson myGson = gson.create();
         String json = myGson.toJson( restaurantInfo );
         Log.d( "GSON!!!", json );
+
+        // Retrofit needs to know how to deserialize response, for instance into JSON
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://mobile-course.herokuapp.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        DataTransferAPI msgs = retrofit.create(DataTransferAPI.class);
+        msgs.getAllRestaurantsBasicInfo(null).enqueue(new Callback<ArrayList<RestaurantBasicInfo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<RestaurantBasicInfo>> call, Response<ArrayList<RestaurantBasicInfo>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<RestaurantBasicInfo>> call, Throwable t) {
+
+            }
+        });
+
+        String deviceId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
 
