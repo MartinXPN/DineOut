@@ -93,9 +93,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " FROM " + Tables.ADDRESS +
                 " LEFT JOIN " + Tables.INFO + " ON " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + Columns.INFO_ID +
                 " LEFT JOIN " + Tables.RESTAURANT_NAMES + " ON " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + Columns.NAME_ID +
-                " WHERE " +  Columns.ADDRESS_ID + "=" + restaurant.currentAddress.id + ";";
+                " WHERE " +  Columns.ADDRESS_ID + "=" + restaurant.currentAddress.addressId + ";";
 
-        Log.d( "RestaurantCurrentAddr", "" + restaurant.currentAddress.id );
+        Log.d( "RestaurantCurrentAddr", "" + restaurant.currentAddress.addressId);
 
         Cursor cursor = db.rawQuery( query, null );
         if( cursor.moveToFirst() ) {
@@ -104,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             restaurant.rating = cursor.getFloat( cursor.getColumnIndex( Columns.RATING ) );
             restaurant.logoURL = cursor.getString( cursor.getColumnIndex( Columns.LOGO_URL ) );
             restaurant.backgroundPhotoURL = cursor.getString( cursor.getColumnIndex( Columns.BACKGROUND_PHOTO_URL ) );
-            restaurant.shortInfo = cursor.getString( cursor.getColumnIndex( Columns.SHORT_INFO ) );
+            restaurant.shortDescription = cursor.getString( cursor.getColumnIndex( Columns.SHORT_INFO ) );
             restaurant.phoneNumber = cursor.getString( cursor.getColumnIndex( Columns.PHONE_NUMBER) );
             restaurant.WORKING_HOURS.description = cursor.getString( cursor.getColumnIndex( Columns.WORK_HOURS ) );
             restaurant.MUSIC.description = cursor.getString( cursor.getColumnIndex( Columns.MUSIC ) );
@@ -135,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                         Columns.ADDRESS_ID + "," +
                         Columns.ADDRESS_NAME +
                         " FROM " + Tables.ADDRESS +
-                        " WHERE " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + restaurantInfo.id + ";";
+                        " WHERE " + Columns.ADDRESS_ID_OF_RESTAURANT + "=" + restaurantInfo.restaurantId + ";";
 
 
         Cursor cursor = db.rawQuery( query , null );
@@ -143,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             while (!cursor.isAfterLast()) {
 
                 Address address = new Address();
-                address.id = cursor.getLong(cursor.getColumnIndex(Columns.ADDRESS_ID));
+                address.addressId = cursor.getLong(cursor.getColumnIndex(Columns.ADDRESS_ID));
                 address.name = cursor.getString(cursor.getColumnIndex(Columns.ADDRESS_NAME));
                 restaurantInfo.allAddresses.add(address);
                 cursor.moveToNext();
@@ -175,7 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             while (!cursor.isAfterLast()) {
 
                 RestaurantBasicInfo restaurant = new RestaurantBasicInfo();
-                restaurant.id = cursor.getInt(cursor.getColumnIndex(Columns.INFO_ID));
+                restaurant.restaurantId = cursor.getInt(cursor.getColumnIndex(Columns.INFO_ID));
                 restaurant.name = cursor.getString(cursor.getColumnIndex(Columns.NAME + language));
                 restaurant.rating = cursor.getFloat(cursor.getColumnIndex(Columns.RATING));
                 restaurant.logoURL = cursor.getString(cursor.getColumnIndex(Columns.LOGO_URL));

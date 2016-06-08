@@ -21,7 +21,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     private transient static Context context;
 
     public String phoneNumber;
-    public String shortInfo = "Information";
+    public String shortDescription = "Information";
     public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();
     public Address currentAddress = null;
     public ArrayList <Address> allAddresses = new ArrayList<>();
@@ -178,7 +178,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
 
     public void loadRestaurantWholeInfo( long id ) {
-        this.id = id;
+        this.restaurantId = id;
 
         LoadRestaurantWholeInfoTask loadRestaurantWholeInfoTask = new LoadRestaurantWholeInfoTask();
         loadRestaurantWholeInfoTask.execute();

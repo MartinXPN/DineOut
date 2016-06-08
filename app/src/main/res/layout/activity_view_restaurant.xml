@@ -31,6 +31,7 @@
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax">
 
+
                 <android.support.v4.view.ViewPager
                     android:id="@+id/restaurant_photos_pager"
                     android:layout_width="match_parent"
@@ -133,22 +134,8 @@
             android:background="@android:color/transparent"
             app:fabSize="mini"
             app:backgroundTint="@color/call_button_background"
-            app:rippleColor="@android:color/white"/>
+            app:rippleColor="@android:color/holo_green_dark"/>
     </LinearLayout>
-
-
-
-
-    <!-- 360 view -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/view_360"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_360"
-        android:visibility="gone"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end" />
 
 
 </android.support.design.widget.CoordinatorLayout>

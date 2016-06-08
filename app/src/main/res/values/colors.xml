@@ -10,7 +10,7 @@
     <color name="circle_page_indicator_fillColor">#ffffff</color>
     <color name="circle_page_indicator_pageColor">#77ffffff</color>
 
-    <color name="call_button_background">#039603</color>
+    <color name="call_button_background">#ffffff</color>
     <color name="reserve_close_semitransparent_color">#78ffffff</color>
 
     <color name="restaurant_grid_and_list_rating_star">#FF4285f4</color>

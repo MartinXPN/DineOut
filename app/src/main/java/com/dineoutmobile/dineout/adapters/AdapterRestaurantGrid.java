@@ -59,7 +59,7 @@ public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
             public void onClick(View v) {
 
                 Intent i = new Intent( context, ActivityViewRestaurant.class );
-                i.putExtra( Util.Tags.BUNDLE_RESTAURANT_ID, restaurantInfo.id );
+                i.putExtra( Util.Tags.BUNDLE_RESTAURANT_ID, restaurantInfo.restaurantId);
                 context.startActivity(i);
             }
         });

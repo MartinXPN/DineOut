@@ -3,6 +3,13 @@ package com.dineoutmobile.dineout.util.models;
 
 public class ReservedRestaurantInfo {
 
+    private enum ReservationStatus {
+        PENDING,
+        VISITED,
+        CANCELLED;
+    }
+
+    public ReservationStatus status = ReservationStatus.PENDING;
     public String deviceId = "device_id";
     public String personName = "Martin";
     public String personPhoneNumber = "099 029090";

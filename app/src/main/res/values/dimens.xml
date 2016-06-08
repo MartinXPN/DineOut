@@ -27,8 +27,7 @@
 
 
     <dimen name="restaurant_reservation_description_text_size">15sp</dimen>
-    <dimen name="restaurant_reservation_number_picker_width">50dp</dimen>
-    <dimen name="restaurant_reservation_number_picker_height">130dp</dimen>
+    <dimen name="restaurant_reservation_number_picker_height">140dp</dimen>
     <dimen name="restaurant_reservation_reserve_button_text_size">19sp</dimen>
     <dimen name="restaurant_reservation_layout_side_padding">15dp</dimen>
 

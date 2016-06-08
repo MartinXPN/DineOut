@@ -20,6 +20,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,22 +40,15 @@ import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantMap;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
-import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -152,12 +146,26 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_view_restaurant, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
             finish();
+            return true;
+        }
+        if( id == R.id.action_view_photosphere ) {
+            Intent i = new Intent(ActivityViewRestaurant.this, ActivityPanoramaView.class);
+            i.putExtra(Util.Tags.BUNDLE_RESTAURANT_NAME, restaurantInfo.name);
+            i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LAT, restaurantInfo.currentAddress.latLng.latitude);
+            i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LNG, restaurantInfo.currentAddress.latLng.longitude);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -181,22 +189,9 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
         // Retrofit needs to know how to deserialize response, for instance into JSON
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://mobile-course.herokuapp.com")
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl( DataTransferAPI.BASE_URL )
+                .addConverterFactory( GsonConverterFactory.create() )
                 .build();
-
-        DataTransferAPI msgs = retrofit.create(DataTransferAPI.class);
-        msgs.getAllRestaurantsBasicInfo(null).enqueue(new Callback<ArrayList<RestaurantBasicInfo>>() {
-            @Override
-            public void onResponse(Call<ArrayList<RestaurantBasicInfo>> call, Response<ArrayList<RestaurantBasicInfo>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<RestaurantBasicInfo>> call, Throwable t) {
-
-            }
-        });
 
         String deviceId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
@@ -333,23 +328,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
             }
         });
 
-
-
-
-        /// initialize 360 view button
-        FloatingActionButton viewRestaurantInPhotoSphere = (FloatingActionButton) findViewById( R.id.view_360 );
-        assert viewRestaurantInPhotoSphere != null;
-        viewRestaurantInPhotoSphere.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ActivityViewRestaurant.this, ActivityPanoramaView.class);
-                i.putExtra(Util.Tags.BUNDLE_RESTAURANT_NAME, restaurantInfo.name);
-                i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LAT, restaurantInfo.currentAddress.latLng.latitude);
-                i.putExtra(Util.Tags.BUNDLE_RESTAURANT_COORDINATE_LNG, restaurantInfo.currentAddress.latLng.longitude);
-                startActivity(i);
-            }
-        });
-
         /// initialize google maps navigation touch
         Button navigateInGoogleMaps = (Button) findViewById(R.id.fix_scrolling);
         assert navigateInGoogleMaps != null;
@@ -402,7 +380,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         final TextView restaurantDescription = (TextView) findViewById(R.id.restaurant_description);
         assert restaurantDescription != null;
         restaurantDescription.setOnTouchListener( enableScrollingOnTouch );
-        restaurantDescription.setText(restaurantInfo.description);
+        restaurantDescription.setText(restaurantInfo.shortDescription);
     }
 
 
