@@ -5,6 +5,7 @@ public class ReservedRestaurantInfo {
 
     private enum ReservationStatus {
         PENDING,
+        RESERVED,
         VISITED,
         CANCELLED;
     }

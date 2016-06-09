@@ -4,15 +4,19 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
 import com.dineoutmobile.dineout.fragments.FragmentReservedRestaurants;
 import com.dineoutmobile.dineout.fragments.FragmentNearbyPlaces;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantsGrid;
@@ -20,6 +24,19 @@ import com.dineoutmobile.dineout.fragments.FragmentRestaurantsList;
 import com.dineoutmobile.dineout.util.CacheUtil;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
+import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ActivityChooseRestaurant
@@ -57,6 +74,43 @@ public class ActivityChooseRestaurant
         /// display the list of all restaurants
         navigationView.getMenu().findItem( R.id.nav_restaurant_list ).setChecked(true);
         onNavigationItemSelected(navigationView.getMenu().findItem( R.id.nav_restaurant_list ) );
+
+
+
+
+
+        //// GSON TEST
+        final Gson gson = new GsonBuilder().setLenient().create();
+        // Retrofit needs to know how to deserialize response, for instance into JSON
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl( DataTransferAPI.BASE_URL )
+                .addConverterFactory( GsonConverterFactory.create( gson ) )
+                .build();
+
+
+        Map<String, String> options = new HashMap<>();
+        options.put( "language", "en" );
+        DataTransferAPI api = retrofit.create(DataTransferAPI.class);
+        api.getAllRestaurantsBasicInfo(options).enqueue(new Callback<ArrayList<RestaurantBasicInfo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<RestaurantBasicInfo>> call, Response<ArrayList<RestaurantBasicInfo>> response) {
+
+                Toast.makeText(ActivityChooseRestaurant.this, "success", Toast.LENGTH_SHORT).show();
+                String json = gson.toJson( response.body() );
+                Log.d( "RESPONSE IN JSON", json );
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<RestaurantBasicInfo>> call, Throwable t) {
+
+                Toast.makeText(ActivityChooseRestaurant.this, "failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityChooseRestaurant.this, t.toString(), Toast.LENGTH_LONG).show();
+                Log.d( "FAILURE", t.toString() );
+                Log.d( "FAILURE", call.toString() );
+            }
+        });
+
+        String deviceId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
 

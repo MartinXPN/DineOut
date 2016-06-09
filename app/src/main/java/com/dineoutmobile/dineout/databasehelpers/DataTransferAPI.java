@@ -20,14 +20,14 @@ import retrofit2.http.QueryMap;
 public interface DataTransferAPI {
 
     /// base url of all requests
-    String BASE_URL = "http://mobile-course.herokuapp.com";
+    String BASE_URL = "http://dineoutmobile.com";
 
 
     /// options include
         // 1. language
         // 2. city
         // 3. block number -> first 100 or second 100 restaurants...
-    @GET( "/request_url" )
+    @GET( "/wservices/getRestaurantsInfo.php" )
     Call< ArrayList <RestaurantBasicInfo> > getAllRestaurantsBasicInfo( @QueryMap Map <String, String> options );
 
 

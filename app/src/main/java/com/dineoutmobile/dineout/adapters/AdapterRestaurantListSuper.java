@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
