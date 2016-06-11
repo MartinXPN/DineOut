@@ -2,26 +2,34 @@ package com.dineoutmobile.dineout.adapters;
 
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
+import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
 import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class AdapterRestaurantListSuper extends BaseAdapter {
 
     protected static DatabaseHelper database;
     protected static ArrayList <RestaurantBasicInfo> restaurants = new ArrayList<>();
-    Context context;
-    LanguageUtil.Language currentLanguage;
+    protected Context context;
+    protected LanguageUtil.Language currentLanguage;
 
 
     public AdapterRestaurantListSuper( Context context ) {
@@ -63,31 +71,43 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
             return;
 
         currentLanguage = LanguageUtil.getLanguage( context );
-        /// do loading in background because it may take a lot of time...
-        /// we can't do it in UI thread
-        GetAllRestaurantsBasicInfoTask getInfoTask = new GetAllRestaurantsBasicInfoTask();
-        getInfoTask.execute();
-    }
 
 
-    class GetAllRestaurantsBasicInfoTask extends AsyncTask<Object, Object, Object> {
 
-        @Override
-        protected Object doInBackground(Object... params) {
+        //// GSON TEST
+        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        // Retrofit needs to know how to deserialize response, for instance into JSON
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl( DataTransferAPI.BASE_URL )
+                .addConverterFactory( GsonConverterFactory.create() )
+                .build();
 
-            Log.d( "Adapter", "started to load data" );
-            restaurants = database.getAllRestaurantsBasicInfo( LanguageUtil.getLanguage( context ).languageLocale );
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Object o) {
+        Map<String, String> options = new HashMap<>();
+        options.put( "language", LanguageUtil.getLanguage( context ).languageLocale );
+        DataTransferAPI api = retrofit.create(DataTransferAPI.class);
+        api.getAllRestaurantsBasicInfo(options).enqueue(new Callback<ArrayList<RestaurantBasicInfo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<RestaurantBasicInfo>> call, Response<ArrayList<RestaurantBasicInfo>> response) {
 
-            Log.d( "Adapter", "finished loading data" );
-            notifyDataSetChanged();
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson( restaurants );
-            Log.d( "ALL RESTAURANTS IN JSON", json );
-        }
+                Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+                String json = gson.toJson( response.body() );
+                Log.d( "RESPONSE IN JSON", json );
+
+                if( response.body() != null ) {
+                    restaurants = response.body();
+                    notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<RestaurantBasicInfo>> call, Throwable t) {
+
+                Toast.makeText(context, "failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
+                Log.d( "FAILURE", t.toString() );
+                Log.d( "FAILURE", call.toString() );
+            }
+        });
     }
 }
