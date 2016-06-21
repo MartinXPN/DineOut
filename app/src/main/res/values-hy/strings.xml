@@ -15,12 +15,12 @@
     <string name="nav_title_about">Մեր մասին</string>
 
     <string name="view_restaurant_services_name">Ծառայություններ</string>
-    <string name="restaurant_services_wifi">Wifi</string>
     <string name="restaurant_services_private_rooms">Կուպեներ</string>
-    <string name="restaurant_services_fourshet">Ֆուրշետներ</string>
+    <string name="restaurant_services_banquet">Բանկետներ</string>
     <string name="restaurant_services_shipping">Առաքում</string>
     <string name="restaurant_services_credit_card">Վճարել քարտով</string>
     <string name="restaurant_services_parking">Կայանատեղի</string>
+    <string name="restaurant_services_inside_seating">Inside seating</string>
     <string name="restaurant_services_outside_seating">Բացօդյա տարածք</string>
     <string name="restaurant_services_smoking_area">Ծխողների տարածք</string>
     <string name="restaurant_services_smoke_free_area">Չծխողների տարածք</string>

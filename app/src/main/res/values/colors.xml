@@ -20,6 +20,7 @@
     <color name="restaurant_list_rating_text">#ffffff</color>
     <color name="restaurant_list_name">#ffffff</color>
 
+    <color name="search_neutral_circle">#64000000</color>
     <color name="restaurant_neutral_circle">#767676</color>
     <color name="restaurant_services_grid_description">#99000000</color>
     <color name="restaurant_services_grid_supported_circle">#aa1E9D66</color>

@@ -12,8 +12,8 @@
 
     <ImageButton
         android:id="@+id/restaurant_services_grid_image"
-        android:layout_width="@dimen/restaurant_services_grid_item_image_size"
-        android:layout_height="@dimen/restaurant_services_grid_item_image_size"
+        android:layout_width="@dimen/restaurant_services_grid_item_logo_size"
+        android:layout_height="@dimen/restaurant_services_grid_item_logo_size"
         android:clickable="false"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/circle_green" />

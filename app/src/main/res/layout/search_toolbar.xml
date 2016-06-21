@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/search_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    app:theme="@style/AppTheme.NoActionBar">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/search_query_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:navigationIcon="@drawable/ic_back_black">
+            <EditText
+                android:id="@+id/search_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textNoSuggestions"
+                android:background="@drawable/rectangle_transparent"
+
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:scrollHorizontally="true"
+
+                android:paddingRight="10dp"
+                android:textSize="17sp"
+                android:textColor="#212121"
+                android:textColorHint="#bdbdbd"
+                android:hint="Search names, cuisines..." />
+        </android.support.v7.widget.Toolbar>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_filters"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

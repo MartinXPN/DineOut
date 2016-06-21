@@ -23,7 +23,7 @@
     <dimen name="restaurant_grid_item_size">90dp</dimen>
     <dimen name="restaurant_grid_column_width">120dp</dimen>
     <dimen name="restaurant_services_grid_item_size">100dp</dimen>
-    <dimen name="restaurant_services_grid_item_image_size">45dp</dimen>
+    <dimen name="restaurant_services_grid_item_logo_size">45dp</dimen>
 
 
     <dimen name="restaurant_reservation_description_text_size">15sp</dimen>

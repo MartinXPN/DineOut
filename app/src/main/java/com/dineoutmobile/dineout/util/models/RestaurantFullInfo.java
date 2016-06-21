@@ -140,10 +140,11 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     }
     public Services WIFI = new Services( true, R.string.restaurant_services_wifi, R.drawable.ic_wifi );
     public Services PRIVATE_ROOMS = new Services( true,R.string.restaurant_services_private_rooms, R.drawable.ic_private_room );
-    public Services FOURSHET = new Services( true, R.string.restaurant_services_fourshet, R.drawable.ic_fourshet );
+    public Services BANQUET = new Services( true, R.string.restaurant_services_banquet, R.drawable.ic_banquet);
     public Services SHIPPING = new Services( true, R.string.restaurant_services_shipping, R.drawable.ic_shipping );
     public Services CREDIT_CARD = new Services( true, R.string.restaurant_services_credit_card, R.drawable.ic_credit_card );
     public Services PARKING = new Services( true, R.string.restaurant_services_parking, R.drawable.ic_parking );
+    public Services INSIDE_SEATING = new Services( true, R.string.restaurant_services_inside_seating,R.drawable.ic_inside );
     public Services OUTSIDE_SEATING = new Services( true, R.string.restaurant_services_outside_seating, R.drawable.ic_nature );
     public Services SMOKING_AREAS = new Services( true, R.string.restaurant_services_smoking_area, R.mipmap.ic_smoking_area );
     public Services SMOKE_FREE_AREAS = new Services( true, R.string.restaurant_services_smoke_free_area, R.mipmap.ic_smoke_free_area);

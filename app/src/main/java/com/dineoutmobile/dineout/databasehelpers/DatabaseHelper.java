@@ -114,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             restaurant.FEEDBACKS.URL = "http://dineoutmobile.com/";
             restaurant.WIFI.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.WIFI ) ) != 0;
             restaurant.PRIVATE_ROOMS.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.PRIVATE_ROOMS ) ) != 0;
-            restaurant.FOURSHET.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
+            restaurant.BANQUET.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.FOURSHET ) ) != 0;
             restaurant.SHIPPING.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.SHIPPING ) ) != 0;
             restaurant.CREDIT_CARD.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.CREDIT_CARD ) ) != 0;
             restaurant.PARKING.isSupported = cursor.getInt( cursor.getColumnIndex( Columns.PARKING ) ) != 0;

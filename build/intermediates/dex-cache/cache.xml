@@ -1,3 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\design\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.4.0_66fac02ae2e620d4e083ca8804cd24fc99fcf1f1\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_53e8fe5961ed054c7a265a14f6be5025df976f57\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.0.2\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="94d9cedd04b124aed044ac71c451a292856d854c">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.0.2_0b63a8d65861e26d45b351a1e7d9335d560630f6\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_882791123056e5d0d8d3a6b77e6d9e8893b18726\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.0.2\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="9919563cffd8e3732e944d3c437d4b9575a08448">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.0.2_24c7837a5597bba3be2075564ee606e50a755843\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_c643dbad0134aff7bcdf73d4c3ae29588f011039\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.0.2\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4022261eeea0d92eb2997a68d2c1f084a16abad9">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.0.2_129f7014db93a36eb1ce5888311e32ec263449c5\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.github.fafaldo\fab-toolbar\1.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="914655ea8bbd3367dd5cebf2282e636cd3d95389">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.fafaldo-fab-toolbar-1.2.0_cc05c442243cf00fd1f903440bdd9470aced991e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_868a5d39817a73ef6e9c8bd7e40982016059f144\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="875212747c53405cb56403465840ec1eb2a0943b">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_93c1a7fd5b9ba717449e23cffabe285c970e3a3a\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.1\b9d63507329a7178e026fc334f87587ee5070ac5\gson-2.6.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b9d63507329a7178e026fc334f87587ee5070ac5">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.6.1_12ae202bf6b5b9a04f77c0044f867db671a9f8e7\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\9.0.2\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="20e1a0f0de6276a5f36062b655f8b20f8cc00cc4">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-9.0.2_41668802881b78a6c21336aacb87a4fa55000ab2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.0.2\43eeae0b9fb087bb3194ba59ab63a38a32fbf3e\retrofit-2.0.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.0.2_aa4a483d27c57a37bbf70b832cfc5c603f010841\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="6407a239a475cce5e02f281fa2debcad17a0ce03">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cc88ca1d98a31e9d2d9aec04cdf090e40bf47e46\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.0.2\f8d87f15b94b8d74e7ccf61d7eedb558811cdb30\converter-gson-2.0.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f8d87f15b94b8d74e7ccf61d7eedb558811cdb30">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.0.2_deed38505f7ca611279df9519b04adba04377e03\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.2.0\f7873a2ebde246a45c2a8d6f3247108b4c88a879\okhttp-3.2.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.2.0_4b55aa29f314af47a241e5945d8cc740c43d5776\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_82700628fc9977153cb6404fe6f7c03eda241aeb\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.githang\viewpagerindicator\2.4.2\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a9346b378b1040c324f40c5c01b2efb739e90462">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.githang-viewpagerindicator-2.4.2_0449cd947aee9aec1d04165d0e95fbeb7efbb584\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\de.hdodenhof-circleimageview-2.0.0_7e4d53186fe1981fad12d829f963a777bf159a3f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.6.0_27ff0591eed1ca1d00290c629f3f7ca1d72c69c7\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_36bab43d7ecde21f215c037cef19a097deb9503e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.4.0_975b5b6aa880830f728d461d9b185d5d8c41957b\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.4.0_8ba6113a53d8ea4da8ef43c828c26ea8a911cf7d\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.0.2\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="aec1bc54964a85d851c2c1b1cb7f90f7dbd755ab">
+        <dex dex="C:\Users\Martin\AndroidStudioProjects\DineOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.0.2_53e5f6807c19b3fbdc1550e4cb9e37a1aefdbc0a\classes.dex" />
+    </item>
+
+</items>
