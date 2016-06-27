@@ -25,6 +25,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
     public interface OnAddressFragmentInteractionListener {
         void onTouch();
+        void onNewAddressSelected();
         RestaurantFullInfo getRestaurantFullInfo();
     }
 
@@ -104,6 +105,9 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
     @Override
     public void onAddressSelected(int position) {
+        if( restaurantFullInfo.allAddresses.get(position) != restaurantFullInfo.currentAddress ) {
+            onInteractionListener.onNewAddressSelected();
+        }
         collapseAddressList();
     }
 }

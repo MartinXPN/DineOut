@@ -47,7 +47,6 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
         holder.address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restaurantInfo.setCurrentAddress( restaurantInfo.allAddresses.get( holder.getAdapterPosition() ) );
                 listener.onAddressSelected( holder.getAdapterPosition() );
             }
         });

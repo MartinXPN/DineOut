@@ -3,21 +3,19 @@ package com.dineoutmobile.dineout.util.models;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
-import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
 
 public class RestaurantFullInfo extends RestaurantBasicInfo {
 
-    private transient OnDataLoadedListener listener;
     private transient static Context context;
 
     public String phoneNumber;
@@ -47,28 +45,28 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             all.add( this );
         }
     }
-    public BasicInfo WORKING_HOURS = new BasicInfo( "00:00 - 00:00", R.drawable.ic_time, new View.OnClickListener() {
+    public BasicInfo workingHours = new BasicInfo( "00:00 - 00:00", R.drawable.ic_time, new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showDialog( context.getResources().getString( R.string.working_hours ), WORKING_HOURS.description );
+            showDialog( context.getResources().getString( R.string.working_hours ), workingHours.description );
         }
     });
-    public BasicInfo PRICE_RANGE = new BasicInfo( "100-200 $", R.drawable.ic_price, new View.OnClickListener() {
+    public BasicInfo priceRange = new BasicInfo( "100-200 $", R.drawable.ic_price, new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showDialog( context.getResources().getString( R.string.price_range ), PRICE_RANGE.description );
+            showDialog( context.getResources().getString( R.string.price_range ), priceRange.description );
         }
     });
-    public BasicInfo MUSIC = new BasicInfo("Jazz, Classic, Pop", R.drawable.ic_music, new View.OnClickListener() {
+    public BasicInfo music = new BasicInfo("Jazz, Classic, Pop", R.drawable.ic_music, new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showDialog( context.getResources().getString( R.string.music ), MUSIC.description );
+            showDialog( context.getResources().getString( R.string.music ), music.description );
         }
     });
-    public BasicInfo CUISINE = new BasicInfo( "Seafood, Italian, National", R.drawable.ic_restaurant_menu, new View.OnClickListener() {
+    public BasicInfo cuisine = new BasicInfo( "Seafood, Italian, National", R.drawable.ic_restaurant_menu, new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showDialog( context.getResources().getString( R.string.cuisines ), CUISINE.description );
+            showDialog( context.getResources().getString( R.string.cuisines ), cuisine.description );
         }
     });
 
@@ -96,22 +94,22 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             all.add( this );
         }
     }
-    public BasicInfoWithLinks MENU = new BasicInfoWithLinks ( R.string.menu, R.drawable.ic_restaurant_menu, new View.OnClickListener() {
+    public BasicInfoWithLinks menu = new BasicInfoWithLinks ( R.string.menu, R.drawable.ic_restaurant_menu, new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Util.openUrlInBrowser( context, MENU.URL );
+            Util.openUrlInBrowser( context, menu.URL );
         }
     });
-    public BasicInfoWithLinks FEEDBACKS = new BasicInfoWithLinks( R.string.feedbacks, R.drawable.ic_feedback_white, new View.OnClickListener() {
+    public BasicInfoWithLinks feedbacks = new BasicInfoWithLinks( R.string.feedbacks, R.drawable.ic_feedback_white, new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Util.openUrlInBrowser( context, FEEDBACKS.URL );
+            Util.openUrlInBrowser( context, feedbacks.URL );
         }
     });
-    public BasicInfoWithLinks WEBSITE = new BasicInfoWithLinks( R.string.restaurant_website, R.drawable.ic_link, new View.OnClickListener() {
+    public BasicInfoWithLinks website = new BasicInfoWithLinks( R.string.restaurant_website, R.drawable.ic_link, new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Util.openUrlInBrowser( context, WEBSITE.URL );
+            Util.openUrlInBrowser( context, website.URL );
         }
     });
 
@@ -138,16 +136,16 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             all.add( this );
         }
     }
-    public Services WIFI = new Services( true, R.string.restaurant_services_wifi, R.drawable.ic_wifi );
-    public Services PRIVATE_ROOMS = new Services( true,R.string.restaurant_services_private_rooms, R.drawable.ic_private_room );
-    public Services BANQUET = new Services( true, R.string.restaurant_services_banquet, R.drawable.ic_banquet);
-    public Services SHIPPING = new Services( true, R.string.restaurant_services_shipping, R.drawable.ic_shipping );
-    public Services CREDIT_CARD = new Services( true, R.string.restaurant_services_credit_card, R.drawable.ic_credit_card );
-    public Services PARKING = new Services( true, R.string.restaurant_services_parking, R.drawable.ic_parking );
-    public Services INSIDE_SEATING = new Services( true, R.string.restaurant_services_inside_seating,R.drawable.ic_inside );
-    public Services OUTSIDE_SEATING = new Services( true, R.string.restaurant_services_outside_seating, R.drawable.ic_nature );
-    public Services SMOKING_AREAS = new Services( true, R.string.restaurant_services_smoking_area, R.mipmap.ic_smoking_area );
-    public Services SMOKE_FREE_AREAS = new Services( true, R.string.restaurant_services_smoke_free_area, R.mipmap.ic_smoke_free_area);
+    public Services wifi = new Services( true, R.string.restaurant_services_wifi, R.drawable.ic_wifi );
+    public Services privateRooms = new Services( true,R.string.restaurant_services_private_rooms, R.drawable.ic_private_room );
+    public Services banquet = new Services( true, R.string.restaurant_services_banquet, R.drawable.ic_banquet);
+    //public Services shipping = new Services( true, R.string.restaurant_services_shipping, R.drawable.ic_shipping );
+    public Services creditCard = new Services( true, R.string.restaurant_services_credit_card, R.drawable.ic_credit_card );
+    public Services parking = new Services( true, R.string.restaurant_services_parking, R.drawable.ic_parking );
+    public Services insideSeating = new Services( true, R.string.restaurant_services_inside_seating,R.drawable.ic_inside );
+    public Services outsideSeating = new Services( true, R.string.restaurant_services_outside_seating, R.drawable.ic_nature );
+    public Services smokingAreas = new Services( true, R.string.restaurant_services_smoking_area, R.mipmap.ic_smoking_area );
+    public Services smokeFreeAreas = new Services( true, R.string.restaurant_services_smoke_free_area, R.mipmap.ic_smoke_free_area);
 
 
 
@@ -156,17 +154,16 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
     public RestaurantFullInfo( Context context ) {
         Log.d( "RestaurantFI", "created" );
         RestaurantFullInfo.context = context;
-        listener = (OnDataLoadedListener) context;
-
 
         backgroundPhotoURLs.clear();
         backgroundPhotoURLs.add( "https://www.lenordik.com/app/assets/media/generated/55afa22ff1c80bb4097cb1349324a8fc1320719438_gallery_gallery.jpg?1335469974" );
         backgroundPhotoURLs.add( "http://www.julios.co.za/wp-content/uploads/2012/10/restaurant.jpeg" );
         backgroundPhotoURLs.add( "http://restaurant.business.brookes.ac.uk/images/slideshow/restaurant.jpg" );
         backgroundPhotoURLs.add( "http://www.maiyango.com/images/homeselect/restaurant-002.jpg" );
-    }
-    public interface OnDataLoadedListener {
-        void onDataLoaded();
+
+        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson( this );
+        Log.d( "RestaurantInfo in json:", json );
     }
 
 
@@ -175,74 +172,5 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         new AlertDialog.Builder( context, AlertDialog.THEME_DEVICE_DEFAULT_DARK  )
                 .setTitle( title )
                 .setMessage( message ).show();
-    }
-
-
-    public void loadRestaurantWholeInfo( long id ) {
-        this.restaurantId = id;
-
-        LoadRestaurantWholeInfoTask loadRestaurantWholeInfoTask = new LoadRestaurantWholeInfoTask();
-        loadRestaurantWholeInfoTask.execute();
-    }
-    public void loadRestaurantAddressInfo() {
-
-        LoadRestaurantAddressInfoTask loadRestaurantAddressInfoTask = new LoadRestaurantAddressInfoTask();
-        loadRestaurantAddressInfoTask.execute();
-    }
-
-
-    class LoadRestaurantWholeInfoTask extends AsyncTask<Object, Object, Object> {
-
-        /// db is single-tone
-        private transient DatabaseHelper db = DatabaseHelper.getInstance( context );
-
-        @Override
-        protected Object doInBackground(Object... params) {
-
-            Log.d( "RestaurantFI", "started to load data" );
-            db.getRestaurantAllAddresses( RestaurantFullInfo.this );
-            if( currentAddress == null )
-                currentAddress = getPreferredAddress();
-            db.getRestaurantFullInfo( LanguageUtil.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-
-            Log.d( "RestaurantFI", "finished loading data" );
-            listener.onDataLoaded();
-        }
-    }
-    class LoadRestaurantAddressInfoTask extends AsyncTask<Object, Object, Object> {
-
-        /// db is single-tone
-        private transient DatabaseHelper db = DatabaseHelper.getInstance( context );
-
-        @Override
-        protected Object doInBackground(Object... params) {
-
-            Log.d( "RestaurantFI", "started to load data" );
-            db.getRestaurantFullInfo( LanguageUtil.getLanguage( context ).languageLocale, RestaurantFullInfo.this );
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-
-            Log.d( "RestaurantFI", "finished loading data" );
-            listener.onDataLoaded();
-        }
-    }
-
-
-    private Address getPreferredAddress() {
-        return allAddresses.get( 0 );
-    }
-    public void setCurrentAddress( Address address ) {
-        if( currentAddress != address ) {
-            currentAddress = address;
-            loadRestaurantAddressInfo();
-        }
     }
 }

@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -39,18 +38,16 @@ import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
 import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantMap;
+import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.Util;
-import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,8 +59,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ActivityViewRestaurant extends     AppCompatActivity
-                                    implements  RestaurantFullInfo.OnDataLoadedListener,
-                                                FragmentReserveQuestions.OnRestaurantReservedListener,
+                                    implements  FragmentReserveQuestions.OnRestaurantReservedListener,
                                                 FragmentAddressPicker.OnAddressFragmentInteractionListener {
 
 
@@ -74,6 +70,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     private FragmentAddressPicker fragmentAddressPicker;
     private LockableNestedScrollView lockableNestedScrollView;
     private boolean isLoaded = false;
+    private long restaurantId;
     private View.OnTouchListener enableScrollingOnTouch;
 
 
@@ -90,10 +87,10 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
         /// initialize restaurant information
         Bundle extras = getIntent().getExtras();
-        long id = extras.getLong(Util.Tags.BUNDLE_RESTAURANT_ID);
+        restaurantId = extras.getLong(Util.Tags.BUNDLE_RESTAURANT_ID);
         if (!isLoaded) {
-            restaurantInfo.loadRestaurantWholeInfo(id);
             isLoaded = true;
+            loadRestaurantInfo();
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -180,14 +177,58 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+
+
     public void onDataLoaded() {
-        adapterRestaurantServicesGrid.notifyDataSetChanged();
-        adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
-        adapterRestaurantImagePager.notifyDataSetChanged();
-        fragmentAddressPicker.notifyDataSetChanged();
-        Log.d("ActivityVR", "data loaded");
-        initializeVariableViews();
+        try {
+            adapterRestaurantServicesGrid.notifyDataSetChanged();
+            adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
+            adapterRestaurantImagePager.notifyDataSetChanged();
+            fragmentAddressPicker.notifyDataSetChanged();
+
+            Log.d("ActivityVR", "data loaded");
+            initializeVariableViews();
+        }
+        catch (Exception e){e.printStackTrace();}
+    }
+
+    public void loadRestaurantInfo() {
+
+        //// GSON TEST
+        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        // Retrofit needs to know how to deserialize response, for instance into JSON
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl( DataTransferAPI.BASE_URL )
+                .addConverterFactory( GsonConverterFactory.create() )
+                .build();
+
+        Map<String, String> options = new HashMap<>();
+        options.put( "language", LanguageUtil.getLanguage( this ).languageLocale );
+        options.put( "restaurantId", ""+restaurantId );
+        DataTransferAPI api = retrofit.create(DataTransferAPI.class);
+        api.getRestaurantFullInfo(options).enqueue(new Callback<RestaurantFullInfo>() {
+            @Override
+            public void onResponse(Call<RestaurantFullInfo> call, Response<RestaurantFullInfo> response) {
+
+                Toast.makeText(ActivityViewRestaurant.this, "success", Toast.LENGTH_SHORT).show();
+                String json = gson.toJson( response.body() );
+                Log.d( "RESPONSE IN JSON", json );
+
+                if( response.body() != null ) {
+                    restaurantInfo = response.body();
+                    onDataLoaded();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantFullInfo> call, Throwable t) {
+
+                Toast.makeText(ActivityViewRestaurant.this, "failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityViewRestaurant.this, t.toString(), Toast.LENGTH_LONG).show();
+                Log.d( "FAILURE", t.toString() );
+                Log.d( "FAILURE", call.toString() );
+            }
+        });
     }
 
 
@@ -404,6 +445,11 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     @Override
     public void onTouch() {
         lockableNestedScrollView.setScrollingEnabled( true );
+    }
+
+    @Override
+    public void onNewAddressSelected() {
+        loadRestaurantInfo();
     }
 
     @Override

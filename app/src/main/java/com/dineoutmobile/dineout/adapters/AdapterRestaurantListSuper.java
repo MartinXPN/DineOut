@@ -7,13 +7,11 @@ import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
-import com.dineoutmobile.dineout.databasehelpers.DatabaseHelper;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class AdapterRestaurantListSuper extends BaseAdapter {
 
-    protected static DatabaseHelper database;
     protected static ArrayList <RestaurantBasicInfo> restaurants = new ArrayList<>();
     protected Context context;
     protected LanguageUtil.Language currentLanguage;
@@ -35,12 +32,6 @@ public abstract class AdapterRestaurantListSuper extends BaseAdapter {
     public AdapterRestaurantListSuper( Context context ) {
 
         this.context = context;
-
-        /// DatabaseHelper is single-tone
-        database = DatabaseHelper.getInstance( context );
-        try                     { database.createDataBase(); }
-        catch (IOException e)   { e.printStackTrace(); }
-
         getAllRestaurantsBasicInfo();
     }
 

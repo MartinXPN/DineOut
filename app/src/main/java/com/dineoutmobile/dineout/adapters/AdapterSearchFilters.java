@@ -88,8 +88,6 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
                 icon.setBackgroundResource( R.drawable.circle_search_neutral );
             else if( currentItem.state == SearchInfo.FilterStates.SUPPORTED)
                 icon.setBackgroundResource( R.drawable.circle_green );
-            else if( currentItem.state == SearchInfo.FilterStates.NOT_SUPPORTED )
-                icon.setBackgroundResource( R.drawable.circle_red );
         }
     }
 }
