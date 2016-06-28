@@ -36,7 +36,7 @@ public interface DataTransferAPI {
         // 2. restaurant ID
         // 3. search options (wifi, private rooms, etc. )
         // 4. if address is null => calculate preferred address and get its info, else => get only that address's info
-    @GET( "/wservices/getRestaurantFullInfo" )
+    @GET( "/wservices/getRestaurantFullInfo.php" )
     Call <RestaurantFullInfo> getRestaurantFullInfo( @QueryMap Map <String, String> options );
 
 
