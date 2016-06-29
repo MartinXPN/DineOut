@@ -8,8 +8,7 @@ import android.view.View;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.util.Util;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
@@ -118,13 +117,12 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     public static class Services {
 
-        public boolean isSupported;
+        public boolean isSupported = true;
         public transient int descriptionResId;
         public transient int resource;
         public static transient ArrayList <Services> all = new ArrayList<>();
 
-        Services(boolean isSupported, int description, int resource) {
-            this.isSupported = isSupported;
+        Services( int description, int resource) {
             this.descriptionResId = description;
             this.resource = resource;
 
@@ -136,16 +134,16 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
             all.add( this );
         }
     }
-    public Services wifi = new Services( true, R.string.restaurant_services_wifi, R.drawable.ic_wifi );
-    public Services privateRooms = new Services( true,R.string.restaurant_services_private_rooms, R.drawable.ic_private_room );
-    public Services banquet = new Services( true, R.string.restaurant_services_banquet, R.drawable.ic_banquet);
-    //public Services shipping = new Services( true, R.string.restaurant_services_shipping, R.drawable.ic_shipping );
-    public Services creditCard = new Services( true, R.string.restaurant_services_credit_card, R.drawable.ic_credit_card );
-    public Services parking = new Services( true, R.string.restaurant_services_parking, R.drawable.ic_parking );
-    public Services insideSeating = new Services( true, R.string.restaurant_services_inside_seating,R.drawable.ic_inside );
-    public Services outsideSeating = new Services( true, R.string.restaurant_services_outside_seating, R.drawable.ic_nature );
-    public Services smokingAreas = new Services( true, R.string.restaurant_services_smoking_area, R.mipmap.ic_smoking_area );
-    public Services smokeFreeAreas = new Services( true, R.string.restaurant_services_smoke_free_area, R.mipmap.ic_smoke_free_area);
+    public Services wifi = new Services( R.string.restaurant_services_wifi, R.drawable.ic_wifi );
+    public Services privateRooms = new Services( R.string.restaurant_services_private_rooms, R.drawable.ic_private_room );
+    public Services banquet = new Services(  R.string.restaurant_services_banquet, R.drawable.ic_banquet);
+    //public Services shipping = new Services(  R.string.restaurant_services_shipping, R.drawable.ic_shipping );
+    public Services creditCard = new Services( R.string.restaurant_services_credit_card, R.drawable.ic_credit_card );
+    public Services parking = new Services( R.string.restaurant_services_parking, R.drawable.ic_parking );
+    public Services insideSeating = new Services( R.string.restaurant_services_inside_seating,R.drawable.ic_inside );
+    public Services outsideSeating = new Services( R.string.restaurant_services_outside_seating, R.drawable.ic_nature );
+    public Services smokingAreas = new Services( R.string.restaurant_services_smoking_area, R.mipmap.ic_smoking_area );
+    public Services smokeFreeAreas = new Services( R.string.restaurant_services_smoke_free_area, R.mipmap.ic_smoke_free_area);
 
 
 
@@ -160,10 +158,6 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
         backgroundPhotoURLs.add( "http://www.julios.co.za/wp-content/uploads/2012/10/restaurant.jpeg" );
         backgroundPhotoURLs.add( "http://restaurant.business.brookes.ac.uk/images/slideshow/restaurant.jpg" );
         backgroundPhotoURLs.add( "http://www.maiyango.com/images/homeselect/restaurant-002.jpg" );
-
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson( this );
-        Log.d( "RestaurantInfo in json:", json );
     }
 
 

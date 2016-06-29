@@ -398,6 +398,11 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                 .into(restaurantLogo);
 
 
+        String log = "";
+        for( int i=0; i < RestaurantFullInfo.BasicInfo.all.size(); i++ ){
+            log += RestaurantFullInfo.BasicInfo.all.get( i ).description;
+        }
+        Log.d( "adfs", "asdfhasdfasdgfasdgafsgerfvsdfgfas" + log );
         /// initialize restaurant name
         final TextView restaurantName = (TextView) findViewById(R.id.restaurant_name);
         assert restaurantName != null;
