@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class RestaurantFullInfo extends RestaurantBasicInfo {
 
-    private transient static Context context;
+    private transient Context context;
 
     public String phoneNumber;
     public String shortDescription = "Information";
@@ -153,7 +153,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     public RestaurantFullInfo( Context context ) {
         Log.d( "RestaurantFI", "created" );
-        RestaurantFullInfo.context = context;
+        this.context = context;
 
         backgroundPhotoURLs.clear();
         backgroundPhotoURLs.add( "https://www.lenordik.com/app/assets/media/generated/55afa22ff1c80bb4097cb1349324a8fc1320719438_gallery_gallery.jpg?1335469974" );
@@ -168,7 +168,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
 
 
-    protected static void showDialog( String title, String message ) {
+    protected void showDialog( String title, String message ) {
         new AlertDialog.Builder( context, AlertDialog.THEME_DEVICE_DEFAULT_DARK  )
                 .setTitle( title )
                 .setMessage( message ).show();

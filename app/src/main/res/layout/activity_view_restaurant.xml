@@ -131,7 +131,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_call"
-            android:background="@android:color/transparent"
             app:fabSize="mini"
             app:backgroundTint="@color/call_button_background"
             app:rippleColor="@android:color/holo_green_dark"/>

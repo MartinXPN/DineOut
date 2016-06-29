@@ -3,7 +3,6 @@ package com.dineoutmobile.dineout.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -77,12 +76,9 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
 
         /// initialize addresses list
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         assert addressList != null;
         addressList.setHasFixedSize(true);
         addressList.setNestedScrollingEnabled(false);
-        addressList.setLayoutManager(linearLayoutManager);
         addressList.setAdapter(adapterRestaurantAddressesList);
 
 
@@ -106,6 +102,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     @Override
     public void onAddressSelected(int position) {
         if( restaurantFullInfo.allAddresses.get(position) != restaurantFullInfo.currentAddress ) {
+            restaurantFullInfo.currentAddress = restaurantFullInfo.allAddresses.get( position );
             onInteractionListener.onNewAddressSelected();
         }
         collapseAddressList();

@@ -15,7 +15,7 @@ import com.dineoutmobile.dineout.util.models.SearchInfo;
 public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilters.ViewHolder> {
 
     ViewHolder holder;
-    private static Context context;
+    private Context context;
     private static SearchInfo searchInfo;
     OnSearchOptionsChangedListener listener;
 
@@ -24,8 +24,11 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
     }
 
 
+    /// TODO pass search info from fragment
+    /// in order to be sure that this adapter and search query
+    /// have the same instance of searchInfo object
     public AdapterSearchFilters(Context context) {
-        AdapterSearchFilters.context = context;
+        this.context = context;
         if( searchInfo == null )
             searchInfo = new SearchInfo();
         listener = (OnSearchOptionsChangedListener) context;
