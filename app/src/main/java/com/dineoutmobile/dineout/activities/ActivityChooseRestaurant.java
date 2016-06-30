@@ -15,11 +15,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterSearchFilters;
@@ -141,6 +145,24 @@ public class ActivityChooseRestaurant
         final RecyclerView searchFilters = (RecyclerView) findViewById( R.id.search_filters );
         assert searchFilters != null;
         searchFilters.setAdapter( adapterSearchFilters );
+
+
+        EditText searchText = (EditText) findViewById( R.id.search_text );
+        searchText.setSelection(0);
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    Util.hideKeyboard( ActivityChooseRestaurant.this );
+                    //performSearch();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        Util.showKeyboard( this );
+
     }
     private void hideSearch() {
 
@@ -168,14 +190,7 @@ public class ActivityChooseRestaurant
         actionBar.setDisplayShowCustomEnabled(false);
         toggle.setDrawerIndicatorEnabled(true);
 
-
-
-        // close keyboard Check if no view has focus:
-        View view = ActivityChooseRestaurant.this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+        Util.hideKeyboard( this );
     }
 
 

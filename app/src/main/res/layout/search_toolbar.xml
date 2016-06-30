@@ -33,7 +33,7 @@
                 android:id="@+id/search_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:imeOptions="flagNoExtractUi"
+                android:imeOptions="flagNoExtractUi|actionSearch"
                 android:inputType="textNoSuggestions"
                 android:background="@drawable/rectangle_transparent"
 
