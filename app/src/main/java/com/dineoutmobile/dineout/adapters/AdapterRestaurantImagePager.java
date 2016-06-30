@@ -15,12 +15,16 @@ import com.squareup.picasso.Picasso;
 
 public class AdapterRestaurantImagePager extends PagerAdapter {
 
-    private Context context;
-    private RestaurantFullInfo restaurantInfo;
+    public interface OnDataRequestedListener {
+        RestaurantFullInfo getRestaurantFullInfo();
+    }
 
-    public AdapterRestaurantImagePager(Context context, RestaurantFullInfo restaurantFullInfo) {
+    private Context context;
+    private OnDataRequestedListener listener;
+
+    public AdapterRestaurantImagePager(Context context) {
         this.context = context;
-        this.restaurantInfo = restaurantFullInfo;
+        listener = (OnDataRequestedListener) context;
     }
 
     @Override
@@ -32,7 +36,7 @@ public class AdapterRestaurantImagePager extends PagerAdapter {
 
         ImageView image = (ImageView) layout.findViewById( R.id.restaurant_photo );
         Picasso.with(context)
-                .load( restaurantInfo.backgroundPhotoURLs.get( position ) )
+                .load( listener.getRestaurantFullInfo().backgroundPhotoURLs.get( position ) )
                 .resize( Util.getWindowWidth( context ), Util.dpToPx( context.getResources().getDimension( R.dimen.restaurant_background_photo_height ), context ) )
                 .centerInside()
                 .into(image);
@@ -46,6 +50,7 @@ public class AdapterRestaurantImagePager extends PagerAdapter {
 
     @Override
     public int getCount() {
+        RestaurantFullInfo restaurantInfo = listener.getRestaurantFullInfo();
         if( restaurantInfo == null )                        return 0;
         if( restaurantInfo.backgroundPhotoURLs == null )    return 0;
         return restaurantInfo.backgroundPhotoURLs.size();

@@ -1,6 +1,7 @@
 package com.dineoutmobile.dineout.util;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -50,6 +51,14 @@ public class Util {
     }
     public static int getWindowHeight( Context context ) {
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+
+    public static void showDialog( Context context, String title, String message ) {
+        new AlertDialog
+                .Builder( context, AlertDialog.THEME_DEVICE_DEFAULT_DARK  )
+                .setTitle( title )
+                .setMessage( message ).show();
     }
 
 

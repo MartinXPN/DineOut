@@ -11,18 +11,24 @@ import android.widget.TextView;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
+import java.util.ArrayList;
+
 
 public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterRestaurantServicesGrid.ViewHolder> {
 
+    public interface OnDataRequestedListener {
+        RestaurantFullInfo getRestaurantFullInfo();
+    }
+
+    private OnDataRequestedListener listener;
     ViewHolder holder;
     Context context;
-    RestaurantFullInfo restaurantInfo;
 
 
-    public AdapterRestaurantServicesGrid(Context context, RestaurantFullInfo restaurantInfo ) {
+    public AdapterRestaurantServicesGrid(Context context ) {
 
         this.context = context;
-        this.restaurantInfo = restaurantInfo;
+        listener = (OnDataRequestedListener) context;
     }
 
 
@@ -39,16 +45,17 @@ public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterR
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.image.setImageResource( RestaurantFullInfo.Services.all.get(position).resource );
-        if( RestaurantFullInfo.Services.all.get(position).isSupported)  holder.image.setBackgroundResource( R.drawable.circle_green );
-        else                                                            holder.image.setBackgroundResource( R.drawable.circle_red );
+        ArrayList<RestaurantFullInfo.Services> services = listener.getRestaurantFullInfo().getAllServices();
+        holder.image.setImageResource( services.get(position).resource );
+        if (services.get(position).isSupported)     holder.image.setBackgroundResource( R.drawable.circle_green );
+        else                                        holder.image.setBackgroundResource( R.drawable.circle_red );
 
-        holder.description.setText( context.getResources().getString( RestaurantFullInfo.Services.all.get(position).descriptionResId ) );
+        holder.description.setText( context.getResources().getString( services.get(position).descriptionResId ) );
     }
 
     @Override
     public int getItemCount() {
-        return RestaurantFullInfo.Services.all.size();
+        return listener.getRestaurantFullInfo().getAllServices().size();
     }
 
 

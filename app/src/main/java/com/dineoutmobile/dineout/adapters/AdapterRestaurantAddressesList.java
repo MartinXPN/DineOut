@@ -16,18 +16,17 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
 
     ViewHolder holder;
     Context context;
-    RestaurantFullInfo restaurantInfo;
-    OnAddressSelectedListener listener;
+    OnAddressListInteractionListener listener;
 
-    public interface OnAddressSelectedListener {
+    public interface OnAddressListInteractionListener {
         void onAddressSelected( int position );
+        RestaurantFullInfo getRestaurantFullInfo();
     }
 
 
-    public AdapterRestaurantAddressesList(Context context, Fragment parentFragment, RestaurantFullInfo restaurantInfo) {
+    public AdapterRestaurantAddressesList(Context context, Fragment parentFragment) {
         this.context = context;
-        this.restaurantInfo = restaurantInfo;
-        listener = (OnAddressSelectedListener) parentFragment;
+        listener = (OnAddressListInteractionListener) parentFragment;
     }
 
 
@@ -43,7 +42,7 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.address.setText(restaurantInfo.allAddresses.get( position ).name);
+        holder.address.setText(listener.getRestaurantFullInfo().allAddresses.get( position ).name);
         holder.address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +54,7 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
 
     @Override
     public int getItemCount() {
-        return restaurantInfo.allAddresses.size();
+        return listener.getRestaurantFullInfo().allAddresses.size();
     }
 
 

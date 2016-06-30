@@ -1,6 +1,5 @@
 package com.dineoutmobile.dineout.activities;
 
-import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -60,13 +59,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ActivityViewRestaurant extends     AppCompatActivity
                                     implements  FragmentReserveQuestions.OnRestaurantReservedListener,
-                                                FragmentAddressPicker.OnAddressFragmentInteractionListener {
+                                                FragmentAddressPicker.OnAddressFragmentInteractionListener,
+                                                AdapterRestaurantServicesGrid.OnDataRequestedListener,
+                                                AdapterRestaurantBasicInfoGrid.OnDataRequestedListener,
+                                                AdapterRestaurantImagePager.OnDataRequestedListener {
 
 
-    private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo(this);
-    private AdapterRestaurantServicesGrid adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid(this, restaurantInfo);
-    private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this, restaurantInfo);
-    private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this, restaurantInfo);
+    private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo();
+    private AdapterRestaurantServicesGrid adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid(this);
+    private AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid(this);
+    private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this);
     private FragmentAddressPicker fragmentAddressPicker;
     private LockableNestedScrollView lockableNestedScrollView;
     private boolean isLoaded = false;
@@ -181,12 +183,11 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
     public void onDataLoaded() {
         try {
-            adapterRestaurantServicesGrid.notifyDataSetChanged();
+            Log.d("ActivityVR", "data loaded");
             adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
             adapterRestaurantImagePager.notifyDataSetChanged();
+            adapterRestaurantServicesGrid.notifyDataSetChanged();
             fragmentAddressPicker.notifyDataSetChanged();
-
-            Log.d("ActivityVR", "data loaded");
             initializeVariableViews();
         }
         catch (Exception e){e.printStackTrace();}
@@ -398,11 +399,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                 .into(restaurantLogo);
 
 
-        String log = "";
-        for( int i=0; i < RestaurantFullInfo.BasicInfo.all.size(); i++ ){
-            log += RestaurantFullInfo.BasicInfo.all.get( i ).description;
-        }
-        Log.d( "adfs", "asdfhasdfasdgfasdgafsgerfvsdfgfas" + log );
         /// initialize restaurant name
         final TextView restaurantName = (TextView) findViewById(R.id.restaurant_name);
         assert restaurantName != null;
@@ -423,14 +419,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         restaurantDescription.setText(restaurantInfo.shortDescription);
     }
 
-
-    protected void showDialog( String title, String message ) {
-        new AlertDialog
-                .Builder( this, AlertDialog.THEME_DEVICE_DEFAULT_DARK )
-                .setTitle( title )
-                .setMessage( message ).show();
-    }
-
     @Override
     public void onRestaurantReserved() {
 
@@ -441,7 +429,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         }
         /// 1. check user in black-list
         /// 2. check if there are available seats -> API needed
-        showDialog( "Your reservation was successful!",
+        Util.showDialog( this, "Your reservation was successful!",
                     "We'll call you shortly for confirmation\n" +
                     "If you don't receive a call please submit your reservation again" );
         //finish();

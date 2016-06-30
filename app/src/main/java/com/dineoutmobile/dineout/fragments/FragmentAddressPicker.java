@@ -14,11 +14,10 @@ import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
-public class FragmentAddressPicker extends Fragment implements AdapterRestaurantAddressesList.OnAddressSelectedListener {
+public class FragmentAddressPicker extends Fragment implements AdapterRestaurantAddressesList.OnAddressListInteractionListener {
 
     Button currentAddress;
     RecyclerView addressList;
-    RestaurantFullInfo restaurantFullInfo;
     AdapterRestaurantAddressesList adapterRestaurantAddressesList;
     boolean isListExpanded;
 
@@ -52,6 +51,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
 
     public void notifyDataSetChanged() {
+        RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
         currentAddress.setText(restaurantFullInfo.currentAddress == null ? "" : restaurantFullInfo.currentAddress.name);
         adapterRestaurantAddressesList.notifyDataSetChanged();
     }
@@ -65,13 +65,13 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
         currentAddress = (Button) rootView.findViewById( R.id.current_address );
         addressList = (RecyclerView) rootView.findViewById( R.id.address_list );
 
-
         onInteractionListener = (OnAddressFragmentInteractionListener) getActivity();
-        restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
+        RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
+
         rootView.setOnTouchListener( onTouchListener );
         currentAddress.setOnTouchListener( onTouchListener );
         addressList.setOnTouchListener( onTouchListener );
-        adapterRestaurantAddressesList = new AdapterRestaurantAddressesList( getActivity(), this, restaurantFullInfo );
+        adapterRestaurantAddressesList = new AdapterRestaurantAddressesList( getActivity(), this );
 
 
 
@@ -101,10 +101,17 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
     @Override
     public void onAddressSelected(int position) {
+        RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
         if( restaurantFullInfo.allAddresses.get(position) != restaurantFullInfo.currentAddress ) {
             restaurantFullInfo.currentAddress = restaurantFullInfo.allAddresses.get( position );
             onInteractionListener.onNewAddressSelected();
+            notifyDataSetChanged();
         }
         collapseAddressList();
+    }
+
+    @Override
+    public RestaurantFullInfo getRestaurantFullInfo() {
+        return onInteractionListener.getRestaurantFullInfo();
     }
 }
