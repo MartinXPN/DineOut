@@ -13,7 +13,6 @@
         android:label="@string/app_name">
         <activity
             android:name=".activities.ActivityChooseRestaurant"
-            android:configChanges="layoutDirection|locale|orientation|screenSize"
             android:label="@string/restaurant_list_label"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -24,7 +23,6 @@
         </activity>
         <activity
             android:name=".activities.ActivityViewRestaurant"
-            android:configChanges="layoutDirection|locale|orientation|screenSize"
             android:label="@null"
             android:theme="@style/AppTheme.NoActionBar" />
 

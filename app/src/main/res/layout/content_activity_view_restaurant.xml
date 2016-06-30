@@ -18,80 +18,24 @@
         android:orientation="vertical">
 
         <!-- Logo, Name, Short descriptionResId -->
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/restaurant_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/activity_horizontal_margin">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/restaurant_logo"
-                android:layout_width="@dimen/restaurant_logo_size"
-                android:layout_height="@dimen/restaurant_logo_size"
-                android:clickable="false"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                app:civ_border_overlay="false"
-                app:civ_border_width="0dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/restaurant_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/text_main_title_size"
-                    android:textColor="#111111" />
-
-                <RatingBar
-                    android:id="@+id/restaurant_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:rating="4.3"
-                    style="?android:attr/ratingBarStyleSmall" />
-
-                <TextView
-                    android:id="@+id/restaurant_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="normal"
-                    android:textSize="@dimen/text_secondary_size" />
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
 
         <!-- Basic info -->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurant_basic_info_grid"
-            android:paddingTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Services -->
-        <TextView
+        <FrameLayout
+            android:id="@+id/restaurant_basic_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
 
-            android:paddingTop="25dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="5dp"
-
-            android:textStyle="normal"
-            android:textSize="@dimen/text_subtitle_size"
-            android:textColor="#2d2d2d"
-            android:text="@string/view_restaurant_services_name" />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurant_details_grid"
+        <!-- Services -->
+        <FrameLayout
+            android:id="@+id/restaurant_services"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
 
 
         <!-- Addresses -->

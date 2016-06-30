@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Logo, Name, Short descriptionResId -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/restaurant_logo"
+        android:layout_width="@dimen/restaurant_logo_size"
+        android:layout_height="@dimen/restaurant_logo_size"
+        android:clickable="false"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        app:civ_border_overlay="false"
+        app:civ_border_width="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/restaurant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_main_title_size"
+            android:textColor="#111111" />
+
+        <RatingBar
+            android:id="@+id/restaurant_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:rating="4.3"
+            style="?android:attr/ratingBarStyleSmall" />
+
+        <TextView
+            android:id="@+id/restaurant_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:textSize="@dimen/text_secondary_size" />
+    </LinearLayout>
+</LinearLayout>

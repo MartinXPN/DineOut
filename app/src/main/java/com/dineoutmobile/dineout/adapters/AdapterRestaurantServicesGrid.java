@@ -1,5 +1,6 @@
 package com.dineoutmobile.dineout.adapters;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,25 +18,25 @@ import java.util.ArrayList;
 public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterRestaurantServicesGrid.ViewHolder> {
 
     public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
+        ArrayList <RestaurantFullInfo.Services> getServices();
     }
 
     private OnDataRequestedListener listener;
     ViewHolder holder;
-    Context context;
+    Fragment parentFragment;
 
 
-    public AdapterRestaurantServicesGrid(Context context ) {
+    public AdapterRestaurantServicesGrid(Fragment parentFragment ) {
 
-        this.context = context;
-        listener = (OnDataRequestedListener) context;
+        this.parentFragment = parentFragment;
+        listener = (OnDataRequestedListener) parentFragment;
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) parentFragment.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate( R.layout.restaurant_services_grid_item, parent, false );
 
         holder = new ViewHolder(layout);
@@ -45,17 +46,17 @@ public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterR
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ArrayList<RestaurantFullInfo.Services> services = listener.getRestaurantFullInfo().getAllServices();
+        ArrayList<RestaurantFullInfo.Services> services = listener.getServices();
         holder.image.setImageResource( services.get(position).resource );
         if (services.get(position).isSupported)     holder.image.setBackgroundResource( R.drawable.circle_green );
         else                                        holder.image.setBackgroundResource( R.drawable.circle_red );
 
-        holder.description.setText( context.getResources().getString( services.get(position).descriptionResId ) );
+        holder.description.setText( parentFragment.getActivity().getResources().getString( services.get(position).descriptionResId ) );
     }
 
     @Override
     public int getItemCount() {
-        return listener.getRestaurantFullInfo().getAllServices().size();
+        return listener.getServices().size();
     }
 
 

@@ -1,5 +1,6 @@
 package com.dineoutmobile.dineout.adapters;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,24 +21,25 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
 
 
     public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
+        ArrayList<RestaurantFullInfo.BasicInfo> getBasicInfo();
+        ArrayList<RestaurantFullInfo.BasicInfoWithLinks> getBasicInfoWithLinks();
     }
 
     private OnDataRequestedListener listener;
     ViewHolder holder;
-    Context context;
+    Fragment parentFragment;
 
 
-    public AdapterRestaurantBasicInfoGrid(Context context ) {
-        this.context = context;
-        listener = (OnDataRequestedListener) context;
+    public AdapterRestaurantBasicInfoGrid(Fragment parentFragment ) {
+        this.parentFragment = parentFragment;
+        listener = (OnDataRequestedListener) parentFragment;
     }
 
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) parentFragment.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate( R.layout.restaurant_services_grid_item, parent, false );
 
         holder = new ViewHolder(layout);
@@ -47,8 +49,8 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ArrayList <RestaurantFullInfo.BasicInfo> basicInfo = listener.getRestaurantFullInfo().getAllBasicInfo();
-        ArrayList <RestaurantFullInfo.BasicInfoWithLinks> basicInfoWithLinks = listener.getRestaurantFullInfo().getAllBasicInfoWithLinks();
+        ArrayList <RestaurantFullInfo.BasicInfo> basicInfo = listener.getBasicInfo();
+        ArrayList <RestaurantFullInfo.BasicInfoWithLinks> basicInfoWithLinks = listener.getBasicInfoWithLinks();
 
         if (position < basicInfo.size()) {
             final RestaurantFullInfo.BasicInfo currentItem = basicInfo.get(position);
@@ -58,7 +60,7 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
             holder.restaurantDetailsContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Util.showDialog( context, context.getResources().getString( currentItem.titleResourceId ), currentItem.description );
+                    Util.showDialog( parentFragment.getActivity(), parentFragment.getActivity().getResources().getString( currentItem.titleResourceId ), currentItem.description );
                 }
             });
         }
@@ -66,12 +68,12 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
             position -= basicInfo.size();
             final RestaurantFullInfo.BasicInfoWithLinks currentItem = basicInfoWithLinks.get( position );
             holder.image.setImageResource( currentItem.backgroundResId);
-            holder.description.setText( context.getResources().getString( currentItem.descriptionResId ) );
+            holder.description.setText( parentFragment.getActivity().getResources().getString( currentItem.descriptionResId ) );
             holder.image.setBackgroundResource( R.drawable.circle_neutral );
             holder.restaurantDetailsContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Util.openUrlInBrowser( context, currentItem.URL );
+                    Util.openUrlInBrowser( parentFragment.getActivity(), currentItem.URL );
                 }
             });
         }
@@ -80,7 +82,7 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
 
     @Override
     public int getItemCount() {
-        return listener.getRestaurantFullInfo().getAllBasicInfo().size() + listener.getRestaurantFullInfo().getAllBasicInfoWithLinks().size();
+        return listener.getBasicInfo().size() + listener.getBasicInfoWithLinks().size();
     }
 
 

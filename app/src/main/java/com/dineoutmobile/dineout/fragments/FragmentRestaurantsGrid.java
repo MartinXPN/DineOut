@@ -16,7 +16,7 @@ import com.dineoutmobile.dineout.adapters.AdapterRestaurantGrid;
 import com.dineoutmobile.dineout.util.CacheUtil;
 import com.dineoutmobile.dineout.util.Util;
 
-public class FragmentRestaurantsGrid extends FragmentRestaurantsListSuper {
+public class FragmentRestaurantsGrid extends FragmentSuperRestaurantsList {
 
     public interface ShowAsListListener {
         void showAsList();

@@ -4,6 +4,7 @@ package com.dineoutmobile.dineout.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     Button currentAddress;
     RecyclerView addressList;
     AdapterRestaurantAddressesList adapterRestaurantAddressesList;
+    OnAddressFragmentInteractionListener onInteractionListener;
     boolean isListExpanded;
 
     public interface OnAddressFragmentInteractionListener {
@@ -27,7 +29,6 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
         RestaurantFullInfo getRestaurantFullInfo();
     }
 
-    OnAddressFragmentInteractionListener onInteractionListener;
     private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -61,6 +62,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Log.d( "AddressPickerF", "onCreateView" );
         View rootView = inflater.inflate( R.layout.fragment_address_picker, container, false );
         currentAddress = (Button) rootView.findViewById( R.id.current_address );
         addressList = (RecyclerView) rootView.findViewById( R.id.address_list );
@@ -69,8 +71,6 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
         RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
 
         rootView.setOnTouchListener( onTouchListener );
-        currentAddress.setOnTouchListener( onTouchListener );
-        addressList.setOnTouchListener( onTouchListener );
         adapterRestaurantAddressesList = new AdapterRestaurantAddressesList( getActivity(), this );
 
 

@@ -21,14 +21,14 @@ public class LockableNestedScrollView extends NestedScrollView {
     }
 
 
-    private boolean mScrollable = true;
+    private boolean isScrollable = true;
 
     public void setScrollingEnabled(boolean enabled) {
-        mScrollable = enabled;
+        isScrollable = enabled;
     }
 
     public boolean isScrollable() {
-        return mScrollable;
+        return isScrollable;
     }
 
     @Override
@@ -36,9 +36,9 @@ public class LockableNestedScrollView extends NestedScrollView {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // if we can scroll pass the event to the superclass
-                if (mScrollable) return super.onTouchEvent(ev);
+                if (isScrollable) return super.onTouchEvent(ev);
                 // only continue to handle the touch event if scrolling enabled
-                return false; // mScrollable is always false at this point
+                return false; // isScrollable is always false at this point
             default:
                 return super.onTouchEvent(ev);
         }
@@ -48,6 +48,6 @@ public class LockableNestedScrollView extends NestedScrollView {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         // Don't do anything with intercepted touch events if
         // we are not scrollable
-        return mScrollable && super.onInterceptTouchEvent(ev);
+        return isScrollable && super.onInterceptTouchEvent(ev);
     }
 }

@@ -17,7 +17,7 @@ import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
 
 
-public class AdapterRestaurantList extends AdapterRestaurantListSuper {
+public class AdapterRestaurantList extends AdapterSuperRestaurantList {
 
     ViewHolder holder;
 

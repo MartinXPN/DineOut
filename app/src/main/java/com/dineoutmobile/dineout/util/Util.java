@@ -9,7 +9,10 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 public class Util {
@@ -33,6 +36,10 @@ public class Util {
         public static final String NEARBY_PLACES_FRAGMENT = "nearby_f";
         public static final String RESERVED_RESTAURANTS_FRAGMENT = "reserved_f";
         public static final String GOOGLE_MAPS_FRAGMENT = "maps_f";
+        public static final String FRAGMENT_SERVICES = "services_f";
+        public static final String FRAGMENT_BASIC_INFO = "basic_info_f";
+        public static final String FRAGMENT_HEADER = "header_f";
+        public static final String FRAGMENT_ADDRESS = "addr_f";
     }
 
     public static int calculateRatingColor( float rating ) {
@@ -54,6 +61,23 @@ public class Util {
     }
 
 
+    public static void hideKeyboard( AppCompatActivity activity ) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+    public static void showKeyboard( AppCompatActivity activity ) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        }
+    }
+
+
+
     public static void showDialog( Context context, String title, String message ) {
         new AlertDialog
                 .Builder( context, AlertDialog.THEME_DEVICE_DEFAULT_DARK  )
@@ -64,7 +88,7 @@ public class Util {
 
     ///////////////////////////////// URL Helpers //////////////////////////////////////////////////
     public static void openUrlInBrowser( Context context, String url ) {
-        if( url == null )   return;
+        if( url == null || url.isEmpty() )   return;
         Intent browserIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
         context.startActivity( browserIntent );
     }

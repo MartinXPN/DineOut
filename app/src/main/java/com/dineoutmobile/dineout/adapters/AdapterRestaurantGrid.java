@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class AdapterRestaurantGrid extends AdapterRestaurantListSuper {
+public class AdapterRestaurantGrid extends AdapterSuperRestaurantList {
 
     ViewHolder holder;
 

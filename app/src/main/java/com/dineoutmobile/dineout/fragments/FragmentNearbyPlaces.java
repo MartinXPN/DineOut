@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.dineoutmobile.dineout.R;
 import com.google.android.gms.maps.MapView;
 
-public class FragmentNearbyPlaces extends FragmentMapSuper {
+public class FragmentNearbyPlaces extends FragmentSuperMap {
 
 
     @Override
