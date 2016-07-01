@@ -11,7 +11,7 @@
     <string name="nav_section_title_the_app">The App</string>
     <string name="nav_title_tips">Tips</string>
     <string name="nav_title_help">Help</string>
-    <string name="nav_title_feedback">Feedback</string>
+    <string name="nav_title_feedback">Send Feedback</string>
     <string name="nav_title_about">About us</string>
 
     <string name="view_restaurant_services_name">Services</string>

@@ -18,24 +18,30 @@
         android:orientation="vertical">
 
         <!-- Logo, Name, Short descriptionResId -->
-        <FrameLayout
+        <fragment
             android:id="@+id/restaurant_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:name="com.dineoutmobile.dineout.fragments.FragmentRestaurantHeader"
+            tools:layout="@layout/fragment_restaurant_header" />
 
 
         <!-- Basic info -->
-        <FrameLayout
+        <fragment
             android:id="@+id/restaurant_basic_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="10dp"
+            android:name="com.dineoutmobile.dineout.fragments.FragmentRestaurantBasicInfo"
+            tools:layout="@layout/fragment_restaurant_basic_info" />
 
         <!-- Services -->
-        <FrameLayout
+        <fragment
             android:id="@+id/restaurant_services"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:name="com.dineoutmobile.dineout.fragments.FragmentRestaurantServices"
+            tools:layout="@layout/fragment_restaurant_services" />
 
 
         <!-- Addresses -->
@@ -43,7 +49,8 @@
             android:id="@+id/restaurant_addresses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.dineoutmobile.dineout.fragments.FragmentAddressPicker" />
+            android:name="com.dineoutmobile.dineout.fragments.FragmentAddressPicker"
+            tools:layout="@layout/fragment_address_picker" />
 
         <!-- Google Maps -->
         <FrameLayout

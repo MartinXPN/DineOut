@@ -32,6 +32,7 @@ public class FragmentRestaurantHeader extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         Log.d("BasicInfoF", "onCreate");
         listener = (OnDataRequestedListener) getActivity();
+        setRetainInstance( true );
         super.onCreate(savedInstanceState);
     }
 

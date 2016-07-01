@@ -32,6 +32,8 @@ public class FragmentRestaurantServices extends Fragment implements AdapterResta
         adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid( this );
         listener = (OnDataRequestedListener) getActivity();
         services = listener.getRestaurantFullInfo().getAllServices();
+
+        setRetainInstance( true );
         super.onCreate(savedInstanceState);
     }
 

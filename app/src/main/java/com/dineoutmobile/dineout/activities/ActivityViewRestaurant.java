@@ -1,7 +1,6 @@
 package com.dineoutmobile.dineout.activities;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -36,8 +35,6 @@ import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.Util;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.HashMap;
@@ -212,8 +209,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
     public void loadRestaurantInfo() {
 
-        //// GSON TEST
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
         // Retrofit needs to know how to deserialize response, for instance into JSON
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl( DataTransferAPI.BASE_URL )
@@ -227,9 +222,10 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         api.getRestaurantFullInfo(options).enqueue(new Callback<RestaurantFullInfo>() {
             @Override
             public void onResponse(Call<RestaurantFullInfo> call, Response<RestaurantFullInfo> response) {
-
-                String json = gson.toJson( response.body() );
-                Log.d( "RESPONSE IN JSON", json );
+//                /// GSON TEST
+//                final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//                String json = gson.toJson( response.body() );
+//                Log.d( "RESPONSE IN JSON", json );
 
                 if( response.body() != null ) {
                     restaurantInfo = response.body();
@@ -270,39 +266,10 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         /// initialize fragments
         FragmentManager fm = getFragmentManager();
         fm.executePendingTransactions();
-        // Add fragment if there isn't one with this tag
-        if( fm.findFragmentByTag( Util.Tags.FRAGMENT_HEADER) == null ) {
 
-            fragmentRestaurantHeader = new FragmentRestaurantHeader();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace( R.id.restaurant_header, fragmentRestaurantHeader, Util.Tags.FRAGMENT_HEADER );
-            ft.commit();
-        }
-        else {
-            fragmentRestaurantHeader = (FragmentRestaurantHeader) fm.findFragmentById(R.id.restaurant_header);
-        }
-        if( fm.findFragmentByTag( Util.Tags.FRAGMENT_BASIC_INFO) == null ) {
-
-            fragmentRestaurantBasicInfo = new FragmentRestaurantBasicInfo();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace( R.id.restaurant_basic_info, fragmentRestaurantBasicInfo, Util.Tags.FRAGMENT_BASIC_INFO );
-            ft.commit();
-        }
-        else {
-            fragmentRestaurantBasicInfo = (FragmentRestaurantBasicInfo) fm.findFragmentById(R.id.restaurant_basic_info);
-        }
-        if( fm.findFragmentByTag(Util.Tags.FRAGMENT_SERVICES) == null ) {
-
-            fragmentRestaurantServices = new FragmentRestaurantServices();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace( R.id.restaurant_services, fragmentRestaurantServices, Util.Tags.FRAGMENT_SERVICES );
-            ft.commit();
-        }
-        else {
-            fragmentRestaurantServices = (FragmentRestaurantServices) fm.findFragmentById(R.id.restaurant_services);
-        }
-
-        /// initialize address picker fragment
+        fragmentRestaurantHeader = (FragmentRestaurantHeader) fm.findFragmentById(R.id.restaurant_header);
+        fragmentRestaurantBasicInfo = (FragmentRestaurantBasicInfo) fm.findFragmentById(R.id.restaurant_basic_info);
+        fragmentRestaurantServices = (FragmentRestaurantServices) fm.findFragmentById(R.id.restaurant_services);
         fragmentAddressPicker = (FragmentAddressPicker) getFragmentManager().findFragmentById( R.id.restaurant_addresses );
 
 

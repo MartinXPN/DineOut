@@ -35,6 +35,8 @@ public class FragmentRestaurantBasicInfo extends Fragment implements AdapterRest
         listener = (OnDataRequestedListener) getActivity();
         basicInfos = listener.getRestaurantFullInfo().getAllBasicInfo();
         basicInfoWithLinks = listener.getRestaurantFullInfo().getAllBasicInfoWithLinks();
+
+        setRetainInstance( true );
         super.onCreate(savedInstanceState);
     }
 
