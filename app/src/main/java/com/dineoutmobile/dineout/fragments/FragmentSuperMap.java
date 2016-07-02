@@ -6,10 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.util.Log;
 
-import com.dineoutmobile.dineout.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -26,17 +24,22 @@ public abstract class FragmentSuperMap extends Fragment implements OnMapReadyCal
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d( "FragMap", "onCreate" );
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setRetainInstance( true );
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        inflater.inflate(R.menu.empty_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onSaveInstanceState(Bundle outState) {
+        mapView.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onPause() {
+        mapView.onPause();
+        super.onPause();
+    }
 
     @Override
     public void onResume() {

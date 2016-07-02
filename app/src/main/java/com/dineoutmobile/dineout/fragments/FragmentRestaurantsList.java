@@ -2,6 +2,7 @@ package com.dineoutmobile.dineout.fragments;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +24,12 @@ public class FragmentRestaurantsList extends FragmentSuperRestaurantsList {
         void showAsGrid();
     }
     ShowAsGridListener listener;
+    private String TAG = "FragRestList";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Log.d( TAG, "onCreateView" );
         View rootView = inflater.inflate( R.layout.fragment_restaurant_list, container, false );
         ListView restaurantList = (ListView) rootView.findViewById(R.id.restaurant_list);
         adapter = new AdapterRestaurantList( getActivity() );

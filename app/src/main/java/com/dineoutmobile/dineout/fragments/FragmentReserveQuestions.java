@@ -3,6 +3,7 @@ package com.dineoutmobile.dineout.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 public class FragmentReserveQuestions extends Fragment {
 
+    private String TAG = "FragReserveQuestions";
     AdapterReserveQuestionsPager adapterReserveQuestionsPager;
     OnRestaurantReservedListener onRestaurantReservedListener;
 
@@ -25,7 +27,9 @@ public class FragmentReserveQuestions extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d( TAG, "onCreate" );
         super.onCreate(savedInstanceState);
+        setRetainInstance( true );
         onRestaurantReservedListener = (OnRestaurantReservedListener) getActivity();
     }
 
@@ -33,6 +37,7 @@ public class FragmentReserveQuestions extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
+        Log.d( TAG, "onCreateView" );
         adapterReserveQuestionsPager = new AdapterReserveQuestionsPager( getActivity() );
 
         final View rootView = inflater.inflate( R.layout.fragment_reserve_questions, container, false );

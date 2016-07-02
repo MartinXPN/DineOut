@@ -24,13 +24,14 @@ public class FragmentRestaurantHeader extends Fragment {
         RestaurantFullInfo getRestaurantFullInfo();
     }
 
+    private String TAG = "FragRestHeader";
     OnDataRequestedListener listener;
     RestaurantFullInfo restaurantFullInfo;
     View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("BasicInfoF", "onCreate");
+        Log.d(TAG, "onCreate");
         listener = (OnDataRequestedListener) getActivity();
         setRetainInstance( true );
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class FragmentRestaurantHeader extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d("BasicInfoF", "onCreateView");
+        Log.d(TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.fragment_restaurant_header, container, false);
         restaurantFullInfo = listener.getRestaurantFullInfo();
         initialize();

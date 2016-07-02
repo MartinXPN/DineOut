@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,14 @@ public class FragmentRestaurantServices extends Fragment implements AdapterResta
         RestaurantFullInfo getRestaurantFullInfo();
     }
 
+    private String TAG = "FragServices";
     OnDataRequestedListener listener;
     ArrayList <RestaurantFullInfo.Services> services;
     AdapterRestaurantServicesGrid adapterRestaurantServicesGrid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d( TAG, "onCreate" );
         adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid( this );
         listener = (OnDataRequestedListener) getActivity();
         services = listener.getRestaurantFullInfo().getAllServices();
@@ -40,6 +43,7 @@ public class FragmentRestaurantServices extends Fragment implements AdapterResta
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Log.d( TAG, "onCreateView" );
         View view = inflater.inflate(R.layout.fragment_restaurant_services, container, false);
         int numberOfItems = (int) (Util.getWindowWidth(getActivity()) / getResources().getDimension(R.dimen.restaurant_services_grid_item_size));
 

@@ -62,8 +62,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     private FragmentRestaurantServices fragmentRestaurantServices;
     private FragmentAddressPicker fragmentAddressPicker;
     private LockableNestedScrollView lockableNestedScrollView;
-    private View.OnTouchListener enableScrollingOnTouch;
-    private View.OnTouchListener disableScrollingOnTouch;
 
 
     @Override
@@ -81,21 +79,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         Bundle extras = getIntent().getExtras();
         restaurantInfo.restaurantId = extras.getLong(Util.Tags.BUNDLE_RESTAURANT_ID);
         loadRestaurantInfo();
-
-        enableScrollingOnTouch = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                lockableNestedScrollView.setScrollingEnabled( true );
-                return false;
-            }
-        };
-        disableScrollingOnTouch = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                lockableNestedScrollView.setScrollingEnabled( false );
-                return false;
-            }
-        };
         initializeNavigationInGoogleMaps( lockableNestedScrollView );
 
         /// initialize actionbar
@@ -126,19 +109,39 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
 
 
+    /// enable scrolling when touching views out of google maps
+    /// disable scrolling when touching views inside google maps
     public void initializeNavigationInGoogleMaps(ViewGroup parent) {
         for (int i = parent.getChildCount() - 1; i >= 0; i--) {
             final View child = parent.getChildAt(i);
             if (child instanceof ViewGroup) {
-                child.setOnTouchListener(enableScrollingOnTouch);
+                child.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        lockableNestedScrollView.setScrollingEnabled( true );
+                        return false;
+                    }
+                });
                 initializeNavigationInGoogleMaps((ViewGroup) child);
             }
             else if (child != null) {
                 if( child.getId() == R.id.fix_scrolling) {
-                    child.setOnTouchListener(disableScrollingOnTouch);
+                    child.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            lockableNestedScrollView.setScrollingEnabled( false );
+                            return false;
+                        }
+                    });
                 }
                 else {
-                    child.setOnTouchListener(enableScrollingOnTouch);
+                    child.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            lockableNestedScrollView.setScrollingEnabled( true );
+                            return false;
+                        }
+                    });
                 }
             }
         }
@@ -378,11 +381,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                     "We'll call you shortly for confirmation\n" +
                     "If you don't receive a call please submit your reservation again" );
         //finish();
-    }
-
-    @Override
-    public void onTouch() {
-        lockableNestedScrollView.setScrollingEnabled( true );
     }
 
     @Override

@@ -9,8 +9,6 @@ import android.widget.Toast;
 import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,8 +63,7 @@ public abstract class AdapterSuperRestaurantList extends BaseAdapter {
 
 
 
-        //// GSON TEST
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
         // Retrofit needs to know how to deserialize response, for instance into JSON
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl( DataTransferAPI.BASE_URL )
@@ -81,13 +78,18 @@ public abstract class AdapterSuperRestaurantList extends BaseAdapter {
             @Override
             public void onResponse(Call<ArrayList<RestaurantBasicInfo>> call, Response<ArrayList<RestaurantBasicInfo>> response) {
 
-                Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
-                String json = gson.toJson( response.body() );
-                Log.d( "RESPONSE IN JSON", json );
+//                //// GSON TEST
+//                final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//                String json = gson.toJson( response.body() );
+//                Log.d( "RESPONSE IN JSON", json );
 
                 if( response.body() != null ) {
                     restaurants = response.body();
                     notifyDataSetChanged();
+                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(context, "success - null", Toast.LENGTH_SHORT).show();
                 }
             }
 

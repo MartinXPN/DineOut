@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,18 @@ import com.google.android.gms.maps.MapView;
 
 public class FragmentRestaurantMap extends FragmentSuperMap {
 
+    private String TAG = "FragRestMap";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Log.d( TAG, "onCreateView" );
         View view = inflater.inflate(R.layout.fragment_restaurant_map, container, false);
 
         // Gets the MapView from the XML layout and creates it
         mapView = (MapView) view.findViewById(R.id.map_view);
+        mapView.getMapAsync(this);
         mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync( this );
 
         return view;
     }

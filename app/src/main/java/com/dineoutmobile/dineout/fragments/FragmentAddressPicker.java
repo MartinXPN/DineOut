@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +16,7 @@ import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
 public class FragmentAddressPicker extends Fragment implements AdapterRestaurantAddressesList.OnAddressListInteractionListener {
 
+    private String TAG = "Frag-AddressPick";
     Button currentAddress;
     RecyclerView addressList;
     AdapterRestaurantAddressesList adapterRestaurantAddressesList;
@@ -24,18 +24,9 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     boolean isListExpanded;
 
     public interface OnAddressFragmentInteractionListener {
-        void onTouch();
         void onNewAddressSelected();
         RestaurantFullInfo getRestaurantFullInfo();
     }
-
-    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            onInteractionListener.onTouch();
-            return false;
-        }
-    };
 
 
 
@@ -60,6 +51,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d( TAG, "onCreate" );
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
     }
@@ -67,7 +59,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d( "AddressPickerF", "onCreateView" );
+        Log.d( TAG, "onCreateView" );
         View rootView = inflater.inflate( R.layout.fragment_address_picker, container, false );
         currentAddress = (Button) rootView.findViewById( R.id.current_address );
         addressList = (RecyclerView) rootView.findViewById( R.id.address_list );
@@ -75,7 +67,6 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
         onInteractionListener = (OnAddressFragmentInteractionListener) getActivity();
         RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
 
-        rootView.setOnTouchListener( onTouchListener );
         adapterRestaurantAddressesList = new AdapterRestaurantAddressesList( getActivity(), this );
 
 

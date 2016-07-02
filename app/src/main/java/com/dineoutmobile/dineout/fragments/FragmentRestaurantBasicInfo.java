@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class FragmentRestaurantBasicInfo extends Fragment implements AdapterRestaurantBasicInfoGrid.OnDataRequestedListener {
 
+    private String TAG = "FragBasicInfo";
     public interface OnDataRequestedListener {
         RestaurantFullInfo getRestaurantFullInfo();
     }
@@ -30,7 +31,7 @@ public class FragmentRestaurantBasicInfo extends Fragment implements AdapterRest
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d( "BasicInfoF", "onCreate" );
+        Log.d( TAG, "onCreate" );
         adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid( this );
         listener = (OnDataRequestedListener) getActivity();
         basicInfos = listener.getRestaurantFullInfo().getAllBasicInfo();
@@ -43,7 +44,7 @@ public class FragmentRestaurantBasicInfo extends Fragment implements AdapterRest
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d( "BasicInfoF", "onCreateView" );
+        Log.d( TAG, "onCreateView" );
         View view = inflater.inflate(R.layout.fragment_restaurant_basic_info, container, false);
         int numberOfItems = (int) (Util.getWindowWidth(getActivity()) / getResources().getDimension(R.dimen.restaurant_services_grid_item_size));
 

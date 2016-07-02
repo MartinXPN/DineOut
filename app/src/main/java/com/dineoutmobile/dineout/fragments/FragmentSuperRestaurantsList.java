@@ -4,6 +4,7 @@ package com.dineoutmobile.dineout.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class FragmentSuperRestaurantsList
     SwipeRefreshLayout refreshLayout;
     AdapterSuperRestaurantList adapter;
 
+    private String TAG = "FragSuperRestList";
     private boolean isRefreshLayoutSpinning = false;
     private Menu menu;
 
@@ -28,8 +30,10 @@ public class FragmentSuperRestaurantsList
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d( TAG, "onCreate" );
         super.onCreate(savedInstanceState);
         setHasOptionsMenu( true );
+        setRetainInstance( true );
     }
 
     public void setLanguage( LanguageUtil.Language language ) {
