@@ -1,5 +1,6 @@
 package com.dineoutmobile.dineout.adapters;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -23,8 +24,8 @@ public class AdapterRestaurantGrid extends AdapterSuperRestaurantList {
     ViewHolder holder;
 
 
-    public AdapterRestaurantGrid( Context context ) {
-        super( context );
+    public AdapterRestaurantGrid( Fragment parentFragment ) {
+        super( parentFragment );
     }
 
     @Override
@@ -32,7 +33,7 @@ public class AdapterRestaurantGrid extends AdapterSuperRestaurantList {
 
         if( convertView == null ) {
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) parentFragment.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate( R.layout.restaurant_grid_item, parent, false );
             holder = new ViewHolder( convertView );
             convertView.setTag( holder );
@@ -41,7 +42,7 @@ public class AdapterRestaurantGrid extends AdapterSuperRestaurantList {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        setValues( (ViewHolder) convertView.getTag(), restaurants.get( position ) );
+        setValues( (ViewHolder) convertView.getTag(), listener.getRestaurants().get( position ) );
         return convertView;
     }
 
@@ -58,15 +59,15 @@ public class AdapterRestaurantGrid extends AdapterSuperRestaurantList {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent( context, ActivityViewRestaurant.class );
+                Intent i = new Intent( parentFragment.getActivity(), ActivityViewRestaurant.class );
                 i.putExtra( Util.Tags.BUNDLE_RESTAURANT_ID, restaurantInfo.restaurantId);
-                context.startActivity(i);
+                parentFragment.getActivity().startActivity(i);
             }
         });
 
-        Picasso.with(context)
+        Picasso.with(parentFragment.getActivity())
                 .load( Util.getImageURL( restaurantInfo.logoURL ) )
-                .placeholder( ContextCompat.getDrawable( context,R.drawable.placeholder ) )
+                .placeholder( ContextCompat.getDrawable( parentFragment.getActivity(),R.drawable.placeholder ) )
                 .resizeDimen( R.dimen.restaurant_grid_item_size, R.dimen.restaurant_grid_item_size )
                 .centerInside()
                 .into( holder.logo );

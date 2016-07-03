@@ -3,7 +3,6 @@ package com.dineoutmobile.dineout.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -21,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -48,6 +46,7 @@ public class ActivityChooseRestaurant
 
     ActionBarDrawerToggle toggle;
     AdapterSearchFilters adapterSearchFilters = new AdapterSearchFilters( this );
+    Bundle savedInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class ActivityChooseRestaurant
         super.onCreate(savedInstanceState);
         LanguageUtil.setLanguage( LanguageUtil.getLanguage( this ), this );
         setContentView(R.layout.activity_choose_restaurant);
+        this.savedInstanceState = savedInstanceState;
 
 
         /// make toolbar our default action-bar
@@ -73,12 +73,23 @@ public class ActivityChooseRestaurant
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        /// display the list of all restaurants
-        navigationView.getMenu().findItem( R.id.nav_restaurant_list ).setChecked(true);
-        onNavigationItemSelected(navigationView.getMenu().findItem( R.id.nav_restaurant_list ) );
+        /// display latest chosen fragment or if there wasn't any => list of restaurants
+        if( savedInstanceState == null ) {
+            savedInstanceState = new Bundle();
+            this.savedInstanceState = savedInstanceState;
+            savedInstanceState.putInt( Util.Tags.SAVED_STATE_FRAGMENT, R.id.nav_restaurant_list );
+            savedInstanceState.putBoolean( Util.Tags.SAVED_STATE_SEARCH, false );
+        }
+        int navigationDrawerFragmentItem = savedInstanceState.getInt( Util.Tags.SAVED_STATE_FRAGMENT );
+        navigationView.getMenu().findItem( navigationDrawerFragmentItem ).setChecked(true);
+        onNavigationItemSelected( navigationView.getMenu().findItem( navigationDrawerFragmentItem ) );
 
 
         /// search
+        if(savedInstanceState.getBoolean(Util.Tags.SAVED_STATE_SEARCH)) {
+            showSearch();
+        }
+
         final FloatingActionButton search = (FloatingActionButton) findViewById( R.id.search );
         assert search != null;
         search.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +108,7 @@ public class ActivityChooseRestaurant
 
     private void showSearch() {
 
+        savedInstanceState.putBoolean( Util.Tags.SAVED_STATE_SEARCH, true );
         final FloatingActionButton searchButton = (FloatingActionButton) findViewById( R.id.search );
         assert searchButton != null;
         searchButton.hide();
@@ -148,7 +160,7 @@ public class ActivityChooseRestaurant
 
 
         EditText searchText = (EditText) findViewById( R.id.search_text );
-        searchText.setSelection(0);
+        searchText.setSelection(0,0);
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -162,11 +174,10 @@ public class ActivityChooseRestaurant
         });
 
         Util.showKeyboard( this );
-
     }
     private void hideSearch() {
 
-
+        savedInstanceState.putBoolean( Util.Tags.SAVED_STATE_SEARCH, false );
         final FloatingActionButton searchButton = (FloatingActionButton) findViewById( R.id.search );
         assert searchButton != null;
         searchButton.show();
@@ -198,7 +209,7 @@ public class ActivityChooseRestaurant
     @Override
     public void onBackPressed() {
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
 
         final FloatingActionButton searchButton = (FloatingActionButton) findViewById( R.id.search );
@@ -235,6 +246,9 @@ public class ActivityChooseRestaurant
 
 
     public void showFragment(int navId, String fragmentTag ) {
+
+        /// save the choice
+        savedInstanceState.putInt( Util.Tags.SAVED_STATE_FRAGMENT, navId );
 
         // get fragment manager
         FragmentManager fm = getFragmentManager();

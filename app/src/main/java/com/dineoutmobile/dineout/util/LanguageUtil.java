@@ -3,7 +3,6 @@ package com.dineoutmobile.dineout.util;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.util.Log;
 
 import com.dineoutmobile.dineout.R;
 
@@ -34,14 +33,14 @@ public class LanguageUtil {
 
     public static Language getLanguage( String locale ) {
 
-        Log.d( "Util", localeToLanguage.toString() );
+        //Log.d( "Util", localeToLanguage.toString() );
         if( localeToLanguage == null )
             return Language.EN;
         return localeToLanguage.get( locale );
     }
     public static Language getLanguage( Context context ) {
 
-        Log.d( "Util", localeToLanguage.toString() );
+        //Log.d( "Util", localeToLanguage.toString() );
 
         if( currentLanguage != null )
             return currentLanguage;

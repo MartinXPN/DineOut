@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,10 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
 import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
 import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
+import com.dineoutmobile.dineout.fragments.FragmentRestaurantBackgroundPager;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantBasicInfo;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantHeader;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantMap;
@@ -35,7 +34,6 @@ import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.Util;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
-import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +50,11 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                                                 FragmentAddressPicker.OnAddressFragmentInteractionListener,
                                                 FragmentRestaurantBasicInfo.OnDataRequestedListener,
                                                 FragmentRestaurantServices.OnDataRequestedListener,
-                                                AdapterRestaurantImagePager.OnDataRequestedListener {
+                                                FragmentRestaurantBackgroundPager.OnDataRequestedListener {
 
 
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo();
-    private AdapterRestaurantImagePager adapterRestaurantImagePager = new AdapterRestaurantImagePager(this);
+    private FragmentRestaurantBackgroundPager fragmentRestaurantBackgroundPager;
     private FragmentRestaurantHeader fragmentRestaurantHeader;
     private FragmentRestaurantBasicInfo fragmentRestaurantBasicInfo;
     private FragmentRestaurantServices fragmentRestaurantServices;
@@ -68,6 +66,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        LanguageUtil.setLanguage( LanguageUtil.getLanguage( this ), this );
         setContentView(R.layout.activity_view_restaurant);
 
         /// initialize whole scrollview
@@ -86,10 +85,21 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        initializeStaticViews();
+        initializeReserveAndCall();
         initializeCollapsingToolbar();
 
 
+
+        /// initialize fragments
+        FragmentManager fm = getFragmentManager();
+        fm.executePendingTransactions();
+        fragmentRestaurantHeader = (FragmentRestaurantHeader) fm.findFragmentById(R.id.restaurant_header);
+        fragmentRestaurantBasicInfo = (FragmentRestaurantBasicInfo) fm.findFragmentById(R.id.restaurant_basic_info);
+        fragmentRestaurantServices = (FragmentRestaurantServices) fm.findFragmentById(R.id.restaurant_services);
+        fragmentAddressPicker = (FragmentAddressPicker) fm.findFragmentById( R.id.restaurant_addresses );
+        fragmentRestaurantBackgroundPager = (FragmentRestaurantBackgroundPager) fm.findFragmentById( R.id.restaurant_background_pager );
+
+        /// initialize Google maps fragment
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -204,9 +214,9 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     public void onDataLoaded() {
         fragmentRestaurantHeader.notifyDataSetChanged();
         fragmentRestaurantBasicInfo.notifyDataSetChanged();
-        adapterRestaurantImagePager.notifyDataSetChanged();
         fragmentRestaurantServices.notifyDataSetChanged();
         fragmentAddressPicker.notifyDataSetChanged();
+        fragmentRestaurantBackgroundPager.notifyDataSetChanged();
         initializeCollapsingToolbar();
     }
 
@@ -252,28 +262,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     }
 
 
-    public void initializeStaticViews() {
-
-        /// initialize restaurant photo pager
-        final ViewPager restaurantPhotoPager = (ViewPager) findViewById(R.id.restaurant_photos_pager);
-        assert restaurantPhotoPager != null;
-        restaurantPhotoPager.setAdapter(adapterRestaurantImagePager);
-        //restaurantPhotoPager.setOnTouchListener( enableScrollingOnTouch );
-
-        /// initialize restaurant photo page indicator
-        final CirclePageIndicator pageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        assert pageIndicator != null;
-        pageIndicator.setViewPager(restaurantPhotoPager);
-
-
-        /// initialize fragments
-        FragmentManager fm = getFragmentManager();
-        fm.executePendingTransactions();
-
-        fragmentRestaurantHeader = (FragmentRestaurantHeader) fm.findFragmentById(R.id.restaurant_header);
-        fragmentRestaurantBasicInfo = (FragmentRestaurantBasicInfo) fm.findFragmentById(R.id.restaurant_basic_info);
-        fragmentRestaurantServices = (FragmentRestaurantServices) fm.findFragmentById(R.id.restaurant_services);
-        fragmentAddressPicker = (FragmentAddressPicker) getFragmentManager().findFragmentById( R.id.restaurant_addresses );
+    public void initializeReserveAndCall() {
 
 
         /// initialize call button
@@ -344,17 +333,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                 }
             }
         });
-
-        /// initialize google maps navigation touch
-//        Button navigateInGoogleMaps = (Button) findViewById(R.id.fix_scrolling);
-//        assert navigateInGoogleMaps != null;
-//        navigateInGoogleMaps.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                lockableNestedScrollView.setScrollingEnabled( false );
-//                return false;
-//            }
-//        });
     }
 
     public void initializeCollapsingToolbar() {

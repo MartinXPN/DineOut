@@ -1,5 +1,6 @@
 package com.dineoutmobile.dineout.adapters;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -21,8 +22,8 @@ public class AdapterRestaurantList extends AdapterSuperRestaurantList {
 
     ViewHolder holder;
 
-    public AdapterRestaurantList( Context context ) {
-        super( context );
+    public AdapterRestaurantList( Fragment parentFragment ) {
+        super( parentFragment );
     }
 
 
@@ -31,7 +32,7 @@ public class AdapterRestaurantList extends AdapterSuperRestaurantList {
 
         if( convertView == null ) {
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) parentFragment.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate( R.layout.restaurant_list_item, parent, false );
             holder = new ViewHolder( convertView );
             convertView.setTag( holder );
@@ -40,7 +41,7 @@ public class AdapterRestaurantList extends AdapterSuperRestaurantList {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        setValues( (ViewHolder) convertView.getTag(), restaurants.get( position ) );
+        setValues( (ViewHolder) convertView.getTag(), listener.getRestaurants().get( position ) );
         return convertView;
     }
 
@@ -56,16 +57,16 @@ public class AdapterRestaurantList extends AdapterSuperRestaurantList {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent( context, ActivityViewRestaurant.class );
+                Intent i = new Intent( parentFragment.getActivity(), ActivityViewRestaurant.class );
                 i.putExtra( Util.Tags.BUNDLE_RESTAURANT_ID, restaurantInfo.restaurantId);
-                context.startActivity(i);
+                parentFragment.getActivity().startActivity(i);
             }
         });
 
-        Picasso.with(context)
+        Picasso.with(parentFragment.getActivity())
                 .load( Util.getImageURL( restaurantInfo.backgroundPhotoURL ) )
-                .placeholder( ContextCompat.getDrawable( context,R.drawable.placeholder ) )
-                .resize( Util.getWindowWidth( context ), Util.dpToPx( context.getResources().getDimension( R.dimen.restaurant_list_item_size ), context ) )
+                .placeholder( ContextCompat.getDrawable( parentFragment.getActivity(),R.drawable.placeholder ) )
+                .resize( Util.getWindowWidth( parentFragment.getActivity() ), Util.dpToPx( parentFragment.getActivity().getResources().getDimension( R.dimen.restaurant_list_item_size ), parentFragment.getActivity() ) )
                 .centerInside()
                 .into( holder.restaurantBackgroundImage );
     }

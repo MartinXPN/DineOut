@@ -1,6 +1,6 @@
 package com.dineoutmobile.dineout.adapters;
 
-import android.content.Context;
+import android.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,36 +8,37 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class AdapterRestaurantImagePager extends PagerAdapter {
 
     public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
+        ArrayList <String> getRestaurantBackgroundPhotos();
     }
 
-    private Context context;
+    private Fragment parentFragment;
     private OnDataRequestedListener listener;
 
-    public AdapterRestaurantImagePager(Context context) {
-        this.context = context;
-        listener = (OnDataRequestedListener) context;
+    public AdapterRestaurantImagePager( Fragment parentFragment ) {
+        this.parentFragment = parentFragment;
+        listener = (OnDataRequestedListener) parentFragment;
     }
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
 
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parentFragment.getActivity());
         ViewGroup layout = (ViewGroup) inflater.inflate( R.layout.restaurant_pager_image, collection, false);
         collection.addView(layout);
 
         ImageView image = (ImageView) layout.findViewById( R.id.restaurant_photo );
-        Picasso.with(context)
-                .load( listener.getRestaurantFullInfo().backgroundPhotoURLs.get( position ) )
-                .resize( Util.getWindowWidth( context ), Util.dpToPx( context.getResources().getDimension( R.dimen.restaurant_background_photo_height ), context ) )
+        Picasso.with(parentFragment.getActivity())
+                .load( listener.getRestaurantBackgroundPhotos().get( position ) )
+                .resize( Util.getWindowWidth( parentFragment.getActivity() ), Util.dpToPx( parentFragment.getActivity().getResources().getDimension( R.dimen.restaurant_background_photo_height ), parentFragment.getActivity() ) )
                 .centerInside()
                 .into(image);
         return layout;
@@ -50,10 +51,7 @@ public class AdapterRestaurantImagePager extends PagerAdapter {
 
     @Override
     public int getCount() {
-        RestaurantFullInfo restaurantInfo = listener.getRestaurantFullInfo();
-        if( restaurantInfo == null )                        return 0;
-        if( restaurantInfo.backgroundPhotoURLs == null )    return 0;
-        return restaurantInfo.backgroundPhotoURLs.size();
+        return listener.getRestaurantBackgroundPhotos().size();
     }
 
     @Override

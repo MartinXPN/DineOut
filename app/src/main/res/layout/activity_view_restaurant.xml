@@ -20,42 +20,24 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
+            android:fitsSystemWindows="false"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <RelativeLayout
-                android:orientation="vertical"
+            <fragment
+                android:id="@+id/restaurant_background_pager"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/restaurant_background_photo_height"
-                android:fitsSystemWindows="true"
-                app:layout_collapseMode="parallax">
-
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/restaurant_photos_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-
-                <com.viewpagerindicator.CirclePageIndicator
-                    android:id="@+id/indicator"
-                    android:padding="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    app:fillColor="@color/circle_page_indicator_fillColor"
-                    app:pageColor="@color/circle_page_indicator_pageColor"
-                    app:strokeColor="@android:color/transparent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-            </RelativeLayout>
+                app:layout_collapseMode="parallax"
+                android:name="com.dineoutmobile.dineout.fragments.FragmentRestaurantBackgroundPager"
+                tools:layout="@layout/fragment_restaurant_background_pager"/>
 
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:fitsSystemWindows="false"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
 
@@ -65,11 +47,12 @@
     <include layout="@layout/content_activity_view_restaurant" />
 
 
-
+    <!-- Cancel reservation (just a semitransparent overlay) -->
     <LinearLayout
         android:id="@+id/cancel_reservation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:background="@color/reserve_close_semitransparent_color"
         android:visibility="gone"
         android:orientation="horizontal" />
@@ -115,7 +98,6 @@
             android:layout_alignParentRight="true"
             android:name="com.dineoutmobile.dineout.fragments.FragmentReserveQuestions"
             tools:layout="@layout/fragment_reserve_questions" />
-
     </com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout>
 
     <!-- Call -->

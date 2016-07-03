@@ -26,18 +26,23 @@ public class FragmentRestaurantsList extends FragmentSuperRestaurantsList {
     ShowAsGridListener listener;
     private String TAG = "FragRestList";
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        adapter = new AdapterRestaurantList( this );
+        listener = (ShowAsGridListener) getActivity();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Log.d( TAG, "onCreateView" );
         View rootView = inflater.inflate( R.layout.fragment_restaurant_list, container, false );
         ListView restaurantList = (ListView) rootView.findViewById(R.id.restaurant_list);
-        adapter = new AdapterRestaurantList( getActivity() );
         restaurantList.setAdapter( adapter );
         CacheUtil.setCache( getActivity(), Util.Tags.SHARED_PREFS_SHOW_AS_GRID, false );
 
-
-        listener = (ShowAsGridListener) getActivity();
         refreshLayout = (SwipeRefreshLayout) rootView.findViewById( R.id.swipe_refresh );
         refreshLayout.setOnRefreshListener(this);
         return rootView;

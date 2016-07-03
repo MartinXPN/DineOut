@@ -36,10 +36,8 @@ public class Util {
         public static final String NEARBY_PLACES_FRAGMENT = "nearby_f";
         public static final String RESERVED_RESTAURANTS_FRAGMENT = "reserved_f";
         public static final String GOOGLE_MAPS_FRAGMENT = "maps_f";
-        public static final String FRAGMENT_SERVICES = "services_f";
-        public static final String FRAGMENT_BASIC_INFO = "basic_info_f";
-        public static final String FRAGMENT_HEADER = "header_f";
-        public static final String FRAGMENT_ADDRESS = "addr_f";
+        public static final String SAVED_STATE_FRAGMENT = "saved_f";
+        public static final String SAVED_STATE_SEARCH = "saved_s";
     }
 
     public static int calculateRatingColor( float rating ) {

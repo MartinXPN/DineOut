@@ -98,7 +98,8 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     @Override
     public void onAddressSelected(int position) {
         RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
-        if( restaurantFullInfo.allAddresses.get(position) != restaurantFullInfo.currentAddress ) {
+        /// compare addresses by their ID
+        if( restaurantFullInfo.allAddresses.get(position).addressId != restaurantFullInfo.currentAddress.addressId ) {
             restaurantFullInfo.currentAddress = restaurantFullInfo.allAddresses.get( position );
             onInteractionListener.onNewAddressSelected();
             notifyDataSetChanged();

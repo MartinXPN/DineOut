@@ -24,9 +24,9 @@ public abstract class FragmentSuperMap extends Fragment implements OnMapReadyCal
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d( "FragMap", "onCreate" );
+        Log.d("FragMap", "onCreate");
         super.onCreate(savedInstanceState);
-        setRetainInstance( true );
+        setRetainInstance(true);
     }
 
     @Override
@@ -47,10 +47,15 @@ public abstract class FragmentSuperMap extends Fragment implements OnMapReadyCal
         super.onResume();
     }
 
-    @Override
     public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        if (map != null) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                return;
+            map.setMyLocationEnabled(false);
+            map.clear();
+        }
     }
 
     @Override
