@@ -1,6 +1,5 @@
 package com.dineoutmobile.dineout.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,27 +16,19 @@ import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import java.util.ArrayList;
 
 
-public class FragmentRestaurantServices extends Fragment implements AdapterRestaurantServicesGrid.OnDataRequestedListener {
-
-
-    public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
-    }
+public class FragmentRestaurantServices extends DataRequestingFragment implements AdapterRestaurantServicesGrid.OnDataRequestedListener {
 
     private String TAG = "FragServices";
-    OnDataRequestedListener listener;
     ArrayList <RestaurantFullInfo.Services> services;
     AdapterRestaurantServicesGrid adapterRestaurantServicesGrid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         Log.d( TAG, "onCreate" );
         adapterRestaurantServicesGrid = new AdapterRestaurantServicesGrid( this );
-        listener = (OnDataRequestedListener) getActivity();
-        services = listener.getRestaurantFullInfo().getAllServices();
-
-        setRetainInstance( true );
-        super.onCreate(savedInstanceState);
+        services = getRestaurantFullInfo().getAllServices();
     }
 
     @Override
@@ -59,7 +50,7 @@ public class FragmentRestaurantServices extends Fragment implements AdapterResta
     }
 
     public void notifyDataSetChanged() {
-        services = listener.getRestaurantFullInfo().getAllServices();
+        services = getRestaurantFullInfo().getAllServices();
         adapterRestaurantServicesGrid.notifyDataSetChanged();
     }
 

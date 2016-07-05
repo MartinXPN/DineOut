@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.model.Marker;
 
 public class FragmentNearbyPlaces extends FragmentSuperMap {
 
@@ -33,6 +34,15 @@ public class FragmentNearbyPlaces extends FragmentSuperMap {
     }
 
 
+    @Override
+    public boolean onMarkerClicked(Marker marker) {
+        return false;
+    }
+
+    @Override
+    public void populateMarkers() {
+
+    }
 
     @Override
     public void onMyLocationPermissionGranted() {

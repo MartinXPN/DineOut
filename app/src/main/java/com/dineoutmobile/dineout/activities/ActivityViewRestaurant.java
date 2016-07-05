@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
+import com.dineoutmobile.dineout.fragments.DataRequestingFragment;
 import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantBackgroundPager;
@@ -46,11 +47,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ActivityViewRestaurant extends     AppCompatActivity
                                     implements  FragmentReserveQuestions.OnRestaurantReservedListener,
-                                                FragmentRestaurantHeader.OnDataRequestedListener,
-                                                FragmentAddressPicker.OnAddressFragmentInteractionListener,
-                                                FragmentRestaurantBasicInfo.OnDataRequestedListener,
-                                                FragmentRestaurantServices.OnDataRequestedListener,
-                                                FragmentRestaurantBackgroundPager.OnDataRequestedListener {
+                                                DataRequestingFragment.OnDataRequestedListener,
+                                                FragmentRestaurantMap.OnDataRequestedListener,
+                                                FragmentRestaurantMap.OnMapInteractionListener,
+                                                FragmentAddressPicker.OnAddressFragmentInteractionListener {
 
 
     private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo();
@@ -59,6 +59,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     private FragmentRestaurantBasicInfo fragmentRestaurantBasicInfo;
     private FragmentRestaurantServices fragmentRestaurantServices;
     private FragmentAddressPicker fragmentAddressPicker;
+    private FragmentRestaurantMap fragmentRestaurantMap;
     private LockableNestedScrollView lockableNestedScrollView;
 
 
@@ -109,8 +110,9 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                     fm.executePendingTransactions();
 
                     if( fm.findFragmentByTag( Util.Tags.GOOGLE_MAPS_FRAGMENT) == null ) {
-                        FragmentRestaurantMap mapFragment = new FragmentRestaurantMap();
-                        fm.beginTransaction().replace(R.id.map, mapFragment, Util.Tags.GOOGLE_MAPS_FRAGMENT).commit();
+                        if( fragmentRestaurantMap == null )
+                            fragmentRestaurantMap = new FragmentRestaurantMap();
+                        fm.beginTransaction().replace(R.id.map, fragmentRestaurantMap, Util.Tags.GOOGLE_MAPS_FRAGMENT).commit();
                     }
                 }
             }
@@ -217,6 +219,8 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         fragmentRestaurantServices.notifyDataSetChanged();
         fragmentAddressPicker.notifyDataSetChanged();
         fragmentRestaurantBackgroundPager.notifyDataSetChanged();
+        if( fragmentRestaurantMap != null ) /// because we create it later than everything else is rendered
+            fragmentRestaurantMap.notifyDataSetChanged();
         initializeCollapsingToolbar();
     }
 
@@ -229,7 +233,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                 .build();
 
         Map<String, String> options = new HashMap<>();
-        options.put( "language", LanguageUtil.getLanguage( this ).languageLocale );
+        options.put( "language", LanguageUtil.getLanguage( this ).locale);
         options.put( "restaurantId", ""+restaurantInfo.restaurantId );
         DataTransferAPI api = retrofit.create(DataTransferAPI.class);
         api.getRestaurantFullInfo(options).enqueue(new Callback<RestaurantFullInfo>() {
@@ -363,6 +367,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
     @Override
     public void onNewAddressSelected() {
+        //Toast.makeText( this, "New address was selected", Toast.LENGTH_SHORT ).show();
         loadRestaurantInfo();
     }
 

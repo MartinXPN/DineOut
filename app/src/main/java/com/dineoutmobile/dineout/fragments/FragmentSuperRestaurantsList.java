@@ -108,7 +108,7 @@ public class FragmentSuperRestaurantsList
 
 
         Map<String, String> options = new HashMap<>();
-        options.put( "language", LanguageUtil.getLanguage( getActivity() ).languageLocale );
+        options.put( "language", LanguageUtil.getLanguage( getActivity() ).locale);
         DataTransferAPI api = retrofit.create(DataTransferAPI.class);
         api.getAllRestaurantsBasicInfo(options).enqueue(new Callback<ArrayList<RestaurantBasicInfo>>() {
             @Override

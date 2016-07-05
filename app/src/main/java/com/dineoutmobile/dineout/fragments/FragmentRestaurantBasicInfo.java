@@ -1,7 +1,6 @@
 package com.dineoutmobile.dineout.fragments;
 
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,28 +16,22 @@ import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
 import java.util.ArrayList;
 
-public class FragmentRestaurantBasicInfo extends Fragment implements AdapterRestaurantBasicInfoGrid.OnDataRequestedListener {
+public class FragmentRestaurantBasicInfo extends DataRequestingFragment implements AdapterRestaurantBasicInfoGrid.OnDataRequestedListener {
 
     private String TAG = "FragBasicInfo";
-    public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
-    }
 
     AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid;
-    OnDataRequestedListener listener;
-    ArrayList <RestaurantFullInfo.BasicInfo> basicInfos;
+    ArrayList <RestaurantFullInfo.BasicInfo> basicInfo;
     ArrayList <RestaurantFullInfo.BasicInfoWithLinks> basicInfoWithLinks;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d( TAG, "onCreate" );
-        adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid( this );
-        listener = (OnDataRequestedListener) getActivity();
-        basicInfos = listener.getRestaurantFullInfo().getAllBasicInfo();
-        basicInfoWithLinks = listener.getRestaurantFullInfo().getAllBasicInfoWithLinks();
-
-        setRetainInstance( true );
         super.onCreate(savedInstanceState);
+
+        Log.d( TAG, "onCreate" );
+        basicInfo = getRestaurantFullInfo().getAllBasicInfo();
+        basicInfoWithLinks = getRestaurantFullInfo().getAllBasicInfoWithLinks();
+        adapterRestaurantBasicInfoGrid = new AdapterRestaurantBasicInfoGrid( this );
     }
 
     @Override
@@ -59,15 +52,16 @@ public class FragmentRestaurantBasicInfo extends Fragment implements AdapterRest
         return view;
     }
 
+    @Override
     public void notifyDataSetChanged() {
-        basicInfos = listener.getRestaurantFullInfo().getAllBasicInfo();
-        basicInfoWithLinks = listener.getRestaurantFullInfo().getAllBasicInfoWithLinks();
+        basicInfo = getRestaurantFullInfo().getAllBasicInfo();
+        basicInfoWithLinks = getRestaurantFullInfo().getAllBasicInfoWithLinks();
         adapterRestaurantBasicInfoGrid.notifyDataSetChanged();
     }
 
     @Override
     public ArrayList<RestaurantFullInfo.BasicInfo> getBasicInfo() {
-        return basicInfos;
+        return basicInfo;
     }
 
     @Override

@@ -7,13 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Marker;
 
 
 public abstract class FragmentSuperMap extends Fragment implements OnMapReadyCallback {
@@ -24,8 +23,8 @@ public abstract class FragmentSuperMap extends Fragment implements OnMapReadyCal
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("FragMap", "onCreate");
         super.onCreate(savedInstanceState);
+        Log.d("FragMap", "onCreate");
         setRetainInstance(true);
     }
 
@@ -65,16 +64,17 @@ public abstract class FragmentSuperMap extends Fragment implements OnMapReadyCal
     }
 
 
+
+    public abstract boolean onMarkerClicked( Marker marker );
+    public abstract void populateMarkers();
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
         map = googleMap;
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         map.getUiSettings().setZoomGesturesEnabled(true);
         map.getUiSettings().setRotateGesturesEnabled(true);
+        populateMarkers();
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE_LOCATION);
@@ -83,12 +83,18 @@ public abstract class FragmentSuperMap extends Fragment implements OnMapReadyCal
             map.setMyLocationEnabled(true);
             map.getUiSettings().setMyLocationButtonEnabled(true);
         }
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                return onMarkerClicked( marker );
+            }
+        });
     }
+
 
     public abstract void onMyLocationPermissionGranted();
     public abstract void onMyLocationPermissionDenied();
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 

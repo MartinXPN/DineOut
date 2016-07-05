@@ -1,6 +1,5 @@
 package com.dineoutmobile.dineout.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -10,33 +9,25 @@ import android.view.ViewGroup;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantImagePager;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
 
 
-public class FragmentRestaurantBackgroundPager extends Fragment implements AdapterRestaurantImagePager.OnDataRequestedListener {
+public class FragmentRestaurantBackgroundPager extends DataRequestingFragment implements AdapterRestaurantImagePager.OnDataRequestedListener {
 
     @Override
     public ArrayList<String> getRestaurantBackgroundPhotos() {
-        return listener.getRestaurantFullInfo().backgroundPhotoURLs;
-    }
-
-    public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
+        return getRestaurantFullInfo().backgroundPhotoURLs;
     }
 
 
     private String TAG = "FragPager";
     AdapterRestaurantImagePager adapter;
-    OnDataRequestedListener listener;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d( TAG, "onCreate" );
         super.onCreate(savedInstanceState);
-        setRetainInstance( true );
-        listener = (OnDataRequestedListener) getActivity();
+        Log.d( TAG, "onCreate" );
         adapter = new AdapterRestaurantImagePager( this );
     }
 
@@ -61,8 +52,8 @@ public class FragmentRestaurantBackgroundPager extends Fragment implements Adapt
         return rootView;
     }
 
+    @Override
     public void notifyDataSetChanged() {
-
         adapter.notifyDataSetChanged();
     }
 }

@@ -27,9 +27,8 @@ public class FragmentReserveQuestions extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d( TAG, "onCreate" );
         super.onCreate(savedInstanceState);
-        setRetainInstance( true );
+        Log.d( TAG, "onCreate" );
         onRestaurantReservedListener = (OnRestaurantReservedListener) getActivity();
     }
 

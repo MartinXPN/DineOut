@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.util.models.Address;
+
+import java.util.ArrayList;
 
 public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<AdapterRestaurantAddressesList.ViewHolder> {
 
@@ -20,7 +22,7 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
 
     public interface OnAddressListInteractionListener {
         void onAddressSelected( int position );
-        RestaurantFullInfo getRestaurantFullInfo();
+        ArrayList <Address> getAllAddresses();
     }
 
 
@@ -42,7 +44,7 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.address.setText(listener.getRestaurantFullInfo().allAddresses.get( position ).name);
+        holder.address.setText(listener.getAllAddresses().get( position ).name);
         holder.address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +56,7 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
 
     @Override
     public int getItemCount() {
-        return listener.getRestaurantFullInfo().allAddresses.size();
+        return listener.getAllAddresses().size();
     }
 
 

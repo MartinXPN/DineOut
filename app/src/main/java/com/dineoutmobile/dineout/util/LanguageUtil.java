@@ -21,13 +21,13 @@ public class LanguageUtil {
         RU( "ru", R.mipmap.ic_flag_rus ),
         EN( "en", R.mipmap.ic_flag_eng );
 
-        public String languageLocale;
+        public String locale;
         public int iconResource;
 
-        Language(String languageLocale, int resource ) {
-            this.languageLocale = languageLocale;
+        Language(String locale, int resource ) {
+            this.locale = locale;
             this.iconResource = resource;
-            localeToLanguage.put( languageLocale, this );
+            localeToLanguage.put( locale, this );
         }
     }
 
@@ -45,7 +45,7 @@ public class LanguageUtil {
         if( currentLanguage != null )
             return currentLanguage;
 
-        String lang = CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_LANGUAGE_LOCALE, Language.EN.languageLocale );
+        String lang = CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_LANGUAGE_LOCALE, Language.EN.locale);
         return currentLanguage = getLanguage( lang );
     }
     public static void setLanguage(Language currentLanguage, Context context) {
@@ -53,11 +53,11 @@ public class LanguageUtil {
         LanguageUtil.currentLanguage = currentLanguage;
 
         /// put new language into shared-preferences
-        CacheUtil.setCache( context, Util.Tags.SHARED_PREFS_LANGUAGE_LOCALE, currentLanguage.languageLocale );
+        CacheUtil.setCache( context, Util.Tags.SHARED_PREFS_LANGUAGE_LOCALE, currentLanguage.locale);
 
         /// update the language of the whole application
         Configuration config = context.getResources().getConfiguration();
-        Locale locale = new Locale(currentLanguage.languageLocale);
+        Locale locale = new Locale(currentLanguage.locale);
         Locale.setDefault(locale);
         config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());

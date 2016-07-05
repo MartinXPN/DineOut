@@ -1,7 +1,6 @@
 package com.dineoutmobile.dineout.fragments;
 
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,9 +11,12 @@ import android.widget.Button;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
+import com.dineoutmobile.dineout.util.models.Address;
 import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
 
-public class FragmentAddressPicker extends Fragment implements AdapterRestaurantAddressesList.OnAddressListInteractionListener {
+import java.util.ArrayList;
+
+public class FragmentAddressPicker extends DataRequestingFragment implements AdapterRestaurantAddressesList.OnAddressListInteractionListener {
 
     private String TAG = "Frag-AddressPick";
     Button currentAddress;
@@ -25,9 +27,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
     public interface OnAddressFragmentInteractionListener {
         void onNewAddressSelected();
-        RestaurantFullInfo getRestaurantFullInfo();
     }
-
 
 
     public void collapseAddressList() {
@@ -42,18 +42,18 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     }
 
 
+    @Override
     public void notifyDataSetChanged() {
-        RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
-        currentAddress.setText(restaurantFullInfo.currentAddress == null ? "" : restaurantFullInfo.currentAddress.name);
+        currentAddress.setText(getRestaurantFullInfo().currentAddress == null ? "" : getRestaurantFullInfo().currentAddress.name);
         adapterRestaurantAddressesList.notifyDataSetChanged();
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d( TAG, "onCreate" );
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        Log.d( TAG, "onCreate" );
+        onInteractionListener = (OnAddressFragmentInteractionListener) getActivity();
     }
 
     @Override
@@ -63,10 +63,6 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
         View rootView = inflater.inflate( R.layout.fragment_address_picker, container, false );
         currentAddress = (Button) rootView.findViewById( R.id.current_address );
         addressList = (RecyclerView) rootView.findViewById( R.id.address_list );
-
-        onInteractionListener = (OnAddressFragmentInteractionListener) getActivity();
-        RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
-
         adapterRestaurantAddressesList = new AdapterRestaurantAddressesList( getActivity(), this );
 
 
@@ -80,7 +76,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
         /// initialize current address
         assert currentAddress != null;
-        currentAddress.setText(restaurantFullInfo.currentAddress == null ? "" : restaurantFullInfo.currentAddress.name);
+        currentAddress.setText(getRestaurantFullInfo().currentAddress == null ? "" : getRestaurantFullInfo().currentAddress.name);
         currentAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +93,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
 
     @Override
     public void onAddressSelected(int position) {
-        RestaurantFullInfo restaurantFullInfo = onInteractionListener.getRestaurantFullInfo();
+        RestaurantFullInfo restaurantFullInfo = getRestaurantFullInfo();
         /// compare addresses by their ID
         if( restaurantFullInfo.allAddresses.get(position).addressId != restaurantFullInfo.currentAddress.addressId ) {
             restaurantFullInfo.currentAddress = restaurantFullInfo.allAddresses.get( position );
@@ -108,7 +104,7 @@ public class FragmentAddressPicker extends Fragment implements AdapterRestaurant
     }
 
     @Override
-    public RestaurantFullInfo getRestaurantFullInfo() {
-        return onInteractionListener.getRestaurantFullInfo();
+    public ArrayList<Address> getAllAddresses() {
+        return getRestaurantFullInfo().allAddresses;
     }
 }
