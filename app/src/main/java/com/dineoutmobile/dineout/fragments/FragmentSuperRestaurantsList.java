@@ -12,19 +12,14 @@ import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterSuperRestaurantList;
-import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
+import com.dineoutmobile.dineout.restapi.DataLoader;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.util.ArrayList;
 
 public class FragmentSuperRestaurantsList
         extends     Fragment
@@ -45,7 +40,20 @@ public class FragmentSuperRestaurantsList
         super.onCreate(savedInstanceState);
         setHasOptionsMenu( true );
 //        setRetainInstance( true ); TODO
-        loadRestaurants();
+        DataLoader.loadRestaurants( LanguageUtil.getLanguage( getActivity() ).locale );
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     public void setLanguage( LanguageUtil.Language language ) {
@@ -85,57 +93,19 @@ public class FragmentSuperRestaurantsList
 
 
     //////////////////////////////// GET DATA ///////////////////////////////////////////
-    protected LanguageUtil.Language currentLanguage;
     protected AdapterSuperRestaurantList adapter;
     protected ArrayList<RestaurantBasicInfo> restaurants = new ArrayList<>();
 
+
+    @Subscribe
+    public void onRestaurantInfoLoaded( ArrayList <RestaurantBasicInfo> restaurants ) {
+        notifyDataSetChanged( restaurants );
+    }
 
 
     @Override
     public ArrayList<RestaurantBasicInfo> getRestaurants() {
         return restaurants;
-    }
-
-    public void loadRestaurants() {
-
-        currentLanguage = LanguageUtil.getLanguage( getActivity() );
-
-        // Retrofit needs to know how to deserialize response, for instance into JSON
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl( DataTransferAPI.BASE_URL )
-                .addConverterFactory( GsonConverterFactory.create() )
-                .build();
-
-
-        Map<String, String> options = new HashMap<>();
-        options.put( "language", LanguageUtil.getLanguage( getActivity() ).locale);
-        DataTransferAPI api = retrofit.create(DataTransferAPI.class);
-        api.getAllRestaurantsBasicInfo(options).enqueue(new Callback<ArrayList<RestaurantBasicInfo>>() {
-            @Override
-            public void onResponse(Call<ArrayList<RestaurantBasicInfo>> call, Response<ArrayList<RestaurantBasicInfo>> response) {
-
-//                //// GSON TEST
-//                final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//                String json = gson.toJson( response.body() );
-//                Log.d( "RESPONSE IN JSON", json );
-
-                if( response.body() != null ) {
-                    notifyDataSetChanged( response.body() );
-//                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getActivity(), "Success - null", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<RestaurantBasicInfo>> call, Throwable t) {
-
-                Toast.makeText(getActivity(), "Failure\n" + t.toString(), Toast.LENGTH_SHORT).show();
-                Log.d( "FAILURE", t.toString() );
-                Log.d( "FAILURE", call.toString() );
-            }
-        });
     }
 
 

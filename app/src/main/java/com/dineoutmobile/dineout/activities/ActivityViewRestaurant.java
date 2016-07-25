@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.databasehelpers.DataTransferAPI;
+import com.dineoutmobile.dineout.restapi.DataTransferAPI;
 import com.dineoutmobile.dineout.fragments.DataRequestingFragment;
 import com.dineoutmobile.dineout.fragments.FragmentAddressPicker;
 import com.dineoutmobile.dineout.fragments.FragmentReserveQuestions;

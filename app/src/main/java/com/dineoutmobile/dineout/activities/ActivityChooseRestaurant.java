@@ -3,8 +3,8 @@ package com.dineoutmobile.dineout.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,7 +19,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -99,8 +99,6 @@ public class ActivityChooseRestaurant
                 showSearch();
             }
         });
-
-        String deviceId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
 
@@ -159,21 +157,35 @@ public class ActivityChooseRestaurant
         searchFilters.setAdapter( adapterSearchFilters );
 
 
-        EditText searchText = (EditText) findViewById( R.id.search_text );
-        searchText.setSelection(0,0);
+        final EditText searchText = (EditText) findViewById( R.id.search_text );
+        searchText.setFocusable( true );
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    Util.hideKeyboard( ActivityChooseRestaurant.this );
-                    //performSearch();
-                    return true;
-                }
-                return false;
+
+                Util.hideKeyboard( ActivityChooseRestaurant.this );
+                //performSearch();
+                return true;
             }
         });
 
-        Util.showKeyboard( this );
+        searchText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                searchText.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager imm = (InputMethodManager) ActivityChooseRestaurant.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(searchText, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                });
+
+                if( !hasFocus ) {
+                    Util.hideKeyboard(ActivityChooseRestaurant.this);
+                }
+            }
+        });
+        searchText.requestFocus();
     }
     private void hideSearch() {
 
@@ -200,6 +212,7 @@ public class ActivityChooseRestaurant
         assert actionBar != null;
         actionBar.setDisplayShowCustomEnabled(false);
         toggle.setDrawerIndicatorEnabled(true);
+
 
         Util.hideKeyboard( this );
     }
