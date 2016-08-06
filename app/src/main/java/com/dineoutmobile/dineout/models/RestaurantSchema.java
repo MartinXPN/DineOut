@@ -1,4 +1,4 @@
-package com.dineoutmobile.dineout.util.models;
+package com.dineoutmobile.dineout.models;
 
 
 import android.util.Log;
@@ -8,7 +8,7 @@ import com.dineoutmobile.dineout.R;
 import java.util.ArrayList;
 
 
-public class RestaurantFullInfo extends RestaurantBasicInfo {
+public class RestaurantSchema extends RestaurantPreviewSchema {
 
     public String phoneNumber;
     public String shortDescription = "Information";
@@ -76,11 +76,11 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
     public class Services {
 
-        public boolean isSupported = true;
+        public Boolean isSupported = true;
         public transient int descriptionResId;
         public transient int resource;
 
-        Services( boolean isSupported, int description, int resource) {
+        Services( Boolean isSupported, int description, int resource) {
             this.isSupported = isSupported;
             this.descriptionResId = description;
             this.resource = resource;
@@ -113,7 +113,7 @@ public class RestaurantFullInfo extends RestaurantBasicInfo {
 
 
 
-    public RestaurantFullInfo() {
+    public RestaurantSchema() {
         Log.d( "RestaurantFI", "created" );
         backgroundPhotoURLs.clear();
         backgroundPhotoURLs.add( "https://www.lenordik.com/app/assets/media/generated/55afa22ff1c80bb4097cb1349324a8fc1320719438_gallery_gallery.jpg?1335469974" );

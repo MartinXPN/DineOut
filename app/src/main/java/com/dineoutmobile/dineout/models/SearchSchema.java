@@ -1,11 +1,11 @@
-package com.dineoutmobile.dineout.util.models;
+package com.dineoutmobile.dineout.models;
 
 
 import com.dineoutmobile.dineout.R;
 
 import java.util.ArrayList;
 
-public class SearchInfo {
+public class SearchSchema {
 
     public enum FilterStates {
         NEUTRAL,
