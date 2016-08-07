@@ -103,10 +103,6 @@ public class Util {
             Toast.makeText(context, "There are no Email applications installed", Toast.LENGTH_SHORT).show();
         }
     }
-    public static String getImageURL(String imageName) {
-        if(imageName == null || imageName.isEmpty())    return "http://dineoutmobile.com/images/placeholder.png";
-        else                                            return "http://dineoutmobile.com/images/" + imageName ;
-    }
 
 
     public static boolean isNetworkAvailable( Context context ) {

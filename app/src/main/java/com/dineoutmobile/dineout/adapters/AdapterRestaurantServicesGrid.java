@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterRestaurantServicesGrid.ViewHolder> {
 
     public interface OnDataRequestedListener {
-        ArrayList <RestaurantFullInfo.Services> getServices();
+        ArrayList <RestaurantSchema.Services> getServices();
     }
 
     private OnDataRequestedListener listener;
@@ -46,7 +46,7 @@ public class AdapterRestaurantServicesGrid extends RecyclerView.Adapter<AdapterR
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ArrayList<RestaurantFullInfo.Services> services = listener.getServices();
+        ArrayList<RestaurantSchema.Services> services = listener.getServices();
         holder.image.setImageResource( services.get(position).resource );
         if (services.get(position).isSupported)     holder.image.setBackgroundResource( R.drawable.circle_green );
         else                                        holder.image.setBackgroundResource( R.drawable.circle_red );

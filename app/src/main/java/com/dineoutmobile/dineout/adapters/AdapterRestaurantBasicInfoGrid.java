@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.util.Util;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,8 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
 
 
     public interface OnDataRequestedListener {
-        ArrayList<RestaurantFullInfo.BasicInfo> getBasicInfo();
-        ArrayList<RestaurantFullInfo.BasicInfoWithLinks> getBasicInfoWithLinks();
+        ArrayList<RestaurantSchema.BasicInfo> getBasicInfo();
+        ArrayList<RestaurantSchema.BasicInfoWithLinks> getBasicInfoWithLinks();
     }
 
     private OnDataRequestedListener listener;
@@ -49,11 +49,11 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ArrayList <RestaurantFullInfo.BasicInfo> basicInfo = listener.getBasicInfo();
-        ArrayList <RestaurantFullInfo.BasicInfoWithLinks> basicInfoWithLinks = listener.getBasicInfoWithLinks();
+        ArrayList <RestaurantSchema.BasicInfo> basicInfo = listener.getBasicInfo();
+        ArrayList <RestaurantSchema.BasicInfoWithLinks> basicInfoWithLinks = listener.getBasicInfoWithLinks();
 
         if (position < basicInfo.size()) {
-            final RestaurantFullInfo.BasicInfo currentItem = basicInfo.get(position);
+            final RestaurantSchema.BasicInfo currentItem = basicInfo.get(position);
             holder.image.setImageResource(currentItem.backgroundResId);
             holder.description.setText(currentItem.description);
             holder.image.setBackgroundResource(R.drawable.circle_neutral);
@@ -66,7 +66,7 @@ public class AdapterRestaurantBasicInfoGrid extends RecyclerView.Adapter<Adapter
         }
         else {
             position -= basicInfo.size();
-            final RestaurantFullInfo.BasicInfoWithLinks currentItem = basicInfoWithLinks.get( position );
+            final RestaurantSchema.BasicInfoWithLinks currentItem = basicInfoWithLinks.get( position );
             holder.image.setImageResource( currentItem.backgroundResId);
             holder.description.setText( parentFragment.getActivity().getResources().getString( currentItem.descriptionResId ) );
             holder.image.setBackgroundResource( R.drawable.circle_neutral );

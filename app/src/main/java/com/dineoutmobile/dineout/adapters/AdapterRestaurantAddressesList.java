@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.models.Address;
+import com.dineoutmobile.dineout.models.AddressSchema;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class AdapterRestaurantAddressesList extends RecyclerView.Adapter<Adapter
 
     public interface OnAddressListInteractionListener {
         void onAddressSelected( int position );
-        ArrayList <Address> getAllAddresses();
+        ArrayList <AddressSchema> getAllAddresses();
     }
 
 

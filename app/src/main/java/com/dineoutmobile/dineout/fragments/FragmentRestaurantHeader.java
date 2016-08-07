@@ -11,7 +11,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,13 +41,16 @@ public class FragmentRestaurantHeader extends DataRequestingFragment {
     }
 
 
-    public void initialize() {
+    protected void initialize() {
 
         /// initialize restaurant logo
         final CircleImageView restaurantLogo = (CircleImageView) rootView.findViewById(R.id.restaurant_logo);
         assert restaurantLogo != null;
+        if( getRestaurantFullInfo().logoURL == null || getRestaurantFullInfo().logoURL.isEmpty() ) {
+            getRestaurantFullInfo().logoURL = "http://dineoutmobile.com/images/placeholder.png";
+        }
         Picasso.with(getActivity())
-                .load(Util.getImageURL(getRestaurantFullInfo().logoURL))
+                .load(getRestaurantFullInfo().logoURL)
                 .placeholder(ContextCompat.getDrawable(getActivity(), R.drawable.placeholder))
                 .resizeDimen(R.dimen.restaurant_logo_size, R.dimen.restaurant_logo_size)
                 .centerCrop()

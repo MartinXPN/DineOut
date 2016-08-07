@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.models.Address;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.AddressSchema;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -23,10 +23,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class FragmentRestaurantMap extends FragmentSuperMap {
 
     public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
+        RestaurantSchema getRestaurantFullInfo();
     }
     OnDataRequestedListener onDataRequestedListener;
-    public RestaurantFullInfo getRestaurantFullInfo() {
+    public RestaurantSchema getRestaurantFullInfo() {
         return onDataRequestedListener.getRestaurantFullInfo();
     }
 
@@ -75,7 +75,7 @@ public class FragmentRestaurantMap extends FragmentSuperMap {
         if( isSamePosition( getRestaurantFullInfo().currentAddress.latLng, marker.getPosition() ) )
             return false;
 
-        for( Address address : getRestaurantFullInfo().allAddresses ) {
+        for( AddressSchema address : getRestaurantFullInfo().allAddresses ) {
             if( isSamePosition( address.latLng, marker.getPosition() ) ) {
                 getRestaurantFullInfo().currentAddress = address;
                 onMapInteractionListener.onNewAddressSelected();
@@ -88,9 +88,9 @@ public class FragmentRestaurantMap extends FragmentSuperMap {
     @Override
     public void populateMarkers() {
 
-        Address currentAddress = getRestaurantFullInfo().currentAddress;
+        AddressSchema currentAddress = getRestaurantFullInfo().currentAddress;
         map.addMarker( new MarkerOptions().position( currentAddress.latLng ).title( currentAddress.name ) );
-        for(Address address : getRestaurantFullInfo().allAddresses ) {
+        for(AddressSchema address : getRestaurantFullInfo().allAddresses ) {
 
             if( isSamePosition( address.latLng, currentAddress.latLng ) )
                 continue;

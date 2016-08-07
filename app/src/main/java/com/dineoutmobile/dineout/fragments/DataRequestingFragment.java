@@ -3,16 +3,16 @@ package com.dineoutmobile.dineout.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 
 
 public abstract class DataRequestingFragment extends Fragment {
 
     public interface OnDataRequestedListener {
-        RestaurantFullInfo getRestaurantFullInfo();
+        RestaurantSchema getRestaurantFullInfo();
     }
     protected OnDataRequestedListener onDataRequestedListener;
-    public RestaurantFullInfo getRestaurantFullInfo() {
+    public RestaurantSchema getRestaurantFullInfo() {
         return onDataRequestedListener.getRestaurantFullInfo();
     }
 

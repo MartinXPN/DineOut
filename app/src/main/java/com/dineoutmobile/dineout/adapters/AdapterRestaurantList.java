@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
-import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.models.RestaurantPreviewSchema;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -45,12 +45,12 @@ public class AdapterRestaurantList extends AdapterSuperRestaurantList {
         return convertView;
     }
 
-    private void setValues(ViewHolder holder, final RestaurantBasicInfo restaurantInfo ) {
+    private void setValues(ViewHolder holder, final RestaurantPreviewSchema restaurantInfo ) {
 
         if( holder == null )
             return;
 
-        holder.name.setText( restaurantInfo.name );
+        holder.name.setText( restaurantInfo.restaurantName);
         holder.rating.setText( String.valueOf( restaurantInfo.rating ) );
         //holder.rating.getBackground().setColorFilter(Util.calculateRatingColor( Float.parseFloat( holder.rating.getText().toString() ) ), PorterDuff.Mode.SRC );
         holder.restaurantBackground.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +63,11 @@ public class AdapterRestaurantList extends AdapterSuperRestaurantList {
             }
         });
 
+        if( restaurantInfo.backgroundURL == null || restaurantInfo.backgroundURL.isEmpty() ) {
+            restaurantInfo.backgroundURL = "http://dineoutmobile.com/images/placeholder.png";
+        }
         Picasso.with(parentFragment.getActivity())
-                .load( Util.getImageURL( restaurantInfo.backgroundPhotoURL ) )
+                .load( restaurantInfo.backgroundURL )
                 .placeholder( ContextCompat.getDrawable( parentFragment.getActivity(),R.drawable.placeholder ) )
                 .resize( Util.getWindowWidth( parentFragment.getActivity() ), Util.dpToPx( parentFragment.getActivity().getResources().getDimension( R.dimen.restaurant_list_item_size ), parentFragment.getActivity() ) )
                 .centerInside()

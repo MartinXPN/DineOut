@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantServicesGrid;
 import com.dineoutmobile.dineout.util.Util;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class FragmentRestaurantServices extends DataRequestingFragment implements AdapterRestaurantServicesGrid.OnDataRequestedListener {
 
     private String TAG = "FragServices";
-    ArrayList <RestaurantFullInfo.Services> services;
+    ArrayList <RestaurantSchema.Services> services;
     AdapterRestaurantServicesGrid adapterRestaurantServicesGrid;
 
     @Override
@@ -55,7 +55,7 @@ public class FragmentRestaurantServices extends DataRequestingFragment implement
     }
 
     @Override
-    public ArrayList<RestaurantFullInfo.Services> getServices() {
+    public ArrayList<RestaurantSchema.Services> getServices() {
         return services;
     }
 }

@@ -4,8 +4,7 @@ package com.dineoutmobile.dineout.adapters;
 import android.app.Fragment;
 import android.widget.BaseAdapter;
 
-import com.dineoutmobile.dineout.util.LanguageUtil;
-import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.models.RestaurantPreviewSchema;
 
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ public abstract class AdapterSuperRestaurantList extends BaseAdapter {
 
 
     public interface OnDataRequestedListener {
-        ArrayList <RestaurantBasicInfo> getRestaurants();
+        ArrayList <RestaurantPreviewSchema> getRestaurants();
     }
 
     protected OnDataRequestedListener listener;

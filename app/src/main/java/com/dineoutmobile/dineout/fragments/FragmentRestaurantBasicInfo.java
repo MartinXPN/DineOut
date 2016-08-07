@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantBasicInfoGrid;
 import com.dineoutmobile.dineout.util.Util;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,8 @@ public class FragmentRestaurantBasicInfo extends DataRequestingFragment implemen
     private String TAG = "FragBasicInfo";
 
     AdapterRestaurantBasicInfoGrid adapterRestaurantBasicInfoGrid;
-    ArrayList <RestaurantFullInfo.BasicInfo> basicInfo;
-    ArrayList <RestaurantFullInfo.BasicInfoWithLinks> basicInfoWithLinks;
+    ArrayList <RestaurantSchema.BasicInfo> basicInfo;
+    ArrayList <RestaurantSchema.BasicInfoWithLinks> basicInfoWithLinks;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,12 +60,12 @@ public class FragmentRestaurantBasicInfo extends DataRequestingFragment implemen
     }
 
     @Override
-    public ArrayList<RestaurantFullInfo.BasicInfo> getBasicInfo() {
+    public ArrayList<RestaurantSchema.BasicInfo> getBasicInfo() {
         return basicInfo;
     }
 
     @Override
-    public ArrayList<RestaurantFullInfo.BasicInfoWithLinks> getBasicInfoWithLinks() {
+    public ArrayList<RestaurantSchema.BasicInfoWithLinks> getBasicInfoWithLinks() {
         return basicInfoWithLinks;
     }
 }

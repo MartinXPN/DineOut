@@ -29,10 +29,10 @@ import com.dineoutmobile.dineout.fragments.FragmentNearbyPlaces;
 import com.dineoutmobile.dineout.fragments.FragmentReservedRestaurants;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantsGrid;
 import com.dineoutmobile.dineout.fragments.FragmentRestaurantsList;
+import com.dineoutmobile.dineout.models.SearchSchema;
 import com.dineoutmobile.dineout.util.CacheUtil;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.Util;
-import com.dineoutmobile.dineout.util.models.SearchInfo;
 
 
 public class ActivityChooseRestaurant
@@ -302,7 +302,7 @@ public class ActivityChooseRestaurant
     }
 
     @Override
-    public void onSearchOptionsChanged(SearchInfo searchInfo) {
+    public void onSearchOptionsChanged(SearchSchema searchSchema) {
         /// TODO -> get search response from server
     }
 }

@@ -11,8 +11,8 @@ import android.widget.Button;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterRestaurantAddressesList;
-import com.dineoutmobile.dineout.util.models.Address;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.AddressSchema;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 
 import java.util.ArrayList;
 
@@ -93,10 +93,10 @@ public class FragmentAddressPicker extends DataRequestingFragment implements Ada
 
     @Override
     public void onAddressSelected(int position) {
-        RestaurantFullInfo restaurantFullInfo = getRestaurantFullInfo();
+        RestaurantSchema restaurantSchema = getRestaurantFullInfo();
         /// compare addresses by their ID
-        if( restaurantFullInfo.allAddresses.get(position).addressId != restaurantFullInfo.currentAddress.addressId ) {
-            restaurantFullInfo.currentAddress = restaurantFullInfo.allAddresses.get( position );
+        if( restaurantSchema.allAddresses.get(position).addressId != restaurantSchema.currentAddress.addressId ) {
+            restaurantSchema.currentAddress = restaurantSchema.allAddresses.get( position );
             onInteractionListener.onNewAddressSelected();
             notifyDataSetChanged();
         }
@@ -104,7 +104,7 @@ public class FragmentAddressPicker extends DataRequestingFragment implements Ada
     }
 
     @Override
-    public ArrayList<Address> getAllAddresses() {
+    public ArrayList<AddressSchema> getAllAddresses() {
         return getRestaurantFullInfo().allAddresses;
     }
 }

@@ -33,7 +33,7 @@ import com.dineoutmobile.dineout.fragments.FragmentRestaurantServices;
 import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.dineoutmobile.dineout.util.LockableNestedScrollView;
 import com.dineoutmobile.dineout.util.Util;
-import com.dineoutmobile.dineout.util.models.RestaurantFullInfo;
+import com.dineoutmobile.dineout.models.RestaurantSchema;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 import java.util.HashMap;
@@ -53,7 +53,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
                                                 FragmentAddressPicker.OnAddressFragmentInteractionListener {
 
 
-    private RestaurantFullInfo restaurantInfo = new RestaurantFullInfo();
+    private RestaurantSchema restaurantInfo = new RestaurantSchema();
     private FragmentRestaurantBackgroundPager fragmentRestaurantBackgroundPager;
     private FragmentRestaurantHeader fragmentRestaurantHeader;
     private FragmentRestaurantBasicInfo fragmentRestaurantBasicInfo;
@@ -236,9 +236,9 @@ public class ActivityViewRestaurant extends     AppCompatActivity
         options.put( "language", LanguageUtil.getLanguage( this ).locale);
         options.put( "restaurantId", ""+restaurantInfo.restaurantId );
         DataTransferAPI api = retrofit.create(DataTransferAPI.class);
-        api.getRestaurantFullInfo(options).enqueue(new Callback<RestaurantFullInfo>() {
+        api.getRestaurantFullInfo_Old(options).enqueue(new Callback<RestaurantSchema>() {
             @Override
-            public void onResponse(Call<RestaurantFullInfo> call, Response<RestaurantFullInfo> response) {
+            public void onResponse(Call<RestaurantSchema> call, Response<RestaurantSchema> response) {
 //                /// GSON TEST
 //                final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //                String json = gson.toJson( response.body() );
@@ -255,7 +255,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<RestaurantFullInfo> call, Throwable t) {
+            public void onFailure(Call<RestaurantSchema> call, Throwable t) {
 
                 Toast.makeText(ActivityViewRestaurant.this, "failure", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ActivityViewRestaurant.this, t.toString(), Toast.LENGTH_LONG).show();
@@ -267,7 +267,6 @@ public class ActivityViewRestaurant extends     AppCompatActivity
 
 
     public void initializeReserveAndCall() {
-
 
         /// initialize call button
         final FloatingActionButton call = (FloatingActionButton) findViewById(R.id.call);
@@ -372,7 +371,7 @@ public class ActivityViewRestaurant extends     AppCompatActivity
     }
 
     @Override
-    public RestaurantFullInfo getRestaurantFullInfo() {
+    public RestaurantSchema getRestaurantFullInfo() {
         return restaurantInfo;
     }
 }

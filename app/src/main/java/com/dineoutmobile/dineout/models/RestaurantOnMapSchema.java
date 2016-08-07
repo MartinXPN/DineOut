@@ -1,7 +1,11 @@
 package com.dineoutmobile.dineout.models;
 
-/**
- * Created by Martin on 7/30/2016.
- */
+
+import com.google.android.gms.maps.model.LatLng;
+
 public class RestaurantOnMapSchema {
+
+    public String restaurantName;
+    public Long branchId;
+    public LatLng location;
 }

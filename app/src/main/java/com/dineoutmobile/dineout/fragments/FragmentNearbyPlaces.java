@@ -12,8 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
+import com.dineoutmobile.dineout.models.RestaurantOnMapSchema;
+import com.dineoutmobile.dineout.restapi.DataLoader;
+import com.dineoutmobile.dineout.util.LanguageUtil;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.Marker;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 public class FragmentNearbyPlaces extends FragmentSuperMap {
 
@@ -29,8 +37,25 @@ public class FragmentNearbyPlaces extends FragmentSuperMap {
         mapView = (MapView) view.findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync( this );
+        DataLoader.loadNearbyRestaurants(LanguageUtil.getLanguage(getActivity()).locale, 0f, 0f, null );
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onRestaurantsLoaded( ArrayList <RestaurantOnMapSchema> restaurants ) {
+        Toast.makeText( getActivity(), restaurants.toString(), Toast.LENGTH_SHORT ).show();
     }
 
 

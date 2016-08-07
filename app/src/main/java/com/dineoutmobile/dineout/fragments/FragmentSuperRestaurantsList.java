@@ -14,7 +14,7 @@ import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.adapters.AdapterSuperRestaurantList;
 import com.dineoutmobile.dineout.restapi.DataLoader;
 import com.dineoutmobile.dineout.util.LanguageUtil;
-import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.models.RestaurantPreviewSchema;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,7 +40,7 @@ public class FragmentSuperRestaurantsList
         super.onCreate(savedInstanceState);
         setHasOptionsMenu( true );
 //        setRetainInstance( true ); TODO
-        DataLoader.loadRestaurants( LanguageUtil.getLanguage( getActivity() ).locale );
+        DataLoader.loadRestaurants( LanguageUtil.getLanguage( getActivity() ).locale, 0, 0L, null );
     }
 
 
@@ -94,22 +94,23 @@ public class FragmentSuperRestaurantsList
 
     //////////////////////////////// GET DATA ///////////////////////////////////////////
     protected AdapterSuperRestaurantList adapter;
-    protected ArrayList<RestaurantBasicInfo> restaurants = new ArrayList<>();
+    protected ArrayList<RestaurantPreviewSchema> restaurants = new ArrayList<>();
 
 
     @Subscribe
-    public void onRestaurantInfoLoaded( ArrayList <RestaurantBasicInfo> restaurants ) {
+    public void onRestaurantInfoLoaded( ArrayList <RestaurantPreviewSchema> restaurants ) {
+        Log.d( "response", restaurants.toString() );
         notifyDataSetChanged( restaurants );
     }
 
 
     @Override
-    public ArrayList<RestaurantBasicInfo> getRestaurants() {
+    public ArrayList<RestaurantPreviewSchema> getRestaurants() {
         return restaurants;
     }
 
 
-    public void notifyDataSetChanged( ArrayList <RestaurantBasicInfo> restaurants ) {
+    public void notifyDataSetChanged( ArrayList <RestaurantPreviewSchema> restaurants ) {
         this.restaurants = restaurants;
         adapter.notifyDataSetChanged();
     }

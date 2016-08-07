@@ -8,13 +8,17 @@ import com.dineoutmobile.dineout.R;
 import java.util.ArrayList;
 
 
-public class RestaurantSchema extends RestaurantPreviewSchema {
+public class RestaurantSchema {
 
+    public Long restaurantId = -1L;         /// database addressId for better access
+    public String name = "Name";  /// name of the restaurant
+    public Float rating = 5.0f;             /// cumulative average rating of the restaurant
+    public String logoURL;
     public String phoneNumber;
     public String shortDescription = "Information";
     public ArrayList <String> backgroundPhotoURLs = new ArrayList<>();
-    public Address currentAddress = null;
-    public ArrayList <Address> allAddresses = new ArrayList<>();
+    public AddressSchema currentAddress = null;
+    public ArrayList <AddressSchema> allAddresses = new ArrayList<>();
 
 
 

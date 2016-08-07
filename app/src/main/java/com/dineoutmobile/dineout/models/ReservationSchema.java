@@ -18,5 +18,5 @@ public class ReservationSchema {
     public String date = "Jun 12";
     public String time = "19:30";
     public String restaurantName = "El Sky";
-    public Address restaurantAddress = new Address();
+    public AddressSchema restaurantAddress = new AddressSchema();
 }

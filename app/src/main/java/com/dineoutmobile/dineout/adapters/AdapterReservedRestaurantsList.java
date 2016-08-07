@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.models.ReservedRestaurantInfo;
+import com.dineoutmobile.dineout.models.ReservationSchema;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class AdapterReservedRestaurantsList extends BaseAdapter {
 
 
     Context context;
-    ArrayList <ReservedRestaurantInfo> reservedRestaurants = new ArrayList<>();
+    ArrayList <ReservationSchema> reservedRestaurants = new ArrayList<>();
 
     public AdapterReservedRestaurantsList(Context context) {
         this.context = context;

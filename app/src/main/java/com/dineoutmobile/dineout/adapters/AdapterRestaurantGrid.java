@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.dineoutmobile.dineout.R;
 import com.dineoutmobile.dineout.activities.ActivityViewRestaurant;
-import com.dineoutmobile.dineout.util.models.RestaurantBasicInfo;
+import com.dineoutmobile.dineout.models.RestaurantPreviewSchema;
 import com.dineoutmobile.dineout.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -47,12 +47,12 @@ public class AdapterRestaurantGrid extends AdapterSuperRestaurantList {
     }
 
 
-    private void setValues(ViewHolder holder, final RestaurantBasicInfo restaurantInfo ) {
+    private void setValues(ViewHolder holder, final RestaurantPreviewSchema restaurantInfo ) {
 
         if( holder == null )
             return;
 
-        holder.name.setText( restaurantInfo.name );
+        holder.name.setText( restaurantInfo.restaurantName);
         holder.rating.setText( String.valueOf( restaurantInfo.rating ) );
         //holder.rating.getBackground().setColorFilter(Util.calculateRatingColor( Float.parseFloat( holder.rating.getText().toString() ) ), PorterDuff.Mode.SRC );
         holder.gridItem.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +65,11 @@ public class AdapterRestaurantGrid extends AdapterSuperRestaurantList {
             }
         });
 
+        if( restaurantInfo.logoURL == null || restaurantInfo.logoURL.isEmpty() ) {
+            restaurantInfo.logoURL = "http://dineoutmobile.com/images/placeholder.png";
+        }
         Picasso.with(parentFragment.getActivity())
-                .load( Util.getImageURL( restaurantInfo.logoURL ) )
+                .load( restaurantInfo.logoURL )
                 .placeholder( ContextCompat.getDrawable( parentFragment.getActivity(),R.drawable.placeholder ) )
                 .resizeDimen( R.dimen.restaurant_grid_item_size, R.dimen.restaurant_grid_item_size )
                 .centerInside()

@@ -10,27 +10,27 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.dineoutmobile.dineout.R;
-import com.dineoutmobile.dineout.util.models.SearchInfo;
+import com.dineoutmobile.dineout.models.SearchSchema;
 
 public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilters.ViewHolder> {
 
     ViewHolder holder;
     private Context context;
-    private static SearchInfo searchInfo;
+    private static SearchSchema searchSchema;
     OnSearchOptionsChangedListener listener;
 
     public interface OnSearchOptionsChangedListener {
-        void onSearchOptionsChanged( SearchInfo searchInfo );
+        void onSearchOptionsChanged( SearchSchema searchSchema);
     }
 
 
     /// TODO pass search info from fragment
     /// in order to be sure that this adapter and search query
-    /// have the same instance of searchInfo object
+    /// have the same instance of searchSchema object
     public AdapterSearchFilters(Context context) {
         this.context = context;
-        if( searchInfo == null )
-            searchInfo = new SearchInfo();
+        if( searchSchema == null )
+            searchSchema = new SearchSchema();
         listener = (OnSearchOptionsChangedListener) context;
     }
 
@@ -48,7 +48,7 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        final SearchInfo.Filters currentItem = SearchInfo.Filters.all.get( position );
+        final SearchSchema.Filters currentItem = SearchSchema.Filters.all.get( position );
         holder.updateFilterBackground( currentItem );
         holder.icon.setImageResource( currentItem.resource );
         holder.icon.setOnLongClickListener(new View.OnLongClickListener() {
@@ -61,7 +61,7 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
         holder.icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onSearchOptionsChanged( searchInfo );
+                listener.onSearchOptionsChanged(searchSchema);
 
                 currentItem.flipState();
                 holder.updateFilterBackground( currentItem );
@@ -72,7 +72,7 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
 
     @Override
     public int getItemCount() {
-        return SearchInfo.Filters.all.size();
+        return SearchSchema.Filters.all.size();
     }
 
 
@@ -85,11 +85,11 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
             icon = (ImageButton) v.findViewById( R.id.icon );
         }
 
-        public void updateFilterBackground( SearchInfo.Filters currentItem ) {
+        public void updateFilterBackground( SearchSchema.Filters currentItem ) {
 
-            if( currentItem.state == SearchInfo.FilterStates.NEUTRAL )
+            if( currentItem.state == SearchSchema.FilterStates.NEUTRAL )
                 icon.setBackgroundResource( R.drawable.circle_search_neutral );
-            else if( currentItem.state == SearchInfo.FilterStates.SUPPORTED)
+            else if( currentItem.state == SearchSchema.FilterStates.SUPPORTED)
                 icon.setBackgroundResource( R.drawable.circle_green );
         }
     }
