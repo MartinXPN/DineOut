@@ -18,7 +18,6 @@
 
     <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/indicator"
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:fillColor="@color/circle_page_indicator_fillColor"
@@ -37,7 +36,7 @@
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/questions_pager"
+        android:layout_alignTop="@+id/indicator"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

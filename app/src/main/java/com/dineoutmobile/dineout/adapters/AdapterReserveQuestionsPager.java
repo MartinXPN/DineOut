@@ -95,9 +95,9 @@ public class AdapterReserveQuestionsPager extends PagerAdapter {
             timePicker.setOnValueChangedListener( new OnNumberPickerValueChangeListener( Util.Tags.SHARED_PREFS_RESERVE_TIME ) );
         }
         else {
-            layout = (ViewGroup) inflater.inflate(R.layout.reserve_question_phone_name, collection, false);
+            layout = (ViewGroup) inflater.inflate(R.layout.reserve_question_phone_comment, collection, false);
 
-            final EditText userName = (EditText) layout.findViewById( R.id.user_name );
+            final EditText userName = (EditText) layout.findViewById( R.id.additional_comments);
             assert userName != null;
             if( userName.getText().length() == 0 )
                 userName.setText(CacheUtil.getCache( context, Util.Tags.SHARED_PREFS_USER_NAME, "" ) );

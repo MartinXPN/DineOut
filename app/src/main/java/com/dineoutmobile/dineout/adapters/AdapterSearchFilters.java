@@ -1,8 +1,10 @@
 package com.dineoutmobile.dineout.adapters;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +17,41 @@ import com.dineoutmobile.dineout.models.SearchSchema;
 public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilters.ViewHolder> {
 
     ViewHolder holder;
-    private Context context;
+    private Activity context;
     private static SearchSchema searchSchema;
     OnSearchOptionsChangedListener listener;
+    Toast latestToast;
 
     public interface OnSearchOptionsChangedListener {
         void onSearchOptionsChanged( SearchSchema searchSchema);
     }
 
 
+
+    public void cancelLatestToast() {
+        if( latestToast != null )
+            latestToast.cancel();
+    }
+
+    public void showFilterExplanation(Activity context, int explanationResId, int xOffset) {
+
+        cancelLatestToast();
+
+        View searchToolbar = context.findViewById( R.id.search_toolbar );
+        int yOffset = searchToolbar.getHeight();
+
+        Toast toast = Toast.makeText( context, explanationResId, Toast.LENGTH_LONG );
+        toast.setGravity( Gravity.START|Gravity.TOP, xOffset, yOffset);
+        toast.show();
+
+        latestToast = toast;
+    }
+
+
     /// TODO pass search info from fragment
     /// in order to be sure that this adapter and search query
     /// have the same instance of searchSchema object
-    public AdapterSearchFilters(Context context) {
+    public AdapterSearchFilters(Activity context) {
         this.context = context;
         if( searchSchema == null )
             searchSchema = new SearchSchema();
@@ -54,7 +78,9 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
         holder.icon.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText( context, currentItem.descriptionResId, Toast.LENGTH_SHORT ).show();
+                int xy[] = new int[2];
+                holder.icon.getLocationOnScreen( xy );
+                showFilterExplanation( context, currentItem.descriptionResId, xy[0]);
                 return true;
             }
         });
@@ -65,6 +91,14 @@ public class AdapterSearchFilters extends RecyclerView.Adapter<AdapterSearchFilt
 
                 currentItem.flipState();
                 holder.updateFilterBackground( currentItem );
+                if( currentItem.state == SearchSchema.FilterStates.SUPPORTED ) {
+                    int xy[] = new int[2];
+                    holder.icon.getLocationOnScreen( xy );
+                    showFilterExplanation( context, currentItem.descriptionResId, xy[0]);
+                }
+                else {
+                    cancelLatestToast();
+                }
             }
         });
     }

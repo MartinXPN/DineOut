@@ -95,14 +95,16 @@ public class ActivityChooseRestaurant
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showSearch();
             }
         });
     }
 
-
-
+    @Override
+    protected void onPause() {
+        hideSearch();
+        super.onPause();
+    }
 
     private void showSearch() {
 
@@ -189,6 +191,7 @@ public class ActivityChooseRestaurant
     }
     private void hideSearch() {
 
+        adapterSearchFilters.cancelLatestToast();
         savedInstanceState.putBoolean( Util.Tags.SAVED_STATE_SEARCH, false );
         final FloatingActionButton searchButton = (FloatingActionButton) findViewById( R.id.search );
         assert searchButton != null;
