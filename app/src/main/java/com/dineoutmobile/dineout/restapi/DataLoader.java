@@ -30,7 +30,7 @@ public class DataLoader {
 
         // Retrofit needs to know how to deserialize response, for instance into JSON
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl( DataTransferAPI.BASE_URL )
+                .baseUrl( "https://dnowebservice-dineoutmobile.rhcloud.com" )
                 .addConverterFactory( GsonConverterFactory.create() )
                 .build();
 
@@ -64,7 +64,7 @@ public class DataLoader {
 
         // Retrofit needs to know how to deserialize response, for instance into JSON
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl( DataTransferAPI.BASE_URL )
+                .baseUrl( "https://dnowebservice-dineoutmobile.rhcloud.com" )
                 .addConverterFactory( GsonConverterFactory.create() )
                 .build();
 

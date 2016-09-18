@@ -31,14 +31,14 @@ public interface DataTransferAPI {
     String BASE_URL = "http://dineoutmobile.com";
 
 
-    @GET( "/wservices/RestaurantPreviewSchema.php" )
+    @GET( "/getAllRestaurants" )
     Call< ArrayList <RestaurantPreviewSchema> > getAllRestaurants(@Query("language") String language,
                                                                   @Query("blockStart") Integer blockStart,
                                                                   @Query("regionId") Long regionId,
                                                                   @Query("searchOptions") SearchSchema searchOptions );
 
 
-    @GET ( "/wservices/nearByPlaces.php" )
+    @GET ( "/getNearbyRestaurants" )
     Call< ArrayList <RestaurantOnMapSchema> > getNearbyRestaurants(@Query("language") String language,
                                                                    @Query("latitude") Float latitude,
                                                                    @Query("longitude") Float longitude,

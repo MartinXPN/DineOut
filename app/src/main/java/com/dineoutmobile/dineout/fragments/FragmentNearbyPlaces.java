@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class FragmentNearbyPlaces extends FragmentSuperMap {
 
     private String TAG = "FragNearby";
+    ArrayList <RestaurantOnMapSchema> restaurants = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +56,9 @@ public class FragmentNearbyPlaces extends FragmentSuperMap {
 
     @Subscribe
     public void onRestaurantsLoaded( ArrayList <RestaurantOnMapSchema> restaurants ) {
-        Toast.makeText( getActivity(), restaurants.toString(), Toast.LENGTH_SHORT ).show();
+        this.restaurants = restaurants;
+        Toast.makeText( getActivity(), restaurants.get(0).restaurantName, Toast.LENGTH_SHORT ).show();
+        populateMarkers();
     }
 
 

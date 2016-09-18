@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class RestaurantOnMapSchema {
 
     public String restaurantName;
+    public Long restaurantId;
     public Long branchId;
     public LatLng location;
 }

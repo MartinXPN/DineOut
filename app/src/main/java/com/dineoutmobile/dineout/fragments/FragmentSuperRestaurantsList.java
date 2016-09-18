@@ -99,7 +99,6 @@ public class FragmentSuperRestaurantsList
 
     @Subscribe
     public void onRestaurantInfoLoaded( ArrayList <RestaurantPreviewSchema> restaurants ) {
-        Log.d( "response", restaurants.toString() );
         notifyDataSetChanged( restaurants );
     }
 

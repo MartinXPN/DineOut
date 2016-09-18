@@ -1,114 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/restaurant_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:clickable="true"
+    android:padding="10dp"
     android:background="#FF303030">
 
-    <ImageView
-        android:id="@+id/restaurant_background_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/restaurant_logo"
+        android:layout_width="@dimen/restaurant_logo_size"
+        android:layout_height="@dimen/restaurant_logo_size"
         android:clickable="false"
-        android:orientation="vertical"
-        android:gravity="bottom|start"
-        android:id="@+id/linearLayout"
-        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        app:civ_border_overlay="false"
+        app:civ_border_width="0dp" />
+
+    <TextView
+        android:id="@+id/number_of_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/restaurant_list_rating_text"
+        android:text="2"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_private_room"
+        android:layout_toRightOf="@+id/restaurant_logo"
+        android:layout_toEndOf="@+id/restaurant_logo" />
+    <TextView
+        android:id="@+id/user_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/restaurant_list_rating_text"
+        android:text="099-029090"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_phone"
+        android:layout_toRightOf="@+id/number_of_people"
+        android:layout_toEndOf="@+id/number_of_people" />
+
+    <TextView
+        android:id="@+id/reservation_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/restaurant_list_rating_text"
+        android:text="May 12"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_date"
+        android:layout_below="@+id/number_of_people"
+        android:layout_alignLeft="@+id/number_of_people"
+        android:layout_alignStart="@+id/number_of_people" />
+    <TextView
+        android:id="@+id/reservation_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/restaurant_list_rating_text"
+        android:text="19:30"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_time"
+        android:layout_alignTop="@+id/reservation_date"
+        android:layout_toRightOf="@+id/reservation_date"
+        android:layout_toEndOf="@+id/reservation_date" />
+
+
+    <TextView
+        android:id="@+id/restaurant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_restaurant_list_item_name_size"
+        android:textColor="@color/restaurant_list_name"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="Name"
+        android:layout_below="@+id/restaurant_logo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-
-        <TextView
-            android:id="@+id/additional_comments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/restaurant_list_rating_text"
-            android:text="Martin"
-            android:gravity="center"
-            android:drawableLeft="@drawable/ic_person" />
-        <TextView
-            android:id="@+id/user_phone_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/restaurant_list_rating_text"
-            android:text="099-029090"
-            android:gravity="center"
-            android:drawableLeft="@drawable/ic_phone"
-            android:layout_below="@+id/additional_comments"/>
-        <TextView
-            android:id="@+id/number_of_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textColor="@color/restaurant_list_rating_text"
-            android:text="2"
-            android:gravity="center"
-            android:drawableLeft="@drawable/ic_private_room"
-            android:layout_below="@id/user_phone_number"/>
-        <TextView
-            android:id="@+id/reservation_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textColor="@color/restaurant_list_rating_text"
-            android:text="May 12"
-            android:gravity="center"
-            android:drawableLeft="@drawable/ic_date"
-            android:layout_alignTop="@+id/number_of_people"
-            android:layout_toRightOf="@+id/number_of_people"
-            android:layout_toEndOf="@+id/number_of_people" />
-        <TextView
-            android:id="@+id/reservation_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textColor="@color/restaurant_list_rating_text"
-            android:text="19:30"
-            android:gravity="center"
-            android:drawableLeft="@drawable/ic_time"
-            android:layout_alignTop="@+id/reservation_date"
-            android:layout_toRightOf="@+id/reservation_date"
-            android:layout_toEndOf="@+id/reservation_date" />
-
-
-        <TextView
-            android:id="@+id/restaurant_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_restaurant_list_item_name_size"
-            android:textColor="@color/restaurant_list_name"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:text="Name"
-            android:layout_below="@+id/reservation_time"/>
-
-        <TextView
-            android:id="@+id/restaurant_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_restaurant_list_item_address_size"
-            android:textColor="@color/restaurant_list_name"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:text="Address"
-            android:layout_below="@+id/restaurant_name"/>
-    </RelativeLayout>
-
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/restaurant_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_restaurant_list_item_address_size"
+        android:textColor="@color/restaurant_list_name"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="Address"
+        android:layout_below="@+id/restaurant_name"
+        android:layout_alignLeft="@+id/restaurant_name" />
 </RelativeLayout>
