@@ -39,6 +39,9 @@ public class DataLoader {
         api.getAllRestaurants( languageLocale, blockStart, regionId, searchOptions).enqueue(new Callback<ArrayList<RestaurantPreviewSchema>>() {
             @Override
             public void onResponse(Call<ArrayList<RestaurantPreviewSchema>> call, Response<ArrayList<RestaurantPreviewSchema>> response) {
+                Log.d( "Response", String.valueOf(response.body()));
+                if( response.body() == null )
+                    return;
                 EventBus.getDefault().post( response.body() );
                 loadRestaurantsRequested = false;
             }
@@ -73,6 +76,8 @@ public class DataLoader {
         api.getNearbyRestaurants( languageLocale, latitude, longitude, searchOptions).enqueue(new Callback<ArrayList<RestaurantOnMapSchema>>() {
             @Override
             public void onResponse(Call<ArrayList<RestaurantOnMapSchema>> call, Response<ArrayList<RestaurantOnMapSchema>> response) {
+                if( response == null || response.body() == null )
+                    return;
                 EventBus.getDefault().post( response.body() );
                 loadNearbyRequested = false;
             }
